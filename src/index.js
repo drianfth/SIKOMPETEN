@@ -10,6 +10,7 @@ import {
   ThemeProvider,
 } from "@mui/material/styles";
 // import { CssBaseline } from "@mui/material";
+// import { BrowserRouter } from "react-router-dom";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -34,7 +35,9 @@ root.render(
   <React.StrictMode>
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <App />
+        {/* <BrowserRouter> */}
+          <App />
+        {/* </BrowserRouter> */}
       </ThemeProvider>
     </StyledEngineProvider>
   </React.StrictMode>
