@@ -10,6 +10,7 @@ import {
 import RootLayout from "./layouts/RootLayout";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Home from "./pages/Home";
+import UjiKompetensi from "./pages/uji-kompetensi/UjiKompetensi";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -19,6 +20,7 @@ const router = createBrowserRouter(
       <Route path="login" element={<Login />} />
       <Route path="dashboard" element={<DashboardLayout />}>
         <Route index element={<Home />} />
+        <Route path="uji-kompetensi" element={<UjiKompetensi />} />
       </Route>
     </Route>
   )
