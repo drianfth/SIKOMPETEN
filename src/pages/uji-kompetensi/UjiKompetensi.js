@@ -18,7 +18,7 @@ const UjiKompetensi = () => {
               <SubTimeLine
                 title="Pilih Skema & Pengisian Form APL-01"
                 time="12, Januari 2023"
-                href="apl01"
+                href="/dashboard/apl01"
                 active
               />
               <SubTimeLine

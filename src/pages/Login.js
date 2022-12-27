@@ -89,15 +89,17 @@ export default function Login() {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             /> */}
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-                className="bg-sky-700"
-              >
-                Login
-              </Button>
+              <LinkRouter to="/dashboard">
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2 }}
+                  className="bg-sky-700"
+                >
+                  Login
+                </Button>
+              </LinkRouter>
               <Grid container>
                 <Grid item>
                   <LinkRouter
