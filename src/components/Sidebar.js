@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import NoteAltIcon from "@mui/icons-material/NoteAlt";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import Subnav from "./Subnav";
+import useNavStore from "../context/useNavStore";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
-  const [pageActive, setPageActive] = useState("Dashboard");
-
+  const { activeNav } = useNavStore();
   return (
     <div className="">
       <aside
@@ -23,22 +21,9 @@ const Sidebar = () => {
         />
         <div className="overflow-y-auto p-4 bg-sky-700 min-h-screen relative ">
           <ul className="space-y-2 mt-12">
-            <Subnav
-              pageActive={pageActive}
-              setPageActive={setPageActive}
-              label="Dashboard"
-              icon={<DashboardIcon />}
-              open={open}
-              href="/dashboard"
-            />
-            <Subnav
-              pageActive={pageActive}
-              setPageActive={setPageActive}
-              label="Uji Kompetensi"
-              icon={<NoteAltIcon />}
-              open={open}
-              href="uji-kompetensi"
-            />
+            {activeNav.map((nav) => (
+              <Subnav key={nav.id} label={nav.name} open={open} />
+            ))}
           </ul>
         </div>
       </aside>

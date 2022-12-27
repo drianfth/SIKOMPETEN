@@ -7,14 +7,17 @@ import {
   StepLabel,
   Button,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Schema from "../../components/Schema";
 import Alert from "@mui/material/Alert";
-import AlertTitle from "@mui/material/AlertTitle";
-import Collapse from "@mui/material/Collapse";
+import useNavStore from "../../context/useNavStore";
+import { Formik, Field, Form } from "formik";
+import FormApl01 from "../../components/FormApl01";
+import useApl01Store from "../../context/ujiKompetensi/useApl01Store";
+// import { useFormik } from "formik";
 
 export const Warning = ({ open, setOpen }) => {
-  console.log(open);
+  // console.log(open);
   return (
     <Alert
       onClose={() => setOpen(!open)}
@@ -30,14 +33,21 @@ const Apl01 = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [open, setOpen] = useState(false);
   const steps = ["Pilih Skema", "Pengisian Form APL-01"];
-  const [skemaValue, setSkemaValue] = useState(null);
-  // console.log("open " + open);
-  const nextStep = () => {
+  const { findNav, switchNav } = useNavStore();
+  const currentPage = findNav("Uji Kompetensi");
+  const { dataApl01 } = useApl01Store();
+  // console.log(dataApl01);
+
+  useEffect(() => {
+    switchNav(currentPage.id);
+  }, []);
+
+  const nextStep = (schema) => {
     if (currentIndex === 0) {
-      if (skemaValue != null) {
+      if (schema !== "") {
         setCurrentIndex(currentIndex + 1);
       } else {
-        setOpen(!open);
+        setOpen(false);
       }
     } else {
       console.log("dikumpulkan");
@@ -46,7 +56,7 @@ const Apl01 = () => {
 
   return (
     <div>
-      <Card className="shadow-lg ">
+      <Card className="shadow-lg transition-all duration-600">
         <CardContent>
           <div className="text-center font-bold pb-8 text-xl text-gray-800">
             {steps[currentIndex]}
@@ -62,30 +72,41 @@ const Apl01 = () => {
               ))}
             </Stepper>
             <Warning open={open} setOpen={setOpen} />
-            <section className="flex justify-center space-x-10 py-10">
-              {currentIndex === 0 && (
-                <Schema skemaValue={skemaValue} setSkemaValue={setSkemaValue} />
+            <Formik
+              initialValues={dataApl01}
+              onSubmit={async (values) => {
+                await new Promise((r) => setTimeout(r, 500));
+                alert(JSON.stringify(values, null, 2));
+              }}
+            >
+              {({ values }) => (
+                <Form>
+                  <section className="flex justify-center space-x-10 py-10 transition-all duration-600">
+                    {currentIndex === 0 && <Schema />}
+                    {currentIndex === 1 && <FormApl01 />}
+                  </section>
+                  {/* {console.log(values)} */}
+                  <div className="flex justify-between transition-all duration-600">
+                    <Button
+                      variant="contained"
+                      className="bg-gray-700"
+                      onClick={() =>
+                        currentIndex === 1 && setCurrentIndex(currentIndex - 1)
+                      }
+                    >
+                      Back
+                    </Button>
+                    <Button
+                      variant="contained"
+                      className="bg-sky-700"
+                      onClick={() => nextStep(values.schema)}
+                    >
+                      Next
+                    </Button>
+                  </div>
+                </Form>
               )}
-            </section>
-
-            <div className="flex justify-between">
-              <Button
-                variant="contained"
-                className="bg-gray-700"
-                onClick={() =>
-                  currentIndex === 1 && setCurrentIndex(currentIndex - 1)
-                }
-              >
-                Back
-              </Button>
-              <Button
-                variant="contained"
-                className="bg-sky-700"
-                onClick={nextStep}
-              >
-                Next
-              </Button>
-            </div>
+            </Formik>
           </Box>
         </CardContent>
       </Card>

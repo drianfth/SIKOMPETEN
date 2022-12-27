@@ -1,10 +1,16 @@
 import { useState } from "react";
+import { Field } from "formik";
 
-export const UnitSchema = ({ schema, setSkemaValue }) => {
+export const UnitSchema = ({ schema }) => {
   return (
-    <div onClick={() => setSkemaValue(schema.id)}>
+    <div>
       <label className="cursor-pointer">
-        <input type="radio" className="peer sr-only" name="pricing" />
+        <Field
+          type="radio"
+          className="peer sr-only"
+          name="schema"
+          value={schema.name}
+        />
         <div className="w-72 max-w-xl rounded-md bg-white p-5 text-gray-600 ring-2 ring-gray-200 transition-all hover:shadow-xl shadow-md peer-checked:text-sky-600 peer-checked:ring-blue-400 peer-checked:ring-offset-2 ">
           <div className="flex flex-col gap-1">
             <div className="flex items-center justify-end">
@@ -27,8 +33,7 @@ export const UnitSchema = ({ schema, setSkemaValue }) => {
   );
 };
 
-const Schema = ({ skemaValue, setSkemaValue }) => {
-  // console.log(skemaValue);
+const Schema = () => {
   const Schemas = [
     { id: 1, name: "Software Quality Tester" },
     { id: 2, name: "Web Dinamis" },
@@ -36,7 +41,7 @@ const Schema = ({ skemaValue, setSkemaValue }) => {
   return (
     <div className="flex space-x-4">
       {Schemas.map((s) => (
-        <UnitSchema schema={s} key={s.id} setSkemaValue={setSkemaValue} />
+        <UnitSchema schema={s} key={s.id} />
       ))}
     </div>
   );

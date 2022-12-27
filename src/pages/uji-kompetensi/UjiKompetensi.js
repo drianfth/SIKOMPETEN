@@ -1,6 +1,8 @@
 import { Card, CardContent } from "@mui/material";
 import React from "react";
 import SubTimeLine from "../../components/SubTimeLine";
+// import useNavStore from "../../context/useNavStore";
+
 const UjiKompetensi = () => {
   return (
     <div>
@@ -12,7 +14,7 @@ const UjiKompetensi = () => {
           </div>
 
           <div className="flex justify-center my-10">
-            <ol class="relative border-l w-9/12 ml-4 border-gray-200">
+            <ol className="relative border-l w-9/12 ml-4 border-gray-200">
               <SubTimeLine
                 title="Pilih Skema & Pengisian Form APL-01"
                 time="12, Januari 2023"
