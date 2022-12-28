@@ -19,7 +19,9 @@ const useApl01Store = create((set, get) => ({
     almt_kantor: "",
     telp_kantor: "",
     email_kantor: "",
+    kode_pos_kantor: "",
     fax: "",
+    tujuan_asesmen: "",
   },
 }));
 
