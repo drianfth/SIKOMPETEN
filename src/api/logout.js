@@ -6,6 +6,8 @@ const logoutApi = axios.create({
   method: "get",
   headers: {
     "Content-Type": "application/json",
+    Accept: "application/json",
+    "X-Requested-With": "XMLHttpRequest",
   },
 });
 

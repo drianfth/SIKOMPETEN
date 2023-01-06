@@ -15,6 +15,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Alert from "../components/Alert";
 import useAuth from "../hooks/useAuth";
+import useAuthStore from "../context/userAuthStore";
+import { Navigate } from "react-router-dom";
 
 function Copyright(props) {
   return (
@@ -51,7 +53,7 @@ const validationSchema = yup.object({
     .required("nomor telepon tidak boleh kosong"),
 });
 
-export default function SignUp() {
+const SignUpPage = () => {
   const { loading, error, registerAccount } = useAuth();
 
   const formik = useFormik({
@@ -68,7 +70,6 @@ export default function SignUp() {
       registerAccount(values);
     },
   });
-
   return (
     <ThemeProvider theme={theme}>
       <div className="flex items-center  min-h-screen">
@@ -226,4 +227,10 @@ export default function SignUp() {
       </div>
     </ThemeProvider>
   );
+};
+
+export default function SignUp() {
+  const { user } = useAuthStore();
+
+  return user ? <Navigate to={-1} /> : <SignUpPage />;
 }

@@ -6,8 +6,11 @@ import csrfApi from "../api/csrf";
 import Cookies from "universal-cookie";
 import userApi from "../api/me";
 import logoutApi from "../api/logout";
+import useAuthStore from "../context/userAuthStore";
 
 const useAuth = () => {
+  const { delUser } = useAuthStore();
+  const { user, setUser } = useAuthStore();
   const [response, setResponse] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -41,6 +44,7 @@ const useAuth = () => {
   };
 
   const login = async (data) => {
+    // console.log(response);
     getCsrf();
     setLoading(true);
     try {
@@ -48,9 +52,11 @@ const useAuth = () => {
         method: "post",
         data,
       });
-      console.log(res.data);
-      cookies.set("Authorization", res.data.token);
       setResponse(res.data);
+      cookies.set("Authorization", res.data.token);
+      console.log(res.data);
+      const temp = await getUser();
+      setUser(temp);
       navigate("/dashboard");
     } catch (err) {
       console.log(err.response.data);
@@ -62,14 +68,17 @@ const useAuth = () => {
 
   const logout = async () => {
     setLoading(true);
+    console.log(cookies.get("Authorization"));
     try {
       const res = await logoutApi({
         headers: { Authorization: `Bearer ${cookies.get("Authorization")}` },
       });
       console.log(res.data);
       cookies.remove("Authorization");
+      delUser();
       setResponse(res.data);
     } catch (err) {
+      delUser();
       console.log(err.response.data);
       setError(err.response.data);
     } finally {
@@ -78,18 +87,19 @@ const useAuth = () => {
   };
 
   const getUser = async () => {
+    console.log(cookies.get("Authorization"));
     try {
       const res = await userApi({
-        // headers: { Authorization: `Bearer ` },
         headers: { Authorization: `Bearer ${cookies.get("Authorization")}` },
       });
-      console.log(res.data);
+      setResponse(res.data.user);
+      return res.data.user;
     } catch (err) {
       console.log(err.response);
     }
   };
 
-  return { response, loading, error, registerAccount, login, getUser };
+  return { response, loading, error, registerAccount, login, getUser, logout };
 };
 
 export default useAuth;

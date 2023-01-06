@@ -12,6 +12,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import Home from "./pages/Home";
 import UjiKompetensi from "./pages/uji-kompetensi/UjiKompetensi";
 import Apl01 from "./pages/uji-kompetensi/Apl01";
+import NotFound from "./pages/NotFound";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +25,8 @@ const router = createBrowserRouter(
         <Route path="uji-kompetensi" element={<UjiKompetensi />} />
         <Route path="apl01" element={<Apl01 />} />
       </Route>
+
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );

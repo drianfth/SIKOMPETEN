@@ -1,6 +1,11 @@
 import React from "react";
+import useAuthStore from "../context/userAuthStore";
+import useAuth from "../hooks/useAuth";
 
 const Home = () => {
+  const { user } = useAuthStore();
+  console.log(user);
+
   return (
     <div className="">
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Id architecto

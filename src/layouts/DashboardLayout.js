@@ -1,9 +1,10 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, Navigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import useAuthStore from "../context/userAuthStore";
 
-const DashboardLayout = () => {
+const Dashboard = () => {
   return (
     <div className="">
       <main className="flex">
@@ -16,16 +17,14 @@ const DashboardLayout = () => {
         </div>
       </main>
     </div>
-    // <div className="">
-    //   <Navbar />
-    //   <main className="flex">
-    //     <Sidebar />
-    //     <div className="p-10 bg-gray-50 w-full">
-    //       <Outlet />
-    //     </div>
-    //   </main>
-    // </div>
   );
+};
+
+const DashboardLayout = () => {
+  const { user } = useAuthStore();
+  console.log(user);
+  // const location = useLocation();
+  return user ? <Dashboard /> : <Navigate to="/login" />;
 };
 
 export default DashboardLayout;

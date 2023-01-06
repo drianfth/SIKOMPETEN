@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
@@ -7,18 +6,14 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link as LinkRouter } from "react-router-dom";
+import { Link as LinkRouter, useLocation, Navigate } from "react-router-dom";
 import Logo from "../assets/Image/Logo.png";
-import useFetch from "../hooks/useFetch";
-import { useLocation } from "react-router-dom";
 import Alert from "../components/Alert";
-import useAxios from "../hooks/useAxios";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import loginApi from "../api/login";
-import csrfApi from "../api/csrf";
-import axios from "axios";
+
 import useAuth from "../hooks/useAuth";
+import useAuthStore from "../context/userAuthStore";
 
 function Copyright(props) {
   return (
@@ -47,11 +42,10 @@ const validationSchema = yup.object({
     .required("Password tidak boleh kosong"),
 });
 
-export default function Login() {
+const LoginPage = () => {
   const location = useLocation();
   const status = location.state;
-  const { login, getUser, error, loading } = useAuth();
-
+  const { login, error, loading } = useAuth();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -59,12 +53,9 @@ export default function Login() {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      // console.log(values);
       login(values);
-      // console.log(response);
     },
   });
-
   return (
     <ThemeProvider theme={theme}>
       <div className="flex items-center  min-h-screen">
@@ -181,4 +172,10 @@ export default function Login() {
       </div>
     </ThemeProvider>
   );
+};
+
+export default function Login() {
+  const { user } = useAuthStore();
+
+  return user ? <Navigate to={-1} /> : <LoginPage />;
 }
