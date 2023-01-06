@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import BuktiKelengkapan from "./apl01/BuktiKelengkapan";
 import Button from "./apl01/Button";
 import DataPekerjaan from "./apl01/DataPekerjaan";
 import DataPribadi from "./apl01/DataPribadi";
@@ -50,6 +51,7 @@ const FormApl01 = () => {
         {currentTab === 1 && <DataPribadi />}
         {currentTab === 2 && <DataPekerjaan />}
         {currentTab === 3 && <DataSertifikasi />}
+        {currentTab === 4 && <BuktiKelengkapan />}
       </main>
     </div>
   );

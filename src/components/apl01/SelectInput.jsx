@@ -2,7 +2,6 @@ import React from "react";
 import { Field, Form, Formik, FormikProps } from "formik";
 
 const SelectInput = ({ mandatory, label, name, option }) => {
-//   console.log(option);
   return (
     <div className="">
       <label

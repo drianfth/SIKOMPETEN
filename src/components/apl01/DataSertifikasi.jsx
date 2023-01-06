@@ -3,7 +3,6 @@ import React from "react";
 import unitData from "../../data/unit_kompetensi.json";
 
 const DataSertifikasi = () => {
-  console.log(unitData);
   return (
     <div className="w-full flex flex-col transition-all duration-800">
       <h1 className="text-center px-20 font-semibold mb-5">

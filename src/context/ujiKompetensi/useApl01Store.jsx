@@ -1,5 +1,17 @@
 import create from "zustand";
 
+import InitialKelengkapan from "../../data/kelengkapan.json";
+
+const kelengkapan = () => {
+  let obj = {};
+  for (let index = 0; index < InitialKelengkapan.length; index++) {
+    obj["kelengkapan" + InitialKelengkapan[index].id] = "";
+  }
+  return obj;
+};
+
+const field = kelengkapan();
+
 const useApl01Store = create((set, get) => ({
   dataApl01: {
     schema: "",
@@ -22,6 +34,7 @@ const useApl01Store = create((set, get) => ({
     kode_pos_kantor: "",
     fax: "",
     tujuan_asesmen: "",
+    ...field,
   },
 }));
 

@@ -14,10 +14,9 @@ import useNavStore from "../../context/useNavStore";
 import { Formik, Field, Form } from "formik";
 import FormApl01 from "../../components/FormApl01";
 import useApl01Store from "../../context/ujiKompetensi/useApl01Store";
-// import { useFormik } from "formik";
+import InitialKelengkapan from "../../data/kelengkapan.json";
 
 export const Warning = ({ open, setOpen }) => {
-  // console.log(open);
   return (
     <Alert
       onClose={() => setOpen(!open)}
@@ -36,12 +35,19 @@ const Apl01 = () => {
   const { findNav, switchNav } = useNavStore();
   const currentPage = findNav("Uji Kompetensi");
   const { dataApl01 } = useApl01Store();
-  // console.log(dataApl01);
+
+  let obj = {};
+
+  for (let index = 0; index < InitialKelengkapan.length; index++) {
+    obj[InitialKelengkapan[index].id] = "";
+  }
+  // console.log(obj);
 
   useEffect(() => {
     switchNav(currentPage.id);
   }, []);
 
+  // console.log(data);
   const nextStep = (schema) => {
     if (currentIndex === 0) {
       if (schema !== "") {
@@ -53,6 +59,7 @@ const Apl01 = () => {
       console.log("dikumpulkan");
     }
   };
+  console.log({ ...dataApl01 });
 
   return (
     <div>
