@@ -4,7 +4,7 @@ import useAuth from "../hooks/useAuth";
 
 const Home = () => {
   const { user } = useAuthStore();
-  console.log(user);
+  // console.log(user);
 
   return (
     <div className="">

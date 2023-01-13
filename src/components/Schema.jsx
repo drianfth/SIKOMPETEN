@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { Field } from "formik";
+import useSchemaStore from "../context/useSchemaStore";
+import useFetchAuth from "../hooks/useFetchAuth";
+import Loading from "./Loading";
 
 export const UnitSchema = ({ schema }) => {
   return (
@@ -34,16 +37,22 @@ export const UnitSchema = ({ schema }) => {
 };
 
 const Schema = () => {
-  const Schemas = [
-    { id: 1, name: "Software Quality Tester" },
-    { id: 2, name: "Web Dinamis" },
-  ];
+  // const schema = useSchemaStore((state) => state.schema);
+  const { data, loading } = useFetchAuth("http://127.0.0.1:8000/api/schema");
+
   return (
-    <div className="flex space-x-4">
-      {Schemas.map((s) => (
-        <UnitSchema schema={s} key={s.id} />
-      ))}
-    </div>
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="flex space-x-4">
+          {data?.map((s) => (
+            <UnitSchema schema={s} key={s.id} />
+            // <p>{s.name}</p>
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 

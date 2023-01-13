@@ -54,7 +54,7 @@ const useAuth = () => {
       });
       setResponse(res.data);
       cookies.set("Authorization", res.data.token);
-      console.log(res.data);
+      // console.log(res.data);
       const temp = await getUser();
       setUser(temp);
       navigate("/dashboard");
@@ -68,12 +68,10 @@ const useAuth = () => {
 
   const logout = async () => {
     setLoading(true);
-    console.log(cookies.get("Authorization"));
     try {
       const res = await logoutApi({
         headers: { Authorization: `Bearer ${cookies.get("Authorization")}` },
       });
-      console.log(res.data);
       cookies.remove("Authorization");
       delUser();
       setResponse(res.data);
@@ -87,7 +85,6 @@ const useAuth = () => {
   };
 
   const getUser = async () => {
-    console.log(cookies.get("Authorization"));
     try {
       const res = await userApi({
         headers: { Authorization: `Bearer ${cookies.get("Authorization")}` },

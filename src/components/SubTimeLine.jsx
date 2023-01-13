@@ -10,6 +10,7 @@ const SubTimeLine = ({
   last = false,
   active = false,
 }) => {
+  const tanggal = new Date(time);
   return (
     <li className={`${last ? "" : "mb-10"} ml-6`}>
       <span className="flex absolute -left-3 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-8 ring-white ">
@@ -29,9 +30,9 @@ const SubTimeLine = ({
       </span>
       <h3 className="mb-1 text-lg font-semibold text-gray-900 ">{title}</h3>
       <time className="block mb-2 text-sm font-normal leading-none text-gray-400 ">
-        {active ? time : "Menunggu"}
+        {active ? tanggal.toDateString() : "Menunggu"}
       </time>
-      <p className="text-base font-normal text-gray-500 ">
+      <div className="text-base font-normal text-gray-500 ">
         {active ? (
           <>
             <p>{content}</p>
@@ -46,7 +47,7 @@ const SubTimeLine = ({
         ) : (
           ""
         )}
-      </p>
+      </div>
     </li>
   );
 };

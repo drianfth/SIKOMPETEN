@@ -59,7 +59,7 @@ const Apl01 = () => {
       console.log("dikumpulkan");
     }
   };
-  console.log({ ...dataApl01 });
+  // console.log({ ...dataApl01 });
 
   return (
     <div>

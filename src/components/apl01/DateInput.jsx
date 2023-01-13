@@ -22,7 +22,7 @@ const DateInput = ({ name, label, mandatory = false }) => {
         {...field}
         label={label}
         value={value}
-        className="bg-gray-50 border-2 border-gray-300 text-gray-900 text-sm rounded-lg w-full outline-none"
+        className="bg-gray-50 border-2 border-gray-300 mt-4 text-gray-900 text-sm rounded-lg w-full outline-none"
         onChange={(date) => {
           setValue(date);
         }}

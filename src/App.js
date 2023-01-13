@@ -13,6 +13,8 @@ import Home from "./pages/Home";
 import UjiKompetensi from "./pages/uji-kompetensi/UjiKompetensi";
 import Apl01 from "./pages/uji-kompetensi/Apl01";
 import NotFound from "./pages/NotFound";
+import Configuration from "./pages/Configuration";
+import Jadwal from "./components/maseterJadwal/Jadwal";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,6 +26,8 @@ const router = createBrowserRouter(
         <Route index element={<Home />} />
         <Route path="uji-kompetensi" element={<UjiKompetensi />} />
         <Route path="apl01" element={<Apl01 />} />
+        <Route path="configuration" element={<Configuration />} />
+        <Route path="jadwal" element={<Jadwal />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />
