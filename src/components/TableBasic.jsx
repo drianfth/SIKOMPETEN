@@ -1,4 +1,3 @@
-import { Field } from "formik";
 import React from "react";
 import tw from "twin.macro";
 import { useMemo } from "react";
@@ -6,8 +5,6 @@ import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import SwitchRightIcon from "@mui/icons-material/SwitchRight";
 import { useTable, usePagination, useSortBy } from "react-table";
-import TableBasic from "../TableBasic";
-
 const Container = tw.div`relative overflow-x-auto shadow-lg border border-gray-200 sm:rounded-lg mt-8 w-11/12 mx-auto`;
 const Table = tw.table`w-full text-sm text-left text-gray-800`;
 const TableHead = tw.thead`text-xs text-gray-700 uppercase bg-gray-50 `;
@@ -18,7 +15,7 @@ const TableRowBody = tw.tr`bg-white border-b`;
 const TableData = tw.td`px-6 py-4`;
 const TableDataHead = tw.td`px-6 py-4 font-bold text-gray-800 text-center`;
 
-const TableUnitKompetensi = ({ columns, data }) => {
+const TableBasic = ({ columns, data }) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -114,7 +111,6 @@ const TableUnitKompetensi = ({ columns, data }) => {
               } border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 `}
               type="button"
               onClick={() => previousPage()}
-              // disabled={!canPreviousPage}
             >
               <span className="sr-only">Previous</span>
               <svg
@@ -173,148 +169,4 @@ const TableUnitKompetensi = ({ columns, data }) => {
   );
 };
 
-const DaftarPertanyaan = () => {
-  return (
-    <div className="flex px-20 mt-14 space-x-4">
-      <label htmlFor="" className="font-semibold text-gray-700">
-        Tujuan Asesmen
-      </label>
-      <div className="flex flex-col space-y-1">
-        <div className="flex items-center">
-          <Field
-            type="radio"
-            value="sertifikasi"
-            name="tujuan_asesmen"
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
-          />
-          <label
-            htmlFor="default-radio-1"
-            className="ml-2 text-sm font-medium text-gray-900"
-          >
-            Sertifikasi
-          </label>
-        </div>
-        <div className="flex items-center">
-          <Field
-            type="radio"
-            value="sertifikasi ulang"
-            name="tujuan_asesmen"
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
-          />
-          <label
-            htmlFor="default-radio-2"
-            className="ml-2 text-sm font-medium text-gray-900"
-          >
-            Sertifikasi Ulang
-          </label>
-        </div>
-        <div className="flex items-center">
-          <Field
-            type="radio"
-            value="PKT"
-            name="tujuan_asesmen"
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
-          />
-          <label
-            htmlFor="default-radio-2"
-            className="ml-2 text-sm font-medium text-gray-900"
-          >
-            Pengakuan Kompetensi Terkini (PKT)
-          </label>
-        </div>
-        <div className="flex items-center">
-          <Field
-            type="radio"
-            value="Rekognisi Pembelajaran Lampau"
-            name="tujuan_asesmen"
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
-          />
-          <label
-            htmlFor="default-radio-2"
-            className="ml-2 text-sm font-medium text-gray-900"
-          >
-            Rekognisi Pembelajaran Lampau
-          </label>
-        </div>
-        <div className="flex items-center">
-          <Field
-            type="radio"
-            value="Lainnya"
-            name="tujuan_asesmen"
-            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 "
-          />
-          <label
-            htmlFor="default-radio-2"
-            className="ml-2 text-sm font-medium text-gray-900"
-          >
-            Lainnya
-          </label>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const DataSertifikasi = ({ data, schema_id }) => {
-  // console.log(schema_id);
-  const columns = useMemo(
-    () => [
-      {
-        Header: "Nomor",
-        accessor: "nomor",
-      },
-      {
-        Header: "Kode Unit",
-        accessor: "kode_unit",
-      },
-      {
-        Header: "Judul Unit",
-        accessor: "judul_unit",
-      },
-      {
-        Header: "Jenis Standar",
-        accessor: "jenis_standar",
-      },
-    ],
-    []
-  );
-  let no = 1;
-  // const data2 = ;
-  // console.log(data2);
-  const dataTable = useMemo(
-    () => data?.map((tes) => ({ ...tes, nomor: no++ })),
-    [data, no]
-  );
-  // console.log(dataTable);
-
-  return (
-    <div className="w-full flex flex-col transition-all duration-800">
-      <h1 className="text-center px-20 font-semibold mb-5">
-        berikut Daftar Unit Kompetensi sesuai kemasan pada skema sertifikasi
-        untuk mendapatkan pengakuan sesuai dengan latar belakang pendidikan,
-        pelatihan serta pengalaman kerja yang anda miliki.{" "}
-      </h1>
-
-      <div className="flex mx-auto">
-        <div className="p-4 border border-gray-400 rounded-l-md">
-          <p>Skema Sertifikasi</p>
-          <span className="line-through">KKNI</span>/<span> Okupsi</span>/
-          <span className="line-through"> Klaster</span>
-        </div>
-        <div className="border-r border-gray-400 rounded-r-md">
-          <div className="p-2 border-t  border-b border-gray-400">
-            Software Quality Control Tester
-          </div>
-          <div className="p-2  border-b border-gray-400">SS-31-SQT-00-2022</div>
-        </div>
-      </div>
-
-      <DaftarPertanyaan />
-      {/* {loading ? <} */}
-      <TableBasic data={dataTable} columns={columns} />
-      {/* <TableUnitKompetensi data={dataTable} columns={columns} /> */}
-    </div>
-  );
-};
-
-export default DataSertifikasi;
+export default TableBasic;

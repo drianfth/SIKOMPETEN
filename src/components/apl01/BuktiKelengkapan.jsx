@@ -2,7 +2,7 @@ import React from "react";
 import BuktiField from "./BuktiField";
 import InitialKelengkapan from "../../data/kelengkapan.json";
 
-const BuktiKelengkapan = () => {
+const BuktiKelengkapan = ({ kelengkapan }) => {
   let no = 1;
   return (
     <div>

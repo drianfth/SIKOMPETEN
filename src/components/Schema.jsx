@@ -3,8 +3,10 @@ import { Field } from "formik";
 import useSchemaStore from "../context/useSchemaStore";
 import useFetchAuth from "../hooks/useFetchAuth";
 import Loading from "./Loading";
+import { Button } from "@mui/material";
 
 export const UnitSchema = ({ schema }) => {
+  // console.log(schema);
   return (
     <div>
       <label className="cursor-pointer">
@@ -12,7 +14,7 @@ export const UnitSchema = ({ schema }) => {
           type="radio"
           className="peer sr-only"
           name="schema"
-          value={schema.name}
+          value={`${schema.id}`}
         />
         <div className="w-72 max-w-xl rounded-md bg-white p-5 text-gray-600 ring-2 ring-gray-200 transition-all hover:shadow-xl shadow-md peer-checked:text-sky-600 peer-checked:ring-blue-400 peer-checked:ring-offset-2 ">
           <div className="flex flex-col gap-1">

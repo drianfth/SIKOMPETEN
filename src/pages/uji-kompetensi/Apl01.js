@@ -15,6 +15,7 @@ import { Formik, Field, Form } from "formik";
 import FormApl01 from "../../components/FormApl01";
 import useApl01Store from "../../context/ujiKompetensi/useApl01Store";
 import InitialKelengkapan from "../../data/kelengkapan.json";
+import useAuth from "../../hooks/useAuth";
 
 export const Warning = ({ open, setOpen }) => {
   return (
@@ -35,6 +36,13 @@ const Apl01 = () => {
   const { findNav, switchNav } = useNavStore();
   const currentPage = findNav("Uji Kompetensi");
   const { dataApl01 } = useApl01Store();
+  const { response, getUser } = useAuth();
+  useEffect(() => {
+    getUser();
+  }, []);
+  dataApl01.email = response?.email;
+  dataApl01.jns_kelamin = response?.jns_kelamin;
+  dataApl01.no_telp = response?.no_telp;
 
   let obj = {};
 
@@ -90,9 +98,11 @@ const Apl01 = () => {
                 <Form>
                   <section className="flex justify-center space-x-10 py-10 transition-all duration-600">
                     {currentIndex === 0 && <Schema />}
-                    {currentIndex === 1 && <FormApl01 />}
+                    {currentIndex === 1 && (
+                      <FormApl01 schema_id={values.schema} />
+                    )}
                   </section>
-                  {/* {console.log(values)} */}
+                  {console.log(values)}
                   <div className="flex justify-between transition-all duration-600">
                     <Button
                       variant="contained"
@@ -103,13 +113,25 @@ const Apl01 = () => {
                     >
                       Back
                     </Button>
-                    <Button
-                      variant="contained"
-                      className="bg-sky-700"
-                      onClick={() => nextStep(values.schema)}
-                    >
-                      Next
-                    </Button>
+                    {currentIndex !== 0 && (
+                      <Button
+                        type="submit"
+                        variant="contained"
+                        className="bg-sky-700"
+                        // onClick={() => nextStep(values.schema)}
+                      >
+                        Kumpulkan
+                      </Button>
+                    )}
+                    {currentIndex === 0 && (
+                      <Button
+                        variant="contained"
+                        className="bg-sky-700"
+                        onClick={() => nextStep(values.schema)}
+                      >
+                        Next
+                      </Button>
+                    )}
                   </div>
                 </Form>
               )}
