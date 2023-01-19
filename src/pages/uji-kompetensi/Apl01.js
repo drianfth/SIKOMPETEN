@@ -16,6 +16,9 @@ import FormApl01 from "../../components/FormApl01";
 import useApl01Store from "../../context/ujiKompetensi/useApl01Store";
 import InitialKelengkapan from "../../data/kelengkapan.json";
 import useAuth from "../../hooks/useAuth";
+import * as yup from "yup";
+import { addRApl01api } from "../../api/apl01";
+import { useNavigate } from "react-router-dom";
 
 export const Warning = ({ open, setOpen }) => {
   return (
@@ -29,8 +32,37 @@ export const Warning = ({ open, setOpen }) => {
   );
 };
 
+const validationSchema = yup.object({
+  email: yup.string("Masukkan Email").required("Email tidak boleh kosong"),
+  name: yup.string("Masukkan nama").required("nama tidak boleh kosong"),
+  kk_ktp_paspor: yup
+    .string("Masukkan No. KTP/NIK/Paspor ")
+    .required("No. KTP/NIK/Paspor  tidak boleh kosong"),
+  tempat_lhr: yup
+    .string("Masukkan Tempat Lahir ")
+    .required("Tempat Lahir tidak boleh kosong"),
+  tgl_lahir: yup
+    .string("Masukkan Tanggal Lahir")
+    .required("Tanggal Lahir tidak boleh kosong"),
+  jns_kelamin: yup
+    .string("Masukkan Jenis Kelamin")
+    .required("Jenis Kelamin tidak boleh kosong"),
+  kebangsaan: yup
+    .string("Masukkan Kebangsaan")
+    .required("Kebangsaan tidak boleh kosong"),
+  pendidikan: yup
+    .string("Masukkan Pendidikan")
+    .required("Pendidikan tidak boleh kosong"),
+  kode_pos: yup
+    .string("Masukkan Kode Pos")
+    .required("Kode Pos tidak boleh kosong"),
+  alamat: yup.string("Masukkan Alamat").required("Alamat tidak boleh kosong"),
+});
+
 const Apl01 = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
+
   const [open, setOpen] = useState(false);
   const steps = ["Pilih Skema", "Pengisian Form APL-01"];
   const { findNav, switchNav } = useNavStore();
@@ -40,6 +72,8 @@ const Apl01 = () => {
   useEffect(() => {
     getUser();
   }, []);
+  dataApl01.user_id = response?.id;
+  dataApl01.name = response?.name;
   dataApl01.email = response?.email;
   dataApl01.jns_kelamin = response?.jns_kelamin;
   dataApl01.no_telp = response?.no_telp;
@@ -89,20 +123,38 @@ const Apl01 = () => {
             <Warning open={open} setOpen={setOpen} />
             <Formik
               initialValues={dataApl01}
+              validationSchema={validationSchema}
               onSubmit={async (values) => {
-                await new Promise((r) => setTimeout(r, 500));
-                alert(JSON.stringify(values, null, 2));
+                try {
+                  const res = await addRApl01api({
+                    url: `http://127.0.0.1:8000/api/hasilapl01`,
+                    data: values,
+                  });
+                  console.log(res.data);
+                  navigate("/dashboard/uji-kompetensi", {
+                    state: "Selamat Anda Telah Berhasil Mengisi Form Apl 01",
+                  });
+                  // navigate("/login", {
+                  //   state: "Akun Berhasil Dibuat Silahkan Login",
+                  // });
+                } catch (err) {
+                  console.log(err.response);
+                }
               }}
             >
-              {({ values }) => (
+              {({ values, errors, touched }) => (
                 <Form>
                   <section className="flex justify-center space-x-10 py-10 transition-all duration-600">
                     {currentIndex === 0 && <Schema />}
                     {currentIndex === 1 && (
-                      <FormApl01 schema_id={values.schema} />
+                      <FormApl01
+                        schema_id={values.schema_id}
+                        errors={errors}
+                        touched={touched}
+                      />
                     )}
                   </section>
-                  {console.log(values)}
+                  {/* {console.log(values)} */}
                   <div className="flex justify-between transition-all duration-600">
                     <Button
                       variant="contained"
@@ -127,7 +179,7 @@ const Apl01 = () => {
                       <Button
                         variant="contained"
                         className="bg-sky-700"
-                        onClick={() => nextStep(values.schema)}
+                        onClick={() => nextStep(values.schema_id)}
                       >
                         Next
                       </Button>

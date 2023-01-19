@@ -7,6 +7,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import SwitchRightIcon from "@mui/icons-material/SwitchRight";
 import { useTable, usePagination, useSortBy } from "react-table";
 import TableBasic from "../TableBasic";
+import useFetchAuth from "../../hooks/useFetchAuth";
 
 const Container = tw.div`relative overflow-x-auto shadow-lg border border-gray-200 sm:rounded-lg mt-8 w-11/12 mx-auto`;
 const Table = tw.table`w-full text-sm text-left text-gray-800`;
@@ -255,8 +256,8 @@ const DaftarPertanyaan = () => {
   );
 };
 
-const DataSertifikasi = ({ data, schema_id }) => {
-  // console.log(schema_id);
+const DataSertifikasi = ({ dataUnit, schema_id, dataSkema }) => {
+  // console.log(dataSkema);
   const columns = useMemo(
     () => [
       {
@@ -279,13 +280,11 @@ const DataSertifikasi = ({ data, schema_id }) => {
     []
   );
   let no = 1;
-  // const data2 = ;
-  // console.log(data2);
+
   const dataTable = useMemo(
-    () => data?.map((tes) => ({ ...tes, nomor: no++ })),
-    [data, no]
+    () => dataUnit?.map((tes) => ({ ...tes, nomor: no++ })),
+    [dataUnit, no]
   );
-  // console.log(dataTable);
 
   return (
     <div className="w-full flex flex-col transition-all duration-800">
@@ -298,14 +297,43 @@ const DataSertifikasi = ({ data, schema_id }) => {
       <div className="flex mx-auto">
         <div className="p-4 border border-gray-400 rounded-l-md">
           <p>Skema Sertifikasi</p>
-          <span className="line-through">KKNI</span>/<span> Okupsi</span>/
-          <span className="line-through"> Klaster</span>
+          <span
+            className={`${
+              dataSkema[0]?.schema_sertifikasi === "KKNI" ? "" : "line-through"
+            }`}
+          >
+            KKNI
+          </span>
+          /
+          <span
+            className={`${
+              dataSkema[0]?.schema_sertifikasi === "Okupasi"
+                ? ""
+                : "line-through"
+            }`}
+          >
+            {" "}
+            Okupasi
+          </span>
+          /
+          <span
+            className={`${
+              dataSkema[0]?.schema_sertifikasi === "Klaster"
+                ? ""
+                : "line-through"
+            }`}
+          >
+            {" "}
+            Klaster
+          </span>
         </div>
         <div className="border-r border-gray-400 rounded-r-md">
           <div className="p-2 border-t  border-b border-gray-400">
-            Software Quality Control Tester
+            {dataSkema[0]?.name}
           </div>
-          <div className="p-2  border-b border-gray-400">SS-31-SQT-00-2022</div>
+          <div className="p-2  border-b border-gray-400">
+            {dataSkema[0]?.nomor}
+          </div>
         </div>
       </div>
 

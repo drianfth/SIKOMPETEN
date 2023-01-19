@@ -6,7 +6,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { useField } from "formik";
 
-const DateInput = ({ name, label, mandatory = false }) => {
+const DateInput = ({ name, label, mandatory = false, error }) => {
   const [field, meta, helpers] = useField(name);
 
   const { value } = meta;
@@ -26,6 +26,7 @@ const DateInput = ({ name, label, mandatory = false }) => {
         onChange={(date) => {
           setValue(date);
         }}
+        error={error}
         renderInput={(params) => <TextField {...params} />}
       />
     </LocalizationProvider>

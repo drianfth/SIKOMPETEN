@@ -3,15 +3,20 @@ import BuktiField from "./BuktiField";
 import InitialKelengkapan from "../../data/kelengkapan.json";
 
 const BuktiKelengkapan = ({ kelengkapan }) => {
-  let no = 1;
+  let no = 0;
   return (
     <div>
       <h1 className="text-center font-bold text-lg mb-2">
         Bukti Persyaratan Dasar Pemohon
       </h1>
       <div className="">
-        {InitialKelengkapan.map((i) => (
-          <BuktiField name={i.id} label={i.nama} key={i.id} nomor={no++} />
+        {kelengkapan.map((data, i) => (
+          <BuktiField
+            name={"kelengkapan" + (i + 1)}
+            label={data.name}
+            key={data.id}
+            nomor={i + 1}
+          />
         ))}
       </div>
     </div>

@@ -13,7 +13,7 @@ export const UnitSchema = ({ schema }) => {
         <Field
           type="radio"
           className="peer sr-only"
-          name="schema"
+          name="schema_id"
           value={`${schema.id}`}
         />
         <div className="w-72 max-w-xl rounded-md bg-white p-5 text-gray-600 ring-2 ring-gray-200 transition-all hover:shadow-xl shadow-md peer-checked:text-sky-600 peer-checked:ring-blue-400 peer-checked:ring-offset-2 ">

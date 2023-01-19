@@ -16,7 +16,8 @@ import useFetchAuth from "../../hooks/useFetchAuth";
 
 const useApl01Store = create((set, get) => ({
   dataApl01: {
-    schema: "",
+    schema_id: "",
+    user_id: "",
     name: "",
     kk_ktp_paspor: "",
     tempat_lhr: "",

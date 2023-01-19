@@ -2,6 +2,7 @@ import React from "react";
 import { Field } from "formik";
 
 const BuktiField = ({ label, name, nomor }) => {
+  // console.log(name);
   return (
     <div className="flex px-20 mt-14 space-x-4">
       <span className="font-semibold text-gray-700 mr-2">{nomor})</span>

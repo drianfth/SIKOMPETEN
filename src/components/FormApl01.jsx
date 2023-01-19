@@ -8,31 +8,46 @@ import useFetchAuth from "../hooks/useFetchAuth";
 import Loading from "./Loading";
 import kelengkapanApi from "../api/kelengkapan";
 import useApl01Store from "../context/ujiKompetensi/useApl01Store";
+import { showSchemaApi } from "../api/schema";
 
-const FormApl01 = ({ schema_id }) => {
-  // console.log(schema);
+const FormApl01 = ({ schema_id, errors, touched }) => {
+  // console.log("halo", schema_id);
   const { dataApl01, getKelengkapan } = useApl01Store();
   const [response, setResponse] = useState(null);
+  const [dataSkema, setDataSkema] = useState(null);
   const { data, loading } = useFetchAuth(
     `http://127.0.0.1:8000/api/unit_kompetensi/${schema_id}`
   );
   // const {dataApl01} = useApl01Store
 
-  // const getKelengkapan = async () => {
-  //   try {
-  //     const res = await kelengkapanApi({
-  //       url: `http://127.0.0.1:8000/api/kelengkapan/${schema_id}`,
-  //     });
-  //     console.log(res.data);
-  //     setResponse(res.data);
-  //   } catch (error) {
-  //     console.log(error.response);
-  //   }
-  // };
+  const makeKelengkapan = async () => {
+    try {
+      const res = await kelengkapanApi({
+        url: `http://127.0.0.1:8000/api/kelengkapan/${schema_id}`,
+      });
+      // console.log(res.data);
+      setResponse(res.data);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const getSchema = async () => {
+    try {
+      const res = await showSchemaApi({
+        url: `http://127.0.0.1:8000/api/schema/${schema_id}`,
+      });
+      setDataSkema(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    getKelengkapan(schema_id);
-    console.log("tes");
+    // getKelengkapan(schema_id);
+    makeKelengkapan();
+    getSchema();
+    // console.log("tes");
   }, []);
 
   const initialTab = [
@@ -81,10 +96,16 @@ const FormApl01 = ({ schema_id }) => {
         </div>
       ) : (
         <main className="w-full transition-all duration-600">
-          {currentTab === 1 && <DataPribadi />}
+          {currentTab === 1 && (
+            <DataPribadi errors={errors} touched={touched} />
+          )}
           {currentTab === 2 && <DataPekerjaan />}
           {currentTab === 3 && (
-            <DataSertifikasi data={data} schema_id={schema_id} />
+            <DataSertifikasi
+              dataUnit={data}
+              dataSkema={dataSkema}
+              schema_id={schema_id}
+            />
           )}
           {currentTab === 4 && <BuktiKelengkapan kelengkapan={response} />}
         </main>

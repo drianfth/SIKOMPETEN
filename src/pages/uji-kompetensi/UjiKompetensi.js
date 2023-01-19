@@ -1,7 +1,9 @@
 import { Card, CardContent } from "@mui/material";
 import React from "react";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import schemaApi from "../../api/schema";
+import Alert from "../../components/Alert";
 import Loading from "../../components/Loading";
 import SubTimeLine from "../../components/SubTimeLine";
 import useAuthStore from "../../context/userAuthStore";
@@ -11,6 +13,8 @@ import useFetchAuth from "../../hooks/useFetchAuth";
 
 const UjiKompetensi = () => {
   const { data, loading } = useFetchAuth("http://127.0.0.1:8000/api/jadwal");
+  const location = useLocation();
+  const status = location.state;
 
   return (
     <div className="">
@@ -20,6 +24,12 @@ const UjiKompetensi = () => {
             Uji Kompetensi
             <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
           </div>
+          {status && (
+            <div className=" w-1/2 mx-auto">
+              <Alert message={status} error={false} />
+            </div>
+          )}
+
           {loading ? (
             <Loading />
           ) : (

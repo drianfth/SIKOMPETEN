@@ -13,4 +13,12 @@ const schemaApi = axios.create({
   },
 });
 
+export const showSchemaApi = axios.create({
+  method: "get",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${cookies.get("Authorization")}`,
+  },
+});
+
 export default schemaApi;
