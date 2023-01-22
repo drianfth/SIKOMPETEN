@@ -1,20 +1,25 @@
 import { Card, CardContent } from "@mui/material";
-import React from "react";
-import { useEffect } from "react";
+import React, { useState } from "react";
+import useAuthStore from "../../context/userAuthStore";
+import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
-import schemaApi from "../../api/schema";
+import { getOneApl01 } from "../../api/apl01";
 import Alert from "../../components/Alert";
 import Loading from "../../components/Loading";
 import SubTimeLine from "../../components/SubTimeLine";
-import useAuthStore from "../../context/userAuthStore";
-import useSchemaStore from "../../context/useSchemaStore";
 import useFetchAuth from "../../hooks/useFetchAuth";
-// import useNavStore from "../../context/useNavStore";
 
 const UjiKompetensi = () => {
   const { data, loading } = useFetchAuth("http://127.0.0.1:8000/api/jadwal");
   const location = useLocation();
   const status = location.state;
+  const { user } = useAuthStore();
+  // console.log("user sekarang", user.id);
+
+  const hasilQuery = useQuery("oneHasilApl01", () => getOneApl01(user.id));
+  const isDoApl01 = hasilQuery.data?.some((t) => t.konfirmasi === 0);
+
+  // console.log(isDoApl01);
 
   return (
     <div className="">
@@ -24,11 +29,11 @@ const UjiKompetensi = () => {
             Uji Kompetensi
             <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
           </div>
-          {status && (
+          {/* {status && (
             <div className=" w-1/2 mx-auto">
               <Alert message={status} error={false} />
             </div>
-          )}
+          )} */}
 
           {loading ? (
             <Loading />
@@ -42,6 +47,7 @@ const UjiKompetensi = () => {
                     time={jadwal.tanggal}
                     href="/dashboard/apl01"
                     content={jadwal.deskripsi}
+                    isDoApl01={isDoApl01}
                     active={jadwal.status === 0 ? "" : "active"}
                   />
                 ))}

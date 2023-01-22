@@ -9,7 +9,8 @@ import {
   createTheme,
   ThemeProvider,
 } from "@mui/material/styles";
-
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
 
@@ -28,14 +29,17 @@ const theme = createTheme({
   },
 });
 
+const queryClient = new QueryClient();
+
 // const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        {/* <BrowserRouter> */}
-        <App />
-        {/* </BrowserRouter> */}
+        <QueryClientProvider client={queryClient}>
+          <App />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
       </ThemeProvider>
     </StyledEngineProvider>
   </React.StrictMode>

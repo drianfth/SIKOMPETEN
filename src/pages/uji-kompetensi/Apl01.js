@@ -17,8 +17,9 @@ import useApl01Store from "../../context/ujiKompetensi/useApl01Store";
 import InitialKelengkapan from "../../data/kelengkapan.json";
 import useAuth from "../../hooks/useAuth";
 import * as yup from "yup";
-import { addRApl01api } from "../../api/apl01";
+import { addApl01, addRApl01api } from "../../api/apl01";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "react-query";
 
 export const Warning = ({ open, setOpen }) => {
   return (
@@ -62,6 +63,13 @@ const validationSchema = yup.object({
 const Apl01 = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
+  const createApl01Mutation = useMutation(addApl01, {
+    onSuccess: (data) => {
+      navigate("/dashboard/uji-kompetensi", {
+        state: "Selamat Anda Telah Berhasil Mengisi Form Apl 01",
+      });
+    },
+  });
 
   const [open, setOpen] = useState(false);
   const steps = ["Pilih Skema", "Pengisian Form APL-01"];
@@ -124,22 +132,23 @@ const Apl01 = () => {
             <Formik
               initialValues={dataApl01}
               validationSchema={validationSchema}
-              onSubmit={async (values) => {
-                try {
-                  const res = await addRApl01api({
-                    url: `http://127.0.0.1:8000/api/hasilapl01`,
-                    data: values,
-                  });
-                  console.log(res.data);
-                  navigate("/dashboard/uji-kompetensi", {
-                    state: "Selamat Anda Telah Berhasil Mengisi Form Apl 01",
-                  });
-                  // navigate("/login", {
-                  //   state: "Akun Berhasil Dibuat Silahkan Login",
-                  // });
-                } catch (err) {
-                  console.log(err.response);
-                }
+              onSubmit={(values) => {
+                createApl01Mutation.mutate(values);
+                // try {
+                //   const res = await addRApl01api({
+                //     url: `http://127.0.0.1:8000/api/hasilapl01`,
+                //     data: values,
+                //   });
+                //   console.log(res.data);
+                //   navigate("/dashboard/uji-kompetensi", {
+                //     state: "Selamat Anda Telah Berhasil Mengisi Form Apl 01",
+                //   });
+                //   // navigate("/login", {
+                //   //   state: "Akun Berhasil Dibuat Silahkan Login",
+                //   // });
+                // } catch (err) {
+                //   console.log(err.response);
+                // }
               }}
             >
               {({ values, errors, touched }) => (
@@ -170,7 +179,6 @@ const Apl01 = () => {
                         type="submit"
                         variant="contained"
                         className="bg-sky-700"
-                        // onClick={() => nextStep(values.schema)}
                       >
                         Kumpulkan
                       </Button>

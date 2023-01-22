@@ -22,9 +22,6 @@ const Dashboard = () => {
 
 const DashboardLayout = () => {
   const { user } = useAuthStore();
-  // console.log(user);
-  // console.log("tes");
-  // const location = useLocation();
   return user ? <Dashboard /> : <Navigate to="/login" />;
 };
 

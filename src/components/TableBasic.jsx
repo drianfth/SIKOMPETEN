@@ -1,6 +1,5 @@
 import React from "react";
 import tw from "twin.macro";
-import { useMemo } from "react";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import SwitchRightIcon from "@mui/icons-material/SwitchRight";
@@ -145,7 +144,6 @@ const TableBasic = ({ columns, data }) => {
               } border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 `}
               type="button"
               onClick={() => nextPage()}
-              // disabled={!canNextPage}
             >
               <span className="sr-only">Next</span>
               <svg

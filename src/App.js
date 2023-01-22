@@ -15,6 +15,7 @@ import Apl01 from "./pages/uji-kompetensi/Apl01";
 import NotFound from "./pages/NotFound";
 import Configuration from "./pages/Configuration";
 import Jadwal from "./components/maseterJadwal/Jadwal";
+import Paket from "./pages/config/Paket";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,8 +29,8 @@ const router = createBrowserRouter(
         <Route path="apl01" element={<Apl01 />} />
         <Route path="configuration" element={<Configuration />} />
         <Route path="jadwal" element={<Jadwal />} />
+        <Route path="paket" element={<Paket />} />
       </Route>
-
       <Route path="*" element={<NotFound />} />
     </Route>
   )

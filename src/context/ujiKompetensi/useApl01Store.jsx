@@ -18,6 +18,7 @@ const useApl01Store = create((set, get) => ({
   dataApl01: {
     schema_id: "",
     user_id: "",
+    paket_asesmen_id: "",
     name: "",
     kk_ktp_paspor: "",
     tempat_lhr: "",
@@ -37,6 +38,7 @@ const useApl01Store = create((set, get) => ({
     kode_pos_kantor: "",
     fax: "",
     tujuan_asesmen: "",
+
     // ...field,
   },
   getKelengkapan: async (id) => {

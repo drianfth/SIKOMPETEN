@@ -1,24 +1,34 @@
 import React from "react";
 import BuktiField from "./BuktiField";
 import InitialKelengkapan from "../../data/kelengkapan.json";
+import { useQuery } from "react-query";
+import { getOneKelengkapan } from "../../api/kelengkapan";
+import Loading from "../Loading";
 
-const BuktiKelengkapan = ({ kelengkapan }) => {
+const BuktiKelengkapan = ({ schema_id }) => {
+  const kelengkapans = useQuery("kelengkapanData", () =>
+    getOneKelengkapan(schema_id)
+  );
   let no = 0;
   return (
     <div>
       <h1 className="text-center font-bold text-lg mb-2">
         Bukti Persyaratan Dasar Pemohon
       </h1>
-      <div className="">
-        {kelengkapan.map((data, i) => (
-          <BuktiField
-            name={"kelengkapan" + (i + 1)}
-            label={data.name}
-            key={data.id}
-            nomor={i + 1}
-          />
-        ))}
-      </div>
+      {kelengkapans.isLoading ? (
+        <Loading />
+      ) : (
+        <div className="">
+          {kelengkapans.data?.map((data, i) => (
+            <BuktiField
+              name={"kelengkapan" + (i + 1)}
+              label={data.name}
+              key={data.id}
+              nomor={i + 1}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
