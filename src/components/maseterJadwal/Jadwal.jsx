@@ -55,20 +55,16 @@ const ModalUbah = ({ setOpen, data, refetch }) => {
                   data: values,
                 });
                 refetch();
-                // console.log(res.data);
               } catch (err) {
                 console.log(err.response);
               }
 
-              // await new Promise((r) => setTimeout(r, 500));
-              // alert(JSON.stringify(values, null, 2));
             }}
           >
             {({ values }) => (
               <Form>
                 <div className="p-6 space-y-6">
-                  {/* {console.log(new Date(values.tanggal).toISOString())} */}
-                  {/* {console.log(values)} */}
+
                   <DateInput
                     name="tanggal"
                     label="Tanggal Pelaksanaan"
@@ -184,7 +180,6 @@ const TableJadwal = ({ data, refetch }) => {
                     refetch={refetch}
                   />
                 )}
-                {/* {console.log(loading)} */}
               </td>
             </tr>
           ))}
@@ -207,7 +202,6 @@ const Jadwal = () => {
             <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
           </div>
           <div className="">
-            {/* {console.log(loading)} */}
             {loading ? (
               <Loading />
             ) : (

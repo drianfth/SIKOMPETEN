@@ -134,21 +134,6 @@ const Apl01 = () => {
               validationSchema={validationSchema}
               onSubmit={(values) => {
                 createApl01Mutation.mutate(values);
-                // try {
-                //   const res = await addRApl01api({
-                //     url: `http://127.0.0.1:8000/api/hasilapl01`,
-                //     data: values,
-                //   });
-                //   console.log(res.data);
-                //   navigate("/dashboard/uji-kompetensi", {
-                //     state: "Selamat Anda Telah Berhasil Mengisi Form Apl 01",
-                //   });
-                //   // navigate("/login", {
-                //   //   state: "Akun Berhasil Dibuat Silahkan Login",
-                //   // });
-                // } catch (err) {
-                //   console.log(err.response);
-                // }
               }}
             >
               {({ values, errors, touched }) => (

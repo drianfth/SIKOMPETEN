@@ -15,8 +15,7 @@ const DateInput = ({ name, label, mandatory = false, error }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <label htmlFor={name} className="block text-sm font-medium text-gray-900">
-        {label}{" "}
-        <span className={`${mandatory ? "text-red-700" : ""}`}> * </span>
+        {label} {mandatory ? <span className="text-red-700">*</span> : ""}
       </label>
       <DatePicker
         {...field}

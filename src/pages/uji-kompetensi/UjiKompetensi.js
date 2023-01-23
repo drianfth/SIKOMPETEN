@@ -45,7 +45,7 @@ const UjiKompetensi = () => {
                     key={jadwal.id}
                     title={jadwal.name}
                     time={jadwal.tanggal}
-                    href="/dashboard/apl01"
+                    href={jadwal.href}
                     content={jadwal.deskripsi}
                     isDoApl01={isDoApl01}
                     active={jadwal.status === 0 ? "" : "active"}

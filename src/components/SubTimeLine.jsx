@@ -1,6 +1,7 @@
 import React from "react";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { Link } from "react-router-dom";
+import WarningIcon from "@mui/icons-material/Warning";
 
 const SubTimeLine = ({
   title,
@@ -76,21 +77,26 @@ const SubTimeLine = ({
                     </div>
                   </div>
                 )}
-
               </>
             )}
             {title === "Pengisian Form APL-02" && (
               <>
                 <p>{content}</p>
-
                 <div className="mt-5">
-                  <Link
-                    to={href}
-                    className="bg-sky-600 text-gray-50 p-2  rounded"
-                  >
-                    Lakukan Sekarang
-                    <KeyboardArrowRightIcon />
-                  </Link>
+                  {isDoApl01 ? (
+                    <Link
+                      to={href}
+                      className="bg-sky-600 text-gray-50 p-2  rounded"
+                    >
+                      Lakukan Sekarang
+                      <KeyboardArrowRightIcon />
+                    </Link>
+                  ) : (
+                    <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-2 rounded-full ">
+                      <WarningIcon /> Anda tidak bisa melanjutkan proses ini
+                      karena belum mengisi form apl01
+                    </span>
+                  )}
                 </div>
               </>
             )}

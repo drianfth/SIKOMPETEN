@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound";
 import Configuration from "./pages/Configuration";
 import Jadwal from "./components/maseterJadwal/Jadwal";
 import Paket from "./pages/config/Paket";
+import TambahPaket from "./components/TambahPaket";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
         <Route path="configuration" element={<Configuration />} />
         <Route path="jadwal" element={<Jadwal />} />
         <Route path="paket" element={<Paket />} />
+        <Route path="tambahpaket" element={<TambahPaket />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Route>
