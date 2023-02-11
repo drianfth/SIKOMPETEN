@@ -64,10 +64,28 @@ export const updatePaketAsesmen = async ({ data, id }) => {
         Authorization: `Bearer ${cookies.get("Authorization")}`,
       },
     });
-  // console.log(data);
+    // console.log(data);
     return res.data;
   } catch (err) {
     console.log(err.response);
     throw new Error(err.response);
+  }
+};
+
+export const getAllAsesiPaketAsesmen = async (id) => {
+  try {
+    const res = await axios({
+      url: `http://127.0.0.1:8000/api/paketasesmen/user/${id}`,
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.get("Authorization")}`,
+      },
+    });
+
+    return res.data;
+  } catch (error) {
+    console.log(error.response);
+    throw new Error(error.response);
   }
 };

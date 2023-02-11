@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import { Card, CardContent } from "@mui/material";
-import useFetchAuth from "../../hooks/useFetchAuth";
 import Loading from "../Loading";
 import DateInput from "../apl01/DateInput";
 import { Formik, Form } from "formik";
 import ToogleInput from "../apl01/ToogleInput";
 import TextAreaInput from "../apl01/TextAreaInput";
-import jadwalApi from "../../api/jadwal";
+import { getAllJadwal, updateJadwal } from "../../api/jadwal";
+import { useMutation, useQuery } from "react-query";
 
 const ModalUbah = ({ setOpen, data, refetch }) => {
+  const jadwalMutation = useMutation(updateJadwal, {
+    onSuccess: () => {
+      setOpen(false);
+      refetch();
+    },
+  });
   return (
     <div className="fixed flex justify-center items-center top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto inset-0 h-modal h-full bg-gray-400/30">
       <div className="relative w-full h-full  max-w-2xl md:h-auto">
@@ -48,23 +54,13 @@ const ModalUbah = ({ setOpen, data, refetch }) => {
               status: data.status === 1 ? true : false,
               deskripsi: data.deskripsi ? data.deskripsi : "",
             }}
-            onSubmit={async (values) => {
-              try {
-                const res = await jadwalApi({
-                  url: `http://127.0.0.1:8000/api/jadwal/${data.id}`,
-                  data: values,
-                });
-                refetch();
-              } catch (err) {
-                console.log(err.response);
-              }
-
+            onSubmit={(values) => {
+              jadwalMutation.mutate({ data: values, id: data.id });
             }}
           >
             {({ values }) => (
               <Form>
                 <div className="p-6 space-y-6">
-
                   <DateInput
                     name="tanggal"
                     label="Tanggal Pelaksanaan"
@@ -76,10 +72,7 @@ const ModalUbah = ({ setOpen, data, refetch }) => {
                     mandatory={false}
                   />
                   <ToogleInput label="Buka Pelaksanaan" />
-
-                  {/* <DateInput /> */}
                 </div>
-                {/* <!-- Modal footer --> */}
                 <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b ">
                   <button
                     data-modal-hide="defaultModal"
@@ -190,9 +183,8 @@ const TableJadwal = ({ data, refetch }) => {
 };
 
 const Jadwal = () => {
-  const { data, loading, refetch } = useFetchAuth(
-    "http://127.0.0.1:8000/api/jadwal"
-  );
+  const jadwals = useQuery("jadwals", getAllJadwal);
+
   return (
     <div>
       <Card className="shadow-lg overflow-hidden pb-24">
@@ -202,10 +194,10 @@ const Jadwal = () => {
             <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
           </div>
           <div className="">
-            {loading ? (
+            {jadwals.isLoading ? (
               <Loading />
             ) : (
-              <TableJadwal data={data} refetch={refetch} />
+              <TableJadwal data={jadwals.data} refetch={jadwals.refetch} />
             )}
           </div>
         </CardContent>

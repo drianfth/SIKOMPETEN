@@ -17,6 +17,10 @@ import Configuration from "./pages/Configuration";
 import Jadwal from "./components/maseterJadwal/Jadwal";
 import Paket from "./pages/config/Paket";
 import TambahPaket from "./components/TambahPaket";
+import Apl02Layout from "./layouts/Apl02Layout";
+import Apl02 from "./pages/uji-kompetensi/Apl02";
+import FormApl02 from "./components/apl02/FormApl02";
+import DetailPeserta from "./pages/config/DetailPeserta";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,7 +35,12 @@ const router = createBrowserRouter(
         <Route path="configuration" element={<Configuration />} />
         <Route path="jadwal" element={<Jadwal />} />
         <Route path="paket" element={<Paket />} />
+        <Route path="detail-peserta/:id" element={<DetailPeserta />} />
         <Route path="tambahpaket" element={<TambahPaket />} />
+      </Route>
+      <Route path="apl02" element={<Apl02Layout />}>
+        <Route index element={<Apl02 />} />
+        <Route path="ujian" element={<FormApl02 />} />
       </Route>
       <Route path="*" element={<NotFound />} />
     </Route>

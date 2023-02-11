@@ -3,3 +3,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply py-2 px-4 rounded-md border border-gray-300 shadow-sm font-medium hover:shadow-lg;
+  }
+  .btn-primary {
+    @apply bg-sky-600 text-white hover:bg-sky-800;
+  }
+  .btn-secondary {
+    @apply bg-gray-300 hover:bg-gray-500;
+  }
+}

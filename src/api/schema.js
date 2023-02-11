@@ -52,5 +52,20 @@ export const getAllSchema = async () => {
     throw new Error(err.response);
   }
 };
+export const getSchemaNow = async (id) => {
+  try {
+    const res = await axios.get(`http://127.0.0.1:8000/api/whatSchema/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.get("Authorization")}`,
+      },
+    });
+    // console.log("tes");
+    return res.data;
+  } catch (err) {
+    console.log(err.response);
+    throw new Error(err.response);
+  }
+};
 
 export default schemaApi;

@@ -17,6 +17,7 @@ import TableRow from "@mui/material/TableRow";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { useMutation, useQuery } from "react-query";
 import {
   getAllPaketAsesmen,
@@ -235,7 +236,9 @@ const ModalUbah = ({
 };
 
 const Paket = () => {
-  const pakets = useQuery("paketAsesmen", getAllPaketAsesmen);
+  const pakets = useQuery("paketAsesmen", getAllPaketAsesmen, {
+    refetchInterval: 2000,
+  });
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [dataEdit, setDataEdit] = useState(null);
@@ -361,6 +364,16 @@ const Paket = () => {
                             >
                               <DeleteIcon />
                             </IconButton>
+                          </Tooltip>
+                          <Tooltip title="Lihat Daftar Peserta">
+                            <Link to={`/dashboard/detail-peserta/${paket.id}`}>
+                              <IconButton
+                                className="text-sky-400"
+                                onClick={() => setOpenConfirm(true)}
+                              >
+                                <VisibilityIcon />
+                              </IconButton>
+                            </Link>
                           </Tooltip>
                           {openConfirm && (
                             <ModalConfirm

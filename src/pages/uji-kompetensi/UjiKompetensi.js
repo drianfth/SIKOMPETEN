@@ -1,20 +1,14 @@
 import { Card, CardContent } from "@mui/material";
-import React, { useState } from "react";
 import useAuthStore from "../../context/userAuthStore";
 import { useQuery } from "react-query";
-import { useLocation } from "react-router-dom";
 import { getOneApl01 } from "../../api/apl01";
-import Alert from "../../components/Alert";
 import Loading from "../../components/Loading";
 import SubTimeLine from "../../components/SubTimeLine";
 import useFetchAuth from "../../hooks/useFetchAuth";
 
 const UjiKompetensi = () => {
   const { data, loading } = useFetchAuth("http://127.0.0.1:8000/api/jadwal");
-  const location = useLocation();
-  const status = location.state;
   const { user } = useAuthStore();
-  // console.log("user sekarang", user.id);
 
   const hasilQuery = useQuery("oneHasilApl01", () => getOneApl01(user.id));
   const isDoApl01 = hasilQuery.data?.some((t) => t.konfirmasi === 0);
