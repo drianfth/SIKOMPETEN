@@ -5,16 +5,18 @@ import { getOneApl01 } from "../../api/apl01";
 import Loading from "../../components/Loading";
 import SubTimeLine from "../../components/SubTimeLine";
 import useFetchAuth from "../../hooks/useFetchAuth";
+import { getOneApl02 } from "../../api/apl02";
 
 const UjiKompetensi = () => {
   const { data, loading } = useFetchAuth("http://127.0.0.1:8000/api/jadwal");
   const { user } = useAuthStore();
 
   const hasilQuery = useQuery("oneHasilApl01", () => getOneApl01(user.id));
+  const apl02Query = useQuery("oneHasilApl02", () => getOneApl02(user.id));
   const isDoApl01 = hasilQuery.data?.some((t) => t.konfirmasi === 0);
+  const isDoApl02 = apl02Query.data?.some((t) => t.konfirmasi === 0);
 
-  // console.log(isDoApl01);
-
+  // console.log(isDoApl02);
   return (
     <div className="">
       <Card className="shadow-lg h-full">
@@ -23,11 +25,6 @@ const UjiKompetensi = () => {
             Uji Kompetensi
             <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
           </div>
-          {/* {status && (
-            <div className=" w-1/2 mx-auto">
-              <Alert message={status} error={false} />
-            </div>
-          )} */}
 
           {loading ? (
             <Loading />
@@ -42,6 +39,7 @@ const UjiKompetensi = () => {
                     href={jadwal.href}
                     content={jadwal.deskripsi}
                     isDoApl01={isDoApl01}
+                    isDoApl02={isDoApl02}
                     active={jadwal.status === 0 ? "" : "active"}
                   />
                 ))}

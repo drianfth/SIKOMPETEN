@@ -9,13 +9,14 @@ import useAuthStore from "../../context/userAuthStore";
 const Apl02 = () => {
   const { user } = useAuthStore();
   const navigate = useNavigate();
-  const { schema: dataSchema, setSchema } = useSchemaStore();
+  const { setSchema } = useSchemaStore();
   const schema = useQuery("schemaNow", () => getSchemaNow(user.id), {
     onSuccess: (data) => {
       setSchema(data);
     },
   });
-  console.log("data schema", dataSchema);
+
+  // console.log("data schema", dataSchema);
   return (
     <div>
       {schema.isLoading && <Loading />}

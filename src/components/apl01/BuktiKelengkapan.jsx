@@ -9,7 +9,6 @@ const BuktiKelengkapan = ({ schema_id }) => {
   const kelengkapans = useQuery("kelengkapanData", () =>
     getOneKelengkapan(schema_id)
   );
-  let no = 0;
   return (
     <div>
       <h1 className="text-center font-bold text-lg mb-2">

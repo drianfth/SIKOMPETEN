@@ -9,6 +9,7 @@ const SubTimeLine = ({
   content,
   href,
   isDoApl01,
+  isDoApl02,
   last = false,
   active = false,
 }) => {
@@ -82,8 +83,9 @@ const SubTimeLine = ({
             {title === "Pengisian Form APL-02" && (
               <>
                 <p>{content}</p>
-                <div className="mt-5">
-                  {isDoApl01 ? (
+
+                {!isDoApl02 && (
+                  <div className="mt-5">
                     <Link
                       to={href}
                       className="bg-sky-600 text-gray-50 p-2  rounded"
@@ -91,13 +93,33 @@ const SubTimeLine = ({
                       Lakukan Sekarang
                       <KeyboardArrowRightIcon />
                     </Link>
-                  ) : (
-                    <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-2 rounded-full ">
-                      <WarningIcon /> Anda tidak bisa melanjutkan proses ini
-                      karena belum mengisi form apl01
-                    </span>
-                  )}
-                </div>
+                  </div>
+                )}
+                {isDoApl02 && (
+                  <div
+                    className="flex pt-2 text-sm text-green-600 bg-white rounded-lg"
+                    role="alert"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      className="flex-shrink-0 inline w-5 h-5 mr-3"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                        clipRule="evenodd"
+                      ></path>
+                    </svg>
+                    <div>
+                      <span className="font-medium text-gray-800">
+                        Anda Sudah Mengisi Form Apl 02
+                      </span>
+                    </div>
+                  </div>
+                )}
               </>
             )}
           </>

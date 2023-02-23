@@ -8,7 +8,7 @@ const useNavStore = create((set, get) => ({
     {
       id: 1,
       name: "Configuration",
-      href: "configuration",
+      href: "/dashboard/configuration",
       active: false,
       asesi: true,
       asesor: false,
@@ -28,7 +28,7 @@ const useNavStore = create((set, get) => ({
     {
       id: 3,
       name: "Uji Kompetensi",
-      href: "uji-kompetensi",
+      href: "/dashboard/uji-kompetensi",
       active: false,
       asesi: true,
       asesor: true,

@@ -8,7 +8,7 @@ const LandingPage = () => {
   return (
     <main>
       <NavLandingPage />
-    
+
       <HeaderLandingPage />
 
       <ContentLandingPage />
