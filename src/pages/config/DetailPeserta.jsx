@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useQuery } from "react-query";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getAllAsesiPaketAsesmen } from "../../api/paketasesmen";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -23,7 +23,6 @@ const DetailPeserta = () => {
   let { id } = useParams();
   const asesis = useQuery("asesis", () => getAllAsesiPaketAsesmen(id));
   const [anchorEl, setAnchorEl] = React.useState(null);
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -57,7 +56,7 @@ const DetailPeserta = () => {
                 </TableHead>
                 <TableBody>
                   {asesis.data?.map((asesi) => (
-                    <TableRow>
+                    <TableRow key={asesi.id}>
                       <TableCell align="center">{nomor++}</TableCell>
                       <TableCell align="center">{asesi.name}</TableCell>
                       <TableCell align="center">
@@ -82,7 +81,11 @@ const DetailPeserta = () => {
                             "aria-labelledby": "basic-button",
                           }}
                         >
-                          <MenuItem onClick={handleClose}>Form APL-01</MenuItem>
+                          <MenuItem onClick={handleClose}>
+                            <Link to={`/formulir/apl01/${asesi.id}`}>
+                              Form APL-01
+                            </Link>
+                          </MenuItem>
                           <MenuItem onClick={handleClose}>Form APL-02</MenuItem>
                           {/* <MenuItem onClick={handleClose}>Logout</MenuItem> */}
                         </Menu>

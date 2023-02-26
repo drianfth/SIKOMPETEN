@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import { getUnitKompetensi } from "../../api/unitKompetensi";
 import Loading from "../Loading";
 import { getSchema } from "../../api/schema";
+import { Alert } from "@mui/material";
 
 const DaftarPertanyaan = () => {
   return (
@@ -89,10 +90,9 @@ const DaftarPertanyaan = () => {
   );
 };
 
-const DataSertifikasi = ({ schema_id }) => {
+const DataSertifikasi = ({ schema_id, errors }) => {
   const units = useQuery("dataUnit", () => getUnitKompetensi(schema_id));
   const schemas = useQuery("uniqSchema", () => getSchema(schema_id));
-  console.log(true && true);
   const columns = useMemo(
     () => [
       {
@@ -177,6 +177,11 @@ const DataSertifikasi = ({ schema_id }) => {
                 </div>
               </div>
             </div>
+          )}
+          {errors.tujuan_asesmen && (
+            <Alert severity="error" className="w-1/2 mx-auto mt-4">
+              {errors.tujuan_asesmen}
+            </Alert>
           )}
 
           <DaftarPertanyaan />

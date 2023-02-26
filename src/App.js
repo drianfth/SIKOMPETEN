@@ -21,6 +21,7 @@ import Apl02Layout from "./layouts/Apl02Layout";
 import Apl02 from "./pages/uji-kompetensi/Apl02";
 import FormApl02 from "./components/apl02/FormApl02";
 import DetailPeserta from "./pages/config/DetailPeserta";
+import DetailApl01 from "./pages/config/DetailApl01";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,6 +38,9 @@ const router = createBrowserRouter(
         <Route path="paket" element={<Paket />} />
         <Route path="detail-peserta/:id" element={<DetailPeserta />} />
         <Route path="tambahpaket" element={<TambahPaket />} />
+      </Route>
+      <Route path="formulir" element={<DashboardLayout />}>
+        <Route path="apl01/:id" element={<DetailApl01 />}/>
       </Route>
       <Route path="apl02" element={<Apl02Layout />}>
         <Route index element={<Apl02 />} />

@@ -22,6 +22,7 @@ export const addApl01 = async (data) => {
       },
       data: data,
     });
+    console.log(data);
     return res.data;
   } catch (err) {
     console.log(err.response);

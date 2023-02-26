@@ -19,7 +19,8 @@ import useAuth from "../../hooks/useAuth";
 import * as yup from "yup";
 import { addApl01, addRApl01api } from "../../api/apl01";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
+import { getOneKelengkapan } from "../../api/kelengkapan";
 
 export const Warning = ({ open, setOpen }) => {
   return (
@@ -33,7 +34,7 @@ export const Warning = ({ open, setOpen }) => {
   );
 };
 
-const validationSchema = yup.object({
+const validationDataDiri = {
   email: yup.string("Masukkan Email").required("Email tidak boleh kosong"),
   name: yup.string("Masukkan nama").required("nama tidak boleh kosong"),
   kk_ktp_paspor: yup
@@ -57,8 +58,17 @@ const validationSchema = yup.object({
   kode_pos: yup
     .string("Masukkan Kode Pos")
     .required("Kode Pos tidak boleh kosong"),
+  perusahaan: yup
+    .string("Masukkan Perusahaan")
+    .required("Perusahaan tidak boleh kosong"),
+  jabatan: yup
+    .string("Masukkan jabatan")
+    .required("jabatan tidak boleh kosong"),
+  tujuan_asesmen: yup
+    .string("Masukkan Tujuan Asesmen")
+    .required("Tujuan Asesmen tidak boleh kosong"),
   alamat: yup.string("Masukkan Alamat").required("Alamat tidak boleh kosong"),
-});
+};
 
 const Apl01 = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -75,11 +85,31 @@ const Apl01 = () => {
   const steps = ["Pilih Skema", "Pengisian Form APL-01"];
   const { findNav, switchNav } = useNavStore();
   const currentPage = findNav("Uji Kompetensi");
-  const { dataApl01 } = useApl01Store();
+  const { dataApl01, id_schema } = useApl01Store();
+  const kelengkapans = useQuery(
+    "kelengkapanData",
+    () => getOneKelengkapan(id_schema),
+    {
+      refetchInterval: 2000,
+    }
+  );
+  let validasiKelengkapan = {};
+  kelengkapans.data?.map(
+    (currentElement, index) =>
+      (validasiKelengkapan["kelengkapan" + (index + 1)] = yup
+        .string("Masukkan Jawaban")
+        .required("Terdapat Soal Yang belum terjawab"))
+  );
+  let validationSchema = yup.object({
+    ...validationDataDiri,
+    ...validasiKelengkapan,
+  });
   const { response, getUser } = useAuth();
   useEffect(() => {
     getUser();
   }, []);
+  const id = "skm" + crypto.randomUUID().substring(0, 8);
+  dataApl01.id = id;
   dataApl01.user_id = response?.id;
   dataApl01.name = response?.name;
   dataApl01.email = response?.email;
@@ -96,7 +126,7 @@ const Apl01 = () => {
   useEffect(() => {
     switchNav(currentPage.id);
   }, []);
-
+  // const {id_schema} = useApl01Store
   // console.log(data);
   const nextStep = (schema) => {
     if (currentIndex === 0) {
@@ -109,7 +139,7 @@ const Apl01 = () => {
       console.log("dikumpulkan");
     }
   };
-  // console.log({ ...dataApl01 });
+  // console.log(validationDataDiri);
 
   return (
     <div>
@@ -128,12 +158,55 @@ const Apl01 = () => {
                 </Step>
               ))}
             </Stepper>
+
             <Warning open={open} setOpen={setOpen} />
             <Formik
               initialValues={dataApl01}
               validationSchema={validationSchema}
               onSubmit={(values) => {
-                createApl01Mutation.mutate(values);
+                const data_r_kelengkapan = {};
+                const data_kelengkapan = {};
+                const data_diri = {
+                  id: values.id,
+                  name: values.name,
+                  schema_id: values.schema_id,
+                  user_id: values.user_id,
+                  paket_asesmen_id: values.paket_asesmen_id,
+                  kk_ktp_paspor: values.kk_ktp_paspor,
+                  tempat_lhr: values.tempat_lhr,
+                  jns_kelamin: values.jns_kelamin,
+                  kebangsaan: values.kebangsaan,
+                  tgl_lahir: values.tgl_lahir,
+                  alamat: values.alamat,
+                  no_telp: values.no_telp,
+                  email: values.email,
+                  pendidikan: values.pendidikan,
+                  kode_pos: values.kode_pos,
+                  perusahaan: values.perusahaan,
+                  jabatan: values.jabatan,
+                  almt_kantor: values.almt_kantor,
+                  telp_kantor: values.telp_kantor,
+                  email_kantor: values.email_kantor,
+                  kode_pos_kantor: values.kode_pos_kantor,
+                  tujuan_asesmen: values.tujuan_asesmen,
+                  fax: values.fax,
+                };
+                kelengkapans.data.map(
+                  (currElement, index) =>
+                    (data_r_kelengkapan["r_kelengkapan" + (index + 1)] =
+                      values["kelengkapan" + (index + 1)])
+                );
+                kelengkapans.data.map(
+                  (currElement, index) =>
+                    (data_kelengkapan["kelengkapan" + (index + 1)] =
+                      currElement.name)
+                );
+                const data = {
+                  data_diri,
+                  data_kelengkapan,
+                  data_r_kelengkapan,
+                };
+                createApl01Mutation.mutate(data);
               }}
             >
               {({ values, errors, touched }) => (

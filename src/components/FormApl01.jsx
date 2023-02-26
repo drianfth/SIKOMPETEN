@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import useApl01Store from "../context/ujiKompetensi/useApl01Store";
 import BuktiKelengkapan from "./apl01/BuktiKelengkapan";
 import Button from "./apl01/Button";
 import DataPekerjaan from "./apl01/DataPekerjaan";
@@ -6,6 +7,10 @@ import DataPribadi from "./apl01/DataPribadi";
 import DataSertifikasi from "./apl01/DataSertifikasi";
 
 const FormApl01 = ({ schema_id, errors, touched }) => {
+  const { setSchemaId } = useApl01Store();
+  useEffect(() => {
+    setSchemaId(schema_id);
+  }, [schema_id]);
   const initialTab = [
     { id: 1, name: "Data Pribadi", active: true },
     { id: 2, name: "Data Pekerjaan", active: false },
@@ -49,9 +54,13 @@ const FormApl01 = ({ schema_id, errors, touched }) => {
 
       <main className="w-full transition-all duration-600">
         {currentTab === 1 && <DataPribadi errors={errors} touched={touched} />}
-        {currentTab === 2 && <DataPekerjaan />}
-        {currentTab === 3 && <DataSertifikasi schema_id={schema_id} />}
-        {currentTab === 4 && <BuktiKelengkapan schema_id={schema_id} />}
+        {currentTab === 2 && <DataPekerjaan errors={errors} />}
+        {currentTab === 3 && (
+          <DataSertifikasi schema_id={schema_id} errors={errors} />
+        )}
+        {currentTab === 4 && (
+          <BuktiKelengkapan schema_id={schema_id} errors={errors} />
+        )}
       </main>
     </div>
   );

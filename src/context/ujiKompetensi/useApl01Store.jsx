@@ -15,7 +15,9 @@ import useFetchAuth from "../../hooks/useFetchAuth";
 // const field = kelengkapan();
 
 const useApl01Store = create((set, get) => ({
+  id_schema: null,
   dataApl01: {
+    id: "",
     schema_id: "",
     user_id: "",
     paket_asesmen_id: "",
@@ -41,6 +43,7 @@ const useApl01Store = create((set, get) => ({
 
     // ...field,
   },
+  setSchemaId: (id) => set({ id_schema: id }),
   getKelengkapan: async (id) => {
     try {
       const res = await kelengkapanApi({

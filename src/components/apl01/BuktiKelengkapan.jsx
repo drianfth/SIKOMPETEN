@@ -4,8 +4,9 @@ import InitialKelengkapan from "../../data/kelengkapan.json";
 import { useQuery } from "react-query";
 import { getOneKelengkapan } from "../../api/kelengkapan";
 import Loading from "../Loading";
+import { Alert } from "@mui/material";
 
-const BuktiKelengkapan = ({ schema_id }) => {
+const BuktiKelengkapan = ({ schema_id, errors }) => {
   const kelengkapans = useQuery("kelengkapanData", () =>
     getOneKelengkapan(schema_id)
   );

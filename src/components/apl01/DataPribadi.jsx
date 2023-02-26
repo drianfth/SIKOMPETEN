@@ -13,14 +13,14 @@ const DataPribadi = ({ errors, touched }) => {
     { id: 2, value: "perempuan", name: "Perempuan" },
   ];
   const pendidikan = [
-    { id: 1, value: "sd", name: "SD" },
-    { id: 2, value: "smp", name: "SMP" },
-    { id: 3, value: "sma", name: "SMA" },
-    { id: 4, value: "d3", name: "D3" },
-    { id: 5, value: "d4", name: "D4" },
-    { id: 6, value: "s1", name: "S1" },
-    { id: 7, value: "s2", name: "S2" },
-    { id: 8, value: "s3", name: "S3" },
+    // { id: 1, value: "sd", name: "SD" },
+    // { id: 2, value: "smp", name: "SMP" },
+    // { id: 3, value: "sma", name: "SMA" },
+    { id: 4, value: "d3it", name: "D3 Teknik Informatika" },
+    { id: 5, value: "d4it", name: "D4 Teknik Informatika" },
+    // { id: 6, value: "s1", name: "S1" },
+    // { id: 7, value: "s2", name: "S2" },
+    // { id: 8, value: "s3", name: "S3" },
   ];
 
   return (
