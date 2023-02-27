@@ -92,7 +92,6 @@ const FormApl02 = () => {
   );
   const validationSchema = yup.object(validasi);
 
-  // console.log(validasi);
   const apl01 = hasilApl01.data?.filter((data) => data.konfirmasi === 0)[0];
 
   const isValidasi = (errors) => {
@@ -101,6 +100,20 @@ const FormApl02 = () => {
     const message = status ? "" : "Harap Isi Semua Pertanyaan";
     setMessage(message);
   };
+  const id = "apl2" + crypto.randomUUID().substring(0, 8);
+
+  const data_diri = {
+    id,
+    schema_id: schema[0]?.id,
+    paket_asesmen_id: apl01?.paket_asesmen_id,
+    user_id: apl01?.user_id,
+    name: apl01?.name,
+  };
+  let data_soal = {};
+  elemenQues?.map(
+    (currElement, index) => (data_soal["elemen" + (index + 1)] = currElement.id)
+  );
+
   return (
     <div>
       {elemens.isLoading ? (
@@ -113,16 +126,32 @@ const FormApl02 = () => {
           {hasilApl01.isSuccess && (
             <Formik
               initialValues={{
-                schema_id: schema[0]?.id,
-                paket_asesmen_id: apl01?.paket_asesmen_id,
-                user_id: apl01?.user_id,
-                name: apl01?.name,
                 ...soal,
                 ...bukti,
               }}
               validationSchema={validationSchema}
               onSubmit={async (values) => {
-                apl02Mutation.mutate(values);
+                let data_jawaban = {};
+                let data_bukti = {};
+                elemenQues?.map(
+                  (currElement, index) =>
+                    (data_jawaban["jawaban" + (index + 1)] =
+                      values["soal" + (index + 1)])
+                );
+                elemenQues?.map(
+                  (currElement, index) =>
+                    (data_bukti["bukti" + (index + 1)] =
+                      values["bukti" + (index + 1)])
+                );
+                const data = {
+                  data_diri,
+                  data_soal,
+                  data_jawaban,
+                  data_bukti,
+                };
+                apl02Mutation.mutate(data);
+
+                // console.log(data);
               }}
             >
               {({ values, errors }) => (
@@ -145,7 +174,7 @@ const FormApl02 = () => {
                         nomor={elemenIndex}
                       />
                     </div>
-                    {console.log(errors)}
+                    {/* {console.log(errors)} */}
                     <div className=" basis-3/12  h-fit shadow-md rounded-md p-2">
                       <h1 className="my-3 text-center font-semibold text-gray-800">
                         Nomor Elemen

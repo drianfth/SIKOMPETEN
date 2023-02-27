@@ -108,7 +108,7 @@ const Apl01 = () => {
   useEffect(() => {
     getUser();
   }, []);
-  const id = "skm" + crypto.randomUUID().substring(0, 8);
+  const id = "apl1" + crypto.randomUUID().substring(0, 8);
   dataApl01.id = id;
   dataApl01.user_id = response?.id;
   dataApl01.name = response?.name;
