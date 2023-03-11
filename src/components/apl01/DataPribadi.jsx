@@ -25,85 +25,85 @@ const DataPribadi = ({ errors, touched }) => {
 
   return (
     <div className="w-full flex flex-col transition-all duration-800">
-      <div className="flex px-4 space-x-2">
-        <div className=" w-1/2 px-2 space-y-5">
-          <FieldInput
-            error={errors.name}
-            name="name"
-            label="Nama"
-            mandatory={true}
-            type="text"
-          />
-          <FieldInput
-            error={errors.kk_ktp_paspor}
-            name="kk_ktp_paspor"
-            label="No. KTP/NIK/Paspor"
-            mandatory={true}
-            type="text"
-          />
-          <FieldInput
-            // error={errors}
-            error={errors.tempat_lhr}
-            name="tempat_lhr"
-            label="Tempat Lahir"
-            type="text"
-          />
-          <SelectInput
-            error={errors.jns_kelamin}
-            name="jns_kelamin"
-            label="Jenis Kelamin"
-            option={jns_kelamin}
-            mandatory={true}
-          />
-          <DateInput
-            name="tgl_lahir"
-            label="Tanggal Lahir"
-            mandatory={true}
-            error={errors.tgl_lahir}
-          />
-        </div>
+      <div className="px-4 grid grid-cols-1 md:grid-cols-2 gap-2">
+        {/* <div className=" w-1/2 px-2 space-y-5"> */}
+        <FieldInput
+          error={errors.name}
+          name="name"
+          label="Nama"
+          mandatory={true}
+          type="text"
+        />
+        <FieldInput
+          error={errors.kk_ktp_paspor}
+          name="kk_ktp_paspor"
+          label="No. KTP/NIK/Paspor"
+          mandatory={true}
+          type="text"
+        />
+        <FieldInput
+          // error={errors}
+          error={errors.tempat_lhr}
+          name="tempat_lhr"
+          label="Tempat Lahir"
+          type="text"
+        />
+        <SelectInput
+          error={errors.jns_kelamin}
+          name="jns_kelamin"
+          label="Jenis Kelamin"
+          option={jns_kelamin}
+          mandatory={true}
+        />
+        <DateInput
+          name="tgl_lahir"
+          label="Tanggal Lahir"
+          mandatory={true}
+          error={errors.tgl_lahir}
+        />
+        {/* </div> */}
 
-        <div className=" w-1/2 px-2 space-y-5">
-          <FieldInput
-            // error={errors}
-            error={errors.kebangsaan}
-            name="kebangsaan"
-            label="Kebangsaan"
-            mandatory={true}
-            type="text"
-          />
-          <FieldInput
-            // error={errors}
-            error={errors.no_telp}
-            name="no_telp"
-            label="Nomor Telepon"
-            mandatory={true}
-            type="number"
-          />
-          <FieldInput
-            // error={errors}
-            error={errors.email}
-            name="email"
-            label="Email"
-            type="email"
-            mandatory={true}
-          />
-          <SelectInput
-            error={errors.pendidikan}
-            name="pendidikan"
-            label="Kualifikasi Pendidikan"
-            option={pendidikan}
-            mandatory={true}
-          />
-          <FieldInput
-            // error={errors}
-            error={errors.kode_pos}
-            name="kode_pos"
-            label="Kode Pos"
-            mandatory={true}
-            type="number"
-          />
-        </div>
+        {/* <div className=" w-1/2 px-2 space-y-5"> */}
+        <FieldInput
+          // error={errors}
+          error={errors.kebangsaan}
+          name="kebangsaan"
+          label="Kebangsaan"
+          mandatory={true}
+          type="text"
+        />
+        <FieldInput
+          // error={errors}
+          error={errors.no_telp}
+          name="no_telp"
+          label="Nomor Telepon"
+          mandatory={true}
+          type="number"
+        />
+        <FieldInput
+          // error={errors}
+          error={errors.email}
+          name="email"
+          label="Email"
+          type="email"
+          mandatory={true}
+        />
+        <SelectInput
+          error={errors.pendidikan}
+          name="pendidikan"
+          label="Kualifikasi Pendidikan"
+          option={pendidikan}
+          mandatory={true}
+        />
+        <FieldInput
+          // error={errors}
+          error={errors.kode_pos}
+          name="kode_pos"
+          label="Kode Pos"
+          mandatory={true}
+          type="number"
+        />
+        {/* </div> */}
       </div>
       <div className="px-6 mt-4">
         <TextAreaInput

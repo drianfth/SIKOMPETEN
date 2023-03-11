@@ -7,40 +7,40 @@ import TextAreaInput from "./TextAreaInput";
 const DataPekerjaan = ({ errors }) => {
   return (
     <div className="w-full flex flex-col transition-all duration-800">
-      <div className="flex px-4 space-x-2">
-        <div className=" w-1/2 px-2 space-y-5">
-          <FieldInput
-            name="perusahaan"
-            error={errors.perusahaan}
-            mandatory={true}
-            label="Perusahaan"
-            type="text"
-          />
-          <FieldInput
-            name="jabatan"
-            error={errors.jabatan}
-            mandatory={true}
-            label="Jabatan"
-            type="text"
-          />
-          <FieldInput
-            name="telp_kantor"
-            label="Nomor Telepon Kantor"
-            type="text"
-          />
-        </div>
+      <div className="md:gap-4 grid grid-cols-1 md:grid-cols-2">
+        {/* <div className=" w-1/2 px-2 space-y-5"> */}
+        <FieldInput
+          name="perusahaan"
+          error={errors.perusahaan}
+          mandatory={true}
+          label="Perusahaan"
+          type="text"
+        />
+        <FieldInput
+          name="jabatan"
+          error={errors.jabatan}
+          mandatory={true}
+          label="Jabatan"
+          type="text"
+        />
+        <FieldInput
+          name="telp_kantor"
+          label="Nomor Telepon Kantor"
+          type="text"
+        />
+        {/* </div> */}
 
-        <div className=" w-1/2 px-2 space-y-5">
-          <FieldInput name="fax" label="fax" type="text" />
-          <FieldInput name="email_kantor" label="Email Kantor" type="email" />
-          <FieldInput
-            name="kode_pos_kantor"
-            label="Kode Pos Kantor"
-            type="number"
-          />
-        </div>
+        {/* <div className=" w-1/2 px-2 space-y-5"> */}
+        <FieldInput name="fax" label="fax" type="text" />
+        <FieldInput name="email_kantor" label="Email Kantor" type="email" />
+        <FieldInput
+          name="kode_pos_kantor"
+          label="Kode Pos Kantor"
+          type="number"
+        />
+        {/* </div> */}
       </div>
-      <div className="px-6 mt-4">
+      <div className=" md:mt-4">
         <TextAreaInput name="almt_kantor" label="Alamat Kantor" />
       </div>
     </div>

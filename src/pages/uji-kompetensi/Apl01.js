@@ -171,7 +171,7 @@ const Apl01 = () => {
                   name: values.name,
                   schema_id: values.schema_id,
                   user_id: values.user_id,
-                  paket_asesmen_id: values.paket_asesmen_id,
+                  sesi_id: values.sesi_id,
                   kk_ktp_paspor: values.kk_ktp_paspor,
                   tempat_lhr: values.tempat_lhr,
                   jns_kelamin: values.jns_kelamin,
@@ -206,6 +206,7 @@ const Apl01 = () => {
                   data_kelengkapan,
                   data_r_kelengkapan,
                 };
+                // console.log(values);
                 createApl01Mutation.mutate(data);
               }}
             >
@@ -222,8 +223,8 @@ const Apl01 = () => {
                     )}
                   </section>
                   {/* {console.log(values)} */}
-                  <div className="flex justify-between transition-all duration-600">
-                    <Button
+                  <div className="flex justify-end transition-all duration-600">
+                    {/* <Button
                       variant="contained"
                       className="bg-gray-700"
                       onClick={() =>
@@ -231,8 +232,8 @@ const Apl01 = () => {
                       }
                     >
                       Back
-                    </Button>
-                    {currentIndex !== 0 && (
+                    </Button> */}
+                    {/* {currentIndex !== 0 && (
                       <Button
                         type="submit"
                         variant="contained"
@@ -240,7 +241,7 @@ const Apl01 = () => {
                       >
                         Kumpulkan
                       </Button>
-                    )}
+                    )} */}
                     {currentIndex === 0 && (
                       <Button
                         variant="contained"

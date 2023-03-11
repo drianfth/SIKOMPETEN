@@ -7,7 +7,7 @@ import { useEffect } from "react";
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
-  const [navItem, setNavItem] = useState("dfdf");
+  // const [navItem, setNavItem] = useState("dfdf");
   const user = useAuthStore((state) => state.user);
   const { activeNav } = useNavStore();
 
@@ -15,7 +15,7 @@ const Sidebar = () => {
   // console.log(nav);
 
   return (
-    <div className="">
+    <div className="hidden sm:flex">
       <aside
         className={`${
           open ? "md:w-60" : "md:w-30"

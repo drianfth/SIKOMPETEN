@@ -38,30 +38,75 @@ const FormApl01 = ({ schema_id, errors, touched }) => {
     setTab(tempTab);
   };
 
-  return (
-    <div className="flex w-full px-3">
-      <div className="w-2/12 flex flex-col ">
-        {tab.map((t) => (
-          <Button
-            key={t.id}
-            active={t.active}
-            handleTab={() => handleTab(t.id)}
-          >
-            {t.name}
-          </Button>
-        ))}
-      </div>
+  const handleNextTab = (index) => {
+    if (index >= 4) {
+      handleTab(4);
+    } else {
+      handleTab(index + 1);
+    }
+  };
+  const handleBackTab = (index) => {
+    if (index <= 1) {
+      handleTab(1);
+    } else {
+      handleTab(index - 1);
+    }
+  };
 
-      <main className="w-full transition-all duration-600">
-        {currentTab === 1 && <DataPribadi errors={errors} touched={touched} />}
-        {currentTab === 2 && <DataPekerjaan errors={errors} />}
-        {currentTab === 3 && (
-          <DataSertifikasi schema_id={schema_id} errors={errors} />
+  return (
+    <div className="w-full">
+      <div className="flex w-full md:px-3">
+        <div className="w-2/12 md:flex flex-col hidden">
+          {tab.map((t) => (
+            <Button
+              key={t.id}
+              active={t.active}
+              handleTab={() => handleTab(t.id)}
+            >
+              {t.name}
+            </Button>
+          ))}
+        </div>
+
+        <main className="w-full transition-all duration-600">
+          {currentTab === 1 && (
+            <DataPribadi errors={errors} touched={touched} />
+          )}
+          {currentTab === 2 && <DataPekerjaan errors={errors} />}
+          {currentTab === 3 && (
+            <DataSertifikasi schema_id={schema_id} errors={errors} />
+          )}
+          {currentTab === 4 && (
+            <BuktiKelengkapan schema_id={schema_id} errors={errors} />
+          )}
+        </main>
+      </div>
+      <div className="flex justify-between mt-6">
+        <button
+          className="bg-gray-200 px-4 py-2 rounded shadow"
+          type="button"
+          onClick={() => handleBackTab(currentTab)}
+        >
+          Back
+        </button>
+        {currentTab === 4 ? (
+          <button
+            type="button"
+            className="px-4 py-2 rounded shadow bg-sky-700 text-white"
+            // onClick={() => handleNextTab(currentTab)}
+          >
+            Submit
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="bg-sky-700 px-4 py-2 rounded shadow text-white"
+            onClick={() => handleNextTab(currentTab)}
+          >
+            Next
+          </button>
         )}
-        {currentTab === 4 && (
-          <BuktiKelengkapan schema_id={schema_id} errors={errors} />
-        )}
-      </main>
+      </div>
     </div>
   );
 };

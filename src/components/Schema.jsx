@@ -16,7 +16,7 @@ export const UnitSchema = ({ schema }) => {
           name="schema_id"
           value={`${schema.id}`}
         />
-        <div className="w-72 max-w-xl rounded-md bg-white p-5 text-gray-600 ring-2 ring-gray-200 transition-all hover:shadow-xl shadow-md peer-checked:text-sky-600 peer-checked:ring-blue-400 peer-checked:ring-offset-2 ">
+        <div className="w-64 md:w-72 max-w-xl rounded-md bg-white p-5 text-gray-600 ring-2 ring-gray-200 transition-all hover:shadow-xl shadow-md peer-checked:text-sky-600 peer-checked:ring-blue-400 peer-checked:ring-offset-2 ">
           <div className="flex flex-col gap-1">
             <div className="flex items-center justify-end">
               <svg width="24" height="24" viewBox="0 0 24 24">
@@ -28,7 +28,7 @@ export const UnitSchema = ({ schema }) => {
             </div>
             <div className="flex items-end justify-between">
               <p>
-                <span className="text-lg font-bold">{schema.name}</span>
+                <span className="md:text-lg font-bold">{schema.name}</span>
               </p>
             </div>
           </div>
@@ -47,7 +47,7 @@ const Schema = () => {
       {loading ? (
         <Loading />
       ) : (
-        <div className="flex space-x-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {data?.map((s) => (
             <UnitSchema schema={s} key={s.id} />
             // <p>{s.name}</p>

@@ -10,7 +10,7 @@ import { Alert } from "@mui/material";
 
 const DaftarPertanyaan = () => {
   return (
-    <div className="flex px-20 mt-14 space-x-4">
+    <div className="flex md:px-20 mt-14 space-x-4">
       <label htmlFor="" className="font-semibold text-gray-700">
         Tujuan Asesmen
       </label>
@@ -123,7 +123,7 @@ const DataSertifikasi = ({ schema_id, errors }) => {
 
   return (
     <div className="w-full flex flex-col transition-all duration-800">
-      <h1 className="text-center px-20 font-semibold mb-5">
+      <h1 className="text-center md:px-20 font-semibold mb-5">
         berikut Daftar Unit Kompetensi sesuai kemasan pada skema sertifikasi
         untuk mendapatkan pengakuan sesuai dengan latar belakang pendidikan,
         pelatihan serta pengalaman kerja yang anda miliki.{" "}
@@ -140,7 +140,7 @@ const DataSertifikasi = ({ schema_id, errors }) => {
                   className={`${
                     schemas.data[0].schema_sertifikasi === "KKNI"
                       ? ""
-                      : "line-through"
+                      : "line-through hidden sm:inline"
                   }`}
                 >
                   KKNI
@@ -150,7 +150,7 @@ const DataSertifikasi = ({ schema_id, errors }) => {
                   className={`${
                     schemas.data[0].schema_sertifikasi === "Okupasi"
                       ? ""
-                      : "line-through"
+                      : "line-through hidden sm:inline"
                   }`}
                 >
                   {" "}
@@ -161,7 +161,7 @@ const DataSertifikasi = ({ schema_id, errors }) => {
                   className={`${
                     schemas.data[0].schema_sertifikasi === "Klaster"
                       ? ""
-                      : "line-through"
+                      : "line-through hidden sm:inline"
                   }`}
                 >
                   {" "}
@@ -179,7 +179,7 @@ const DataSertifikasi = ({ schema_id, errors }) => {
             </div>
           )}
           {errors.tujuan_asesmen && (
-            <Alert severity="error" className="w-1/2 mx-auto mt-4">
+            <Alert severity="error" className="md:w-1/2 mx-auto mt-4">
               {errors.tujuan_asesmen}
             </Alert>
           )}

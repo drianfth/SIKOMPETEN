@@ -1,29 +1,26 @@
 import axios from "axios";
 import Cookies from "universal-cookie";
-const BASE_URL = "http://127.0.0.1:8000/api/schema";
 
 const cookies = new Cookies();
 
-const schemaApi = axios.create({
-  baseURL: BASE_URL,
-  method: "get",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${cookies.get("Authorization")}`,
-  },
-});
-
-export const showSchemaApi = axios.create({
-  method: "get",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${cookies.get("Authorization")}`,
-  },
-});
-
-export const getSchema = async (id) => {
+export const getSesi = async (id) => {
   try {
-    const res = await axios.get(`http://127.0.0.1:8000/api/schema/${id}`, {
+    const res = await axios.get(`http://127.0.0.1:8000/api/sesi/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.get("Authorization")}`,
+      },
+    });
+
+    return res.data;
+  } catch (err) {
+    console.log(err.response);
+    throw new Error(err.response);
+  }
+};
+export const getPeserta = async (id) => {
+  try {
+    const res = await axios.get(`http://127.0.0.1:8000/api/sesi/peserta/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${cookies.get("Authorization")}`,
@@ -37,15 +34,17 @@ export const getSchema = async (id) => {
   }
 };
 
-export const getAllSchema = async () => {
+export const createSesi = async (data) => {
   try {
-    const res = await axios.get(`http://127.0.0.1:8000/api/schema`, {
+    const res = await axios({
+      url: `http://127.0.0.1:8000/api/sesi`,
+      method: `post`,
+      data: data,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${cookies.get("Authorization")}`,
       },
     });
-
     return res.data;
   } catch (err) {
     console.log(err.response);
@@ -53,21 +52,19 @@ export const getAllSchema = async () => {
   }
 };
 
-
-export const getSchemaNow = async (id) => {
+export const removeSesi = async (id) => {
   try {
-    const res = await axios.get(`http://127.0.0.1:8000/api/whatSchema/${id}`, {
+    const res = await axios({
+      url: `http://127.0.0.1:8000/api/sesi/${id}`,
+      method: "delete",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${cookies.get("Authorization")}`,
       },
     });
-    // console.log("tes");
     return res.data;
   } catch (err) {
     console.log(err.response);
     throw new Error(err.response);
   }
 };
-
-export default schemaApi;

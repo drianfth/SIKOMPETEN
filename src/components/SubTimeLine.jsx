@@ -49,7 +49,7 @@ const SubTimeLine = ({
                       className="bg-sky-600 text-gray-50 p-2  rounded"
                     >
                       Lakukan Sekarang
-                      <KeyboardArrowRightIcon />
+                      <KeyboardArrowRightIcon className="hidden md:inline" />
                     </Link>
                   </div>
                 )}
@@ -115,7 +115,8 @@ const SubTimeLine = ({
                     </svg>
                     <div>
                       <span className="font-medium text-gray-800">
-                        Anda Belum Mengisi Form Apl 01, Harap Mengisi Terlebih dahulu
+                        Anda Belum Mengisi Form Apl 01, Harap Mengisi Terlebih
+                        dahulu
                       </span>
                     </div>
                   </div>

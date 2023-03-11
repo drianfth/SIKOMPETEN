@@ -14,20 +14,25 @@ const DateInput = ({ name, label, mandatory = false, error }) => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <label htmlFor={name} className="block text-sm font-medium text-gray-900">
-        {label} {mandatory ? <span className="text-red-700">*</span> : ""}
-      </label>
-      <DatePicker
-        {...field}
-        label={label}
-        value={value}
-        className="bg-gray-50 border-2 border-gray-300 mt-4 text-gray-900 text-sm rounded-lg w-full outline-none"
-        onChange={(date) => {
-          setValue(date);
-        }}
-        error={error}
-        renderInput={(params) => <TextField {...params} />}
-      />
+      <div className="">
+        <label
+          htmlFor={name}
+          className="block text-sm font-medium text-gray-900"
+        >
+          {label} {mandatory ? <span className="text-red-700">*</span> : ""}
+        </label>
+        <DatePicker
+          {...field}
+          label={label}
+          value={value}
+          className="bg-gray-50 border-2 border-gray-300 mt-4 text-gray-900 text-sm rounded-lg w-full outline-none"
+          onChange={(date) => {
+            setValue(date);
+          }}
+          error={error}
+          renderInput={(params) => <TextField {...params} />}
+        />
+      </div>
     </LocalizationProvider>
   );
 };

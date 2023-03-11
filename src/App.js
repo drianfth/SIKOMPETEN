@@ -21,7 +21,10 @@ import Apl02Layout from "./layouts/Apl02Layout";
 import Apl02 from "./pages/uji-kompetensi/Apl02";
 import FormApl02 from "./components/apl02/FormApl02";
 import DetailPeserta from "./pages/config/DetailPeserta";
-import DetailApl01 from "./pages/config/DetailApl01";
+import DetailApl01 from "./pages/config/DetailApl01/DetailApl01";
+import ConfigurationLayout from "./layouts/ConfigurationLayout";
+import Sesi from "./pages/config/Sesi";
+import Formulir from "./pages/config/Formulir";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,14 +36,18 @@ const router = createBrowserRouter(
         <Route index element={<Home />} />
         <Route path="uji-kompetensi" element={<UjiKompetensi />} />
         <Route path="apl01" element={<Apl01 />} />
-        <Route path="configuration" element={<Configuration />} />
         <Route path="jadwal" element={<Jadwal />} />
-        <Route path="paket" element={<Paket />} />
-        <Route path="detail-peserta/:id" element={<DetailPeserta />} />
         <Route path="tambahpaket" element={<TambahPaket />} />
       </Route>
+      <Route path="configuration" element={<ConfigurationLayout />}>
+        <Route index element={<Configuration />} />
+        <Route path="paket" element={<Paket />} />
+        <Route path="sesi/:id" element={<Sesi />} />
+        <Route path="formulir/:id" element={<Formulir />} />
+        <Route path="detail-peserta/:id" element={<DetailPeserta />} />
+      </Route>
       <Route path="formulir" element={<DashboardLayout />}>
-        <Route path="apl01/:id" element={<DetailApl01 />}/>
+        <Route path="apl01/:id" element={<DetailApl01 />} />
       </Route>
       <Route path="apl02" element={<Apl02Layout />}>
         <Route index element={<Apl02 />} />

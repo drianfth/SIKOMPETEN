@@ -4,12 +4,14 @@ import { Field } from "formik";
 const BuktiField = ({ label, name, nomor }) => {
   // console.log(name);
   return (
-    <div className="flex px-20 mt-14 space-x-4">
-      <span className="font-semibold text-gray-700 mr-2">{nomor})</span>
-      <label htmlFor="" className="font-semibold text-gray-700 w-5/12">
-        {label}
-      </label>
-      <div className="flex flex-col space-y-1">
+    <div className="flex flex-col md:px-5 mt-10 space-x-4">
+      <div className="">
+        <span className="font-semibold text-gray-700 mr-2">{nomor})</span>
+        <label htmlFor="" className="font-semibold text-gray-700 md:w-5/12">
+          {label}
+        </label>
+      </div>
+      <div className="flex flex-col space-y-1 mt-1">
         <div className="flex items-center">
           <Field
             type="radio"

@@ -3,9 +3,9 @@ import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
 
-export const getAllPaketAsesmen = async () => {
+export const getAllPaketSkema = async () => {
   try {
-    const res = await axios.get(`http://127.0.0.1:8000/api/paketasesmen`, {
+    const res = await axios.get(`http://127.0.0.1:8000/api/paketskema`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${cookies.get("Authorization")}`,
@@ -19,10 +19,10 @@ export const getAllPaketAsesmen = async () => {
   }
 };
 
-export const createPaketAsesmen = async (data) => {
+export const createPaketSkema = async (data) => {
   try {
     const res = await axios({
-      url: `http://127.0.0.1:8000/api/paketasesmen`,
+      url: `http://127.0.0.1:8000/api/paketskema`,
       method: `post`,
       data: data,
       headers: {
@@ -37,28 +37,10 @@ export const createPaketAsesmen = async (data) => {
   }
 };
 
-export const removePaketAsesmen = async (id) => {
+export const updatePaketSkema = async ({ data, id }) => {
   try {
     const res = await axios({
-      url: `http://127.0.0.1:8000/api/paketasesmen/${id}`,
-      method: "delete",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${cookies.get("Authorization")}`,
-      },
-    });
-    return res.data;
-  } catch (err) {
-    console.log(err.response);
-    throw new Error(err.response);
-  }
-};
-
-
-export const updatePaketAsesmen = async ({ data, id }) => {
-  try {
-    const res = await axios({
-      url: `http://127.0.0.1:8000/api/paketasesmen/${id}`,
+      url: `http://127.0.0.1:8000/api/paketskema/${id}`,
       method: "put",
       data: data,
       headers: {
@@ -74,20 +56,19 @@ export const updatePaketAsesmen = async ({ data, id }) => {
   }
 };
 
-export const getAllAsesiPaketAsesmen = async (id) => {
+export const removePaketSkema = async (id) => {
   try {
     const res = await axios({
-      url: `http://127.0.0.1:8000/api/paketasesmen/user/${id}`,
-      method: "get",
+      url: `http://127.0.0.1:8000/api/paketskema/${id}`,
+      method: "delete",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${cookies.get("Authorization")}`,
       },
     });
-
     return res.data;
-  } catch (error) {
-    console.log(error.response);
-    throw new Error(error.response);
+  } catch (err) {
+    console.log(err.response);
+    throw new Error(err.response);
   }
 };
