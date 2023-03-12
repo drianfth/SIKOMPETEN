@@ -8,9 +8,10 @@ import { Formik, Form } from "formik";
 import useAuthStore from "../../context/userAuthStore";
 import { getOneApl01 } from "../../api/apl01";
 import { addApl02 } from "../../api/apl02";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { Alert } from "@mui/material";
+import useApl02Store from "../../context/ujiKompetensi/useApl02Store";
 
 const BoxNumber = ({ number, elemenIndex, setElemenIndex, values }) => {
   // const isAnswere = values.hasOwnProperty("soal" + number);
@@ -39,18 +40,18 @@ const LabelSchema = ({ schema }) => {
     <div className="flex">
       <div className="p-4 border border-gray-200 rounded-l-md text-center">
         <p>Skema Sertifikasi</p>
-        <p>({schema[0]?.schema_sertifikasi})</p>
+        <p>({schema?.schema_sertifikasi})</p>
       </div>
       <div className="border border-gray-200 rounded-r-md">
         <div className="p-2 border-b border-gray-200">
           <p>
             <span>Judul : </span>
-            {schema[0]?.name}
+            {schema?.name}
           </p>
         </div>
         <div className="p-2">
           <p>
-            <span>Nomor : </span> {schema[0]?.nomor}
+            <span>Nomor : </span> {schema?.nomor}
           </p>
         </div>
       </div>
@@ -59,7 +60,6 @@ const LabelSchema = ({ schema }) => {
 };
 
 const FormApl02 = () => {
-  const elemens = useQuery("elemens", () => getElemen(schema[0].id));
   const { user } = useAuthStore();
   const [message, setMessage] = useState(null);
   const navigate = useNavigate();
@@ -72,8 +72,14 @@ const FormApl02 = () => {
       });
     },
   });
-
-  const { schema } = useSchemaStore();
+  // const location = useLocation();
+  // const schema = location.state.schema;
+  const schema = useSchemaStore((state) => state.schema[0]);
+  const historyApl01 = useApl02Store((state) => state.historyApl01);
+  console.log("skema", schema);
+  const elemens = useQuery("elemens", () => getElemen(schema.id));
+  // const { schema } = useSchemaStore();
+  // console.log(location);
   const [elemenIndex, setElemenIndex] = useState(0);
   const elemenQues = useMemo(
     () => (elemens.isSuccess ? elemens.data[0].elemens : null),
@@ -92,7 +98,7 @@ const FormApl02 = () => {
   );
   const validationSchema = yup.object(validasi);
 
-  const apl01 = hasilApl01.data?.filter((data) => data.konfirmasi === 0)[0];
+  // const apl01 = hasilApl01.data?.filter((data) => data.konfirmasi === 0)[0];
 
   const isValidasi = (errors) => {
     const status =
@@ -101,13 +107,13 @@ const FormApl02 = () => {
     setMessage(message);
   };
   const id = "apl2" + crypto.randomUUID().substring(0, 8);
-
+  console.log(historyApl01);
   const data_diri = {
     id,
-    schema_id: schema[0]?.id,
-    paket_asesmen_id: apl01?.paket_asesmen_id,
-    user_id: apl01?.user_id,
-    name: apl01?.name,
+    schema_id: schema?.id,
+    sesi_id: historyApl01.sesi_id,
+    user_id: historyApl01.user_id,
+    hasil_apl01_id: historyApl01.hasil_apl01_id,
   };
   let data_soal = {};
   elemenQues?.map(
@@ -175,11 +181,11 @@ const FormApl02 = () => {
                       />
                     </div>
                     {/* {console.log(errors)} */}
-                    <div className=" basis-3/12  h-fit shadow-md rounded-md p-2">
+                    <div className="hidden md:flex md:flex-col basis-3/12  h-fit shadow-md rounded-md p-2">
                       <h1 className="my-3 text-center font-semibold text-gray-800">
                         Nomor Elemen
                       </h1>
-                      <div className="grid grid-cols-5 gap-2">
+                      <div className="md:grid grid-cols-5 gap-2 ">
                         {elemens.data[0].elemens.map((e, index) => (
                           <BoxNumber
                             number={index + 1}

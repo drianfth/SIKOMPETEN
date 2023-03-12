@@ -139,6 +139,7 @@ const DetailApl01 = () => {
                     <BuktiKelengkapan
                       kelengkapan={data[0].r_kelengkapans}
                       tujuan={data[0].tujuan_asesmen}
+                      link={data[0].link}
                     />
                   )}
                 </main>

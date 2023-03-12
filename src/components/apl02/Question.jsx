@@ -3,8 +3,8 @@ import { Field } from "formik";
 
 const Question = ({ elemen, nomor, nameRadio, nameText }) => {
   return (
-    <div className="w-full p-4">
-      <h1 className="w-2/3 mt-2 font-bold text-gray-800">
+    <div className="w-full md:p-4">
+      <h1 className="md:w-2/3 mt-2 font-bold text-gray-800">
         {elemen.unit_kompetensi.pertanyaan}
       </h1>
       <ol className=" ml-3 mt-2">

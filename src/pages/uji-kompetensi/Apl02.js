@@ -1,22 +1,29 @@
 import React from "react";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
-import { getSchemaNow } from "../../api/schema";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getSchema, getSchemaNow } from "../../api/schema";
 import Loading from "../../components/Loading";
+import useApl02Store from "../../context/ujiKompetensi/useApl02Store";
 import useSchemaStore from "../../context/ujiKompetensi/useSchemaStore";
 import useAuthStore from "../../context/userAuthStore";
 
 const Apl02 = () => {
   const { user } = useAuthStore();
+  const historyApl01 = useApl02Store((state) => state.historyApl01);
   const navigate = useNavigate();
+  // const location = useLocation();
   const { setSchema } = useSchemaStore();
-  const schema = useQuery("schemaNow", () => getSchemaNow(user.id), {
+  const schema = useQuery("schema", () => getSchema(historyApl01.schema_id), {
     onSuccess: (data) => {
       setSchema(data);
     },
   });
+  console.log(historyApl01);
 
-  // console.log("data schema", dataSchema);
+  const openujian = () => {
+    navigate("/apl02/ujian");
+  };
+
   return (
     <div>
       {schema.isLoading && <Loading />}
@@ -58,6 +65,10 @@ const Apl02 = () => {
                   Isi kuom Bukti yang relevan dengan mendaftar bukti yang Anda
                   miliki untuk menunjukkan bahwa Anda melakukan tugas-tugas ini.
                 </li>
+                <li>
+                  Disarankan memamakai laptop Atau komputer ketika mengisi data
+                  APL 02
+                </li>
               </ul>
             </div>
           </div>
@@ -67,10 +78,7 @@ const Apl02 = () => {
         <button className="btn btn-secondary" onClick={() => navigate(-1)}>
           Back
         </button>
-        <button
-          className="btn btn-primary"
-          onClick={() => navigate("/apl02/ujian")}
-        >
+        <button className="btn btn-primary" onClick={openujian}>
           Next
         </button>
       </div>

@@ -40,6 +40,7 @@ const useApl01Store = create((set, get) => ({
     kode_pos_kantor: "",
     fax: "",
     tujuan_asesmen: "",
+    link: "",
 
     // ...field,
   },

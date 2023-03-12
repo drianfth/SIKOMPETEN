@@ -38,7 +38,7 @@ const SubTimeLine = ({
       <div className="text-base font-normal text-gray-500 ">
         {active ? (
           <>
-            {title === "Pilih Skema & Pengisian Form APL-01" && (
+            {title === "Pra-Asesmen" && (
               <>
                 <p>{content}</p>
 

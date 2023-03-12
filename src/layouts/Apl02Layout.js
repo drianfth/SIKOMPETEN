@@ -12,7 +12,7 @@ const Apl02 = () => {
         <Sidebar />
         <div className="flex flex-col w-full">
           <Navbar />
-          <div className="p-10 bg-gray-50 w-full h-full">
+          <div className="md:p-10 p-4 bg-gray-50 w-full h-full">
             <Card className="shadow-xl overflow-hidden">
               <CardContent>
                 <div className="text-center font-bold pb-8 text-lg text-gray-800">

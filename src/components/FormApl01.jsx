@@ -91,7 +91,7 @@ const FormApl01 = ({ schema_id, errors, touched }) => {
         </button>
         {currentTab === 4 ? (
           <button
-            type="button"
+            type="submit"
             className="px-4 py-2 rounded shadow bg-sky-700 text-white"
             // onClick={() => handleNextTab(currentTab)}
           >

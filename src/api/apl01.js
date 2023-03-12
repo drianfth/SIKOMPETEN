@@ -25,7 +25,7 @@ export const addApl01 = async (data) => {
     console.log(data);
     return res.data;
   } catch (err) {
-    console.log(err.response);
+    console.log(err.response.data);
     throw new Error(err.response);
   }
 };

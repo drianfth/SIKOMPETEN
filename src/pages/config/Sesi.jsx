@@ -201,7 +201,7 @@ const ModalUbah = ({ setOpenEdit, optionAsesor, paket_skema_id, data }) => {
                     mandatory={true}
                     type="text"
                   />
-                  {console.log(errors)}
+                  {/* {console.log(errors)} */}
                   <SelectInput
                     name="asesor1_id"
                     label="Asesor 1"
@@ -349,7 +349,7 @@ const ModalTambah = ({ setOpenAdd, optionAsesor, paket_skema_id }) => {
                     mandatory={true}
                     type="text"
                   />
-                  {console.log(errors)}
+                  {/* {console.log(errors)} */}
                   <SelectInput
                     name="asesor1_id"
                     label="Asesor 1"

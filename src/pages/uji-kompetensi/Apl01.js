@@ -18,9 +18,10 @@ import InitialKelengkapan from "../../data/kelengkapan.json";
 import useAuth from "../../hooks/useAuth";
 import * as yup from "yup";
 import { addApl01, addRApl01api } from "../../api/apl01";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "react-query";
 import { getOneKelengkapan } from "../../api/kelengkapan";
+import useApl02Store from "../../context/ujiKompetensi/useApl02Store";
 
 export const Warning = ({ open, setOpen }) => {
   return (
@@ -67,17 +68,26 @@ const validationDataDiri = {
   tujuan_asesmen: yup
     .string("Masukkan Tujuan Asesmen")
     .required("Tujuan Asesmen tidak boleh kosong"),
+  link: yup
+    .string("Masukkan Link Drive")
+    .required("Link Drive tidak boleh kosong"),
   alamat: yup.string("Masukkan Alamat").required("Alamat tidak boleh kosong"),
 };
 
 const Apl01 = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const setHistoryApl01 = useApl02Store((state) => state.setHistoryApl01);
   const navigate = useNavigate();
   const createApl01Mutation = useMutation(addApl01, {
     onSuccess: (data) => {
-      navigate("/dashboard/uji-kompetensi", {
-        state: "Selamat Anda Telah Berhasil Mengisi Form Apl 01",
+      console.log(data);
+      setHistoryApl01({
+        hasil_apl01_id: data.data_diri.id,
+        schema_id: data.data_diri.schema_id,
+        sesi_id: data.data_diri.sesi_id,
+        user_id: data.data_diri.user_id,
       });
+      navigate("/apl02");
     },
   });
 
@@ -180,6 +190,7 @@ const Apl01 = () => {
                   alamat: values.alamat,
                   no_telp: values.no_telp,
                   email: values.email,
+                  link: values.link,
                   pendidikan: values.pendidikan,
                   kode_pos: values.kode_pos,
                   perusahaan: values.perusahaan,
@@ -206,7 +217,7 @@ const Apl01 = () => {
                   data_kelengkapan,
                   data_r_kelengkapan,
                 };
-                // console.log(values);
+                // console.log(data);
                 createApl01Mutation.mutate(data);
               }}
             >
