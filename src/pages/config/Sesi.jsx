@@ -449,6 +449,7 @@ const Sesi = () => {
                       <TableCell align="center">Jam</TableCell>
                       <TableCell align="center">Asesor 1</TableCell>
                       <TableCell align="center">Asesor 2</TableCell>
+                      <TableCell align="center">Formulir</TableCell>
                       <TableCell align="center">Action</TableCell>
                     </TableRow>
                   </TableHead>
@@ -476,6 +477,13 @@ const Sesi = () => {
                             }
                             return "";
                           })}
+                        </TableCell>
+                        <TableCell align="center">
+                          <Link
+                            to={`/configuration/formulir-asesor/${sesi.id}`}
+                          >
+                            <Button variant="outlined">Formulir</Button>
+                          </Link>
                         </TableCell>
                         <TableCell align="center">
                           <Link to={`/configuration/detail-peserta/${sesi.id}`}>

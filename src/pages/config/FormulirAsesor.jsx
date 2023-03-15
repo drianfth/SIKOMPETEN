@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Menu from "../../components/Menu";
 import DescriptionIcon from "@mui/icons-material/Description";
 
-const Formulir = () => {
+const FormulirAsesor = () => {
   const { id } = useParams();
   return (
     <div>
@@ -13,22 +13,15 @@ const Formulir = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Menu
-          name="Formulir APL 01"
+          name="Formulir MAPA-01"
           icon={
             <DescriptionIcon className="text-gray-700 group-hover:text-white" />
           }
-          href={`/formulir/apl01/${id}`}
-        />
-        <Menu
-          name="Formulir APL 02"
-          icon={
-            <DescriptionIcon className="text-gray-700 group-hover:text-white" />
-          }
-          href={`/formulir/apl02/${id}`}
+          href={`/configuration/daftar-mapa01/${id}`}
         />
       </div>
     </div>
   );
 };
 
-export default Formulir;
+export default FormulirAsesor;
