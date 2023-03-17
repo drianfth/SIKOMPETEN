@@ -12,7 +12,7 @@ import {
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import { useMutation, useQuery } from "react-query";
-import { createSesi, getSesi, removeSesi } from "../../api/sesi";
+import { createSesi, getSesi, removeSesi, updateSesi } from "../../api/sesi";
 import { Link, useParams } from "react-router-dom";
 import Paper from "@mui/material/Paper";
 import ListAltIcon from "@mui/icons-material/ListAlt";
@@ -103,21 +103,13 @@ const ModalConfirm = ({ setOpenConfirm, deletePaket }) => {
 };
 
 const ModalUbah = ({ setOpenEdit, optionAsesor, paket_skema_id, data }) => {
-  // const sesiMutation = useMutation(createSesi, {
-  //   onSuccess: () => {
-  //     setOpenEdit(false);
-  //   },
-  // });
-
-  const validationPaket = yup.object({
-    paket_skema_id: yup
-      .string("Masukkan Skema")
-      .required("Skema tidak boleh kosong"),
-    nama_sesi: yup
-      .string("Masukkan Nama Sesi")
-      .required("Nama Sesi tidak boleh kosong"),
-    jam: yup.string("Masukkan Jam").required("Jam tidak boleh kosong"),
+  const sesiMutation = useMutation(updateSesi, {
+    onSuccess: () => {
+      setOpenEdit(false);
+    },
   });
+  // console.log(data);
+
   const asesor = optionAsesor.map((s) => ({
     id: s.id,
     value: s.id,
@@ -141,9 +133,7 @@ const ModalUbah = ({ setOpenEdit, optionAsesor, paket_skema_id, data }) => {
         <div className="relative bg-white rounded-lg shadow ">
           {/* <!-- Modal header --> */}
           <div className="flex items-start justify-between p-4 border-b rounded-t ">
-            <h3 className="text-xl font-semibold text-gray-900 ">
-              Tambah Paket
-            </h3>
+            <h3 className="text-xl font-semibold text-gray-900 ">Ubah Sesi</h3>
             <button
               type="button"
               className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center "
@@ -175,19 +165,19 @@ const ModalUbah = ({ setOpenEdit, optionAsesor, paket_skema_id, data }) => {
               nama_sesi: data.nama_sesi,
               jam: data.jam,
             }}
-            validationSchema={validationPaket}
+            // validationSchema={validationPaket}
             onSubmit={(values) => {
               const date = new Date(values.jam);
               const jam = formatAmPm(date);
-              const data = {
+              const result = {
                 paket_skema_id: values.paket_skema_id,
                 nama_sesi: values.nama_sesi,
-                jam: jam,
+                jam: data.jam,
                 asesor1_id: values.asesor1_id,
                 asesor2_id: values.asesor2_id,
               };
-              // sesiMutation.mutate(data);
-
+              sesiMutation.mutate({ data: result, id: data.id });
+              // console.log(values)
               setOpenEdit(false);
             }}
           >
@@ -197,11 +187,11 @@ const ModalUbah = ({ setOpenEdit, optionAsesor, paket_skema_id, data }) => {
                   <FieldInput
                     error={errors.nama_sesi}
                     name="nama_sesi"
-                    label="Nama Sesi"
+                    label="Nama Sesi ubah"
                     mandatory={true}
                     type="text"
                   />
-                  {/* {console.log(errors)} */}
+
                   <SelectInput
                     name="asesor1_id"
                     label="Asesor 1"
@@ -220,8 +210,6 @@ const ModalUbah = ({ setOpenEdit, optionAsesor, paket_skema_id, data }) => {
                     mandatory={true}
                   />
                 </div>
-                {/* <!-- Modal footer --> */}
-                {/* {console.log(values)} */}
                 <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b ">
                   <button
                     data-modal-hide="defaultModal"
@@ -507,6 +495,7 @@ const Sesi = () => {
                               data={editData}
                               optionAsesor={asesor.data}
                               setOpenEdit={setEdit}
+                              paket_skema_id={id}
                             />
                           )}
 
