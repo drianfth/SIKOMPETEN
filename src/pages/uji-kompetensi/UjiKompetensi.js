@@ -6,6 +6,7 @@ import Loading from "../../components/Loading";
 import SubTimeLine from "../../components/SubTimeLine";
 import useFetchAuth from "../../hooks/useFetchAuth";
 import { getOneApl02 } from "../../api/apl02";
+import { getSesiNow } from "../../api/sesi";
 
 const UjiKompetensi = () => {
   const { data, loading } = useFetchAuth("http://127.0.0.1:8000/api/jadwal");
@@ -15,8 +16,16 @@ const UjiKompetensi = () => {
   const apl02Query = useQuery("oneHasilApl02", () => getOneApl02(user.id));
   const isDoApl01 = hasilQuery.data?.some((t) => t.konfirmasi === 0);
   const isDoApl02 = apl02Query.data?.some((t) => t.konfirmasi === 0);
+  // const sesiId = hasilQuery.data[0]?.sesi_id;
+  // console.log(hasilQuery.data);
+  const sesiQuery = useQuery(
+    ["sesi"],
+    () => getSesiNow(hasilQuery.data[0]?.sesi_id),
+    {
+      enabled: !!hasilQuery.data,
+    }
+  );
 
-  // console.log(isDoApl02);
   return (
     <div className="">
       <Card className="shadow-lg h-full">
@@ -40,6 +49,7 @@ const UjiKompetensi = () => {
                     content={jadwal.deskripsi}
                     isDoApl01={isDoApl01}
                     isDoApl02={isDoApl02}
+                    sesi={sesiQuery}
                     active={jadwal.status === 0 ? "" : "active"}
                   />
                 ))}

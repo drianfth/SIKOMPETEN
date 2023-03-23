@@ -1,6 +1,13 @@
-import { Card, CardContent } from "@mui/material";
+import { Alert, Button, Card, CardContent } from "@mui/material";
+import { Field, Form, Formik } from "formik";
 import React from "react";
+import { useMutation } from "react-query";
 import { useLocation } from "react-router-dom";
+import { addAk01 } from "../../../../api/ak01";
+import CheckboxInput from "../../../../components/apl01/CheckboxInput";
+import SelectInput from "../../../../components/apl01/SelectInput";
+import useAuthStore from "../../../../context/userAuthStore";
+import FieldInput from "../../DetailApl01/FieldInput";
 
 const HeadSchema = ({ schema }) => {
   return (
@@ -49,7 +56,37 @@ const HeadSchema = ({ schema }) => {
 
 const Ak01 = () => {
   const location = useLocation();
+  const { user } = useAuthStore();
+  const createAk01Mutation = useMutation(addAk01);
   const schema = location.state.sesi.paket_skema.schema;
+  const optionTUK = [
+    { id: 1, value: "Sewaktu", name: "Sewaktu" },
+    { id: 2, value: "Tempat Kerja", name: "Tempat Kerja" },
+    { id: 3, value: "Mandiri", name: "Mandiri" },
+  ];
+  const formatAmPm = (tanggal) => {
+    const date = new Date(tanggal);
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var ampm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    var strTime = hours + ":" + minutes + " " + ampm;
+    return strTime;
+  };
+  const optionBukti = [
+    {
+      id: 1,
+      label: "TL : Verifikasi Portofolio  ",
+      value: "TL : Verifikasi Portofolio  ",
+    },
+    { id: 2, label: "L : Observasi Langsung", value: "L : Observasi Langsung" },
+    { id: 3, label: "T: Hasil Tes Tulis", value: "T: Hasil Tes Tulis" },
+    { id: 4, label: "T: Hasil Tes Lisan", value: "T: Hasil Tes Lisan" },
+    { id: 5, label: "T: Hasil Wawancara", value: "T: Hasil Wawancara" },
+  ];
+  console.log(location);
   return (
     <Card className="shadow-lg h-full">
       <CardContent>
@@ -58,6 +95,204 @@ const Ak01 = () => {
           <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
         </div>
         <HeadSchema schema={schema} />
+        <div className="">
+          <Alert
+            variant="outlined"
+            severity="info"
+            className="mt-4 w-10/12 md:w-1/2 mx-auto"
+          >
+            Persetujuan Asesmen ini untuk menjamin bahwa Asesi telah diberi
+            arahan secara rinci tentang perencanaan dan proses asesmen
+          </Alert>
+          <Formik
+            initialValues={{
+              asesi_id: "",
+              asesor_id: user.id,
+              sesi_id: location.state.sesi.id,
+              tuk: "",
+              bukti: [],
+            }}
+            onSubmit={async (values) => {
+              const data = {
+                asesi_id: values.asesi_id,
+                asesor_id: values.asesor_id,
+                sesi_id: values.sesi_id,
+                tuk: values.tuk,
+                bukti: values.bukti.toString(),
+              };
+              // alert(JSON.stringify(data, null, 2));
+              createAk01Mutation.mutate(data);
+            }}
+          >
+            {() => (
+              <Form>
+                <div className="grid grid-cols-1 px-5 gap-2 md:grid-cols-2 mt-4">
+                  <SelectInput
+                    label="TUK"
+                    mandatory={true}
+                    name="tuk"
+                    option={optionTUK}
+                  />
+                  <FieldInput label="Asesor" value={user.name} />
+                  <FieldInput
+                    label="Tanggal"
+                    value={location.state.sesi.paket_skema.tanggal}
+                  />
+                  <FieldInput
+                    label="waktu"
+                    value={formatAmPm(location.state.sesi.jam)}
+                  />
+                  <FieldInput
+                    label="TUK"
+                    value={location.state.sesi.paket_skema.tuk.nama_tuk}
+                  />
+                  <CheckboxInput
+                    label="Bukti yang dikumpulkan"
+                    name="bukti"
+                    options={optionBukti}
+                  />
+                  {/* <div className="">
+                    <h1 className="mb-2 text-sm font-medium  text-gray-900 ">
+                      Identification
+                    </h1>
+                    <ul className="items-center w-full text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg flex flex-col">
+                      <li className="w-full border-b border-gray-200 ">
+                        <div className="flex items-center pl-3">
+                          <Field
+                            name="bukti"
+                            id="vue-checkbox-list"
+                            type="checkbox"
+                            value="TL : Verifikasi Portofolio"
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 "
+                          />
+                          <label
+                            htmlFor="vue-checkbox-list"
+                            className="w-full py-3 ml-2 text-sm font-medium text-gray-900 "
+                          >
+                            TL : Verifikasi Portofolio
+                          </label>
+                        </div>
+                      </li>
+                      <li className="w-full border-b border-gray-200  ">
+                        <div className="flex items-center pl-3">
+                          <Field
+                            name="bukti"
+                            id="react-checkbox-list"
+                            type="checkbox"
+                            value="L : Observasi Langsung"
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 "
+                          />
+                          <label
+                            htmlFor="react-checkbox-list"
+                            className="w-full py-3 ml-2 text-sm font-medium text-gray-900 "
+                          >
+                            L : Observasi Langsung
+                          </label>
+                        </div>
+                      </li>
+                      <li className="w-full border-b border-gray-200  ">
+                        <div className="flex items-center pl-3">
+                          <Field
+                            name="bukti"
+                            id="angular-checkbox-list"
+                            type="checkbox"
+                            value="T: Hasil Tes Tulis"
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500  focus:ring-2"
+                          />
+                          <label
+                            htmlFor="angular-checkbox-list"
+                            className="w-full py-3 ml-2 text-sm font-medium text-gray-900 "
+                          >
+                            T: Hasil Tes Tulis
+                          </label>
+                        </div>
+                      </li>
+                      <li className="w-full  border-b border-gray-200">
+                        <div className="flex items-center pl-3">
+                          <Field
+                            name="bukti"
+                            id="laravel-checkbox-list"
+                            type="checkbox"
+                            value="T: Hasil Tes Lisan"
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                          />
+                          <label
+                            htmlFor="laravel-checkbox-list"
+                            className="w-full py-3 ml-2 text-sm font-medium text-gray-900 "
+                          >
+                            T: Hasil Tes Lisan
+                          </label>
+                        </div>
+                      </li>
+                      <li className="w-full ">
+                        <div className="flex items-center pl-3">
+                          <Field
+                            name="bukti"
+                            id="laravel-checkbox-list"
+                            type="checkbox"
+                            value="T: Hasil Wawancara"
+                            className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2"
+                          />
+                          <label
+                            htmlFor="laravel-checkbox-list"
+                            className="w-full py-3 ml-2 text-sm font-medium text-gray-900 "
+                          >
+                            T: Hasil Wawancara
+                          </label>
+                        </div>
+                      </li>
+                    </ul>
+                  </div> */}
+                </div>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  className="bg-sky-700"
+                >
+                  Submit
+                </Button>
+              </Form>
+            )}
+          </Formik>
+          <Alert
+            variant="outlined"
+            severity="info"
+            className="mt-4 w-10/12 md:w-1/2 mx-auto"
+          >
+            <p>
+              <strong>Asesi :</strong>{" "}
+            </p>{" "}
+            Bahwa Saya Sudah Mendapatkan Penjelasan Hak dan Prosedur Banding
+            Oleh Asesor.
+          </Alert>
+
+          <Alert
+            variant="outlined"
+            severity="info"
+            className="mt-4 w-10/12 md:w-1/2 mx-auto"
+          >
+            <p>
+              <strong>Asesor :</strong>{" "}
+            </p>{" "}
+            Menyatakan tidak akan membuka hasil pekerjaan yang saya peroleh
+            karena penugasan saya sebagai Asesor dalam pekerjaan Asesmen kepada
+            siapapun atau organisasi apapun selain kepada pihak yang berwenang
+            sehubungan dengan kewajiban saya sebagai Asesor yang ditugaskan oleh
+            LSP
+          </Alert>
+          <Alert
+            variant="outlined"
+            severity="info"
+            className="mt-4 w-10/12 md:w-1/2 mx-auto"
+          >
+            <p>
+              <strong>Asesi :</strong>{" "}
+            </p>{" "}
+            Saya setuju mengikuti asesmen dengan pemahaman bahwa informasi yang
+            dikumpulkan hanya digunakan untuk pengembangan profesional dan hanya
+            dapat diakses oleh orang tertentu saja.
+          </Alert>
+        </div>
       </CardContent>
     </Card>
   );

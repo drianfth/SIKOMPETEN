@@ -12,6 +12,7 @@ const SubTimeLine = ({
   isDoApl02,
   last = false,
   active = false,
+  sesi,
 }) => {
   const tanggal = new Date(time);
   return (
@@ -80,14 +81,15 @@ const SubTimeLine = ({
                 )}
               </>
             )}
-            {title === "Pengisian Form APL-02" && (
+            {title === "Asesmen" && (
               <>
                 <p>{content}</p>
 
-                {!isDoApl02 && isDoApl01 && (
+                {/* {!isDoApl02 && isDoApl01 && ( */}
+                {sesi.isSuccess && sesi.data[0]?.open === 1 && (
                   <div className="mt-5">
                     <Link
-                      to={href}
+                      to="/formulir/frak01"
                       className="bg-sky-600 text-gray-50 p-2  rounded"
                     >
                       Lakukan Sekarang
@@ -95,7 +97,9 @@ const SubTimeLine = ({
                     </Link>
                   </div>
                 )}
-                {!isDoApl01 && (
+
+                {/* )} */}
+                {/* {!isDoApl01 && (
                   <div
                     className="flex pt-2 text-sm text-yellow-500 bg-white rounded-lg"
                     role="alert"
@@ -145,7 +149,7 @@ const SubTimeLine = ({
                       </span>
                     </div>
                   </div>
-                )}
+                )} */}
               </>
             )}
           </>

@@ -4,12 +4,27 @@ import React, { useState } from "react";
 import { useMutation } from "react-query";
 import { updateApl01 } from "../../../api/apl01";
 import CloseIcon from "@mui/icons-material/Close";
+import SelectInput from "../../../components/apl01/SelectInput";
 
 const DataPengesahan = ({ data }) => {
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(true);
   };
+
+  const asesorOption = [
+    {
+      id: data.sesi?.asesor1?.id,
+      value: data.sesi?.asesor1?.id,
+      name: data.sesi?.asesor1?.name,
+    },
+    {
+      id: data.sesi?.asesor2?.id,
+      value: data.sesi?.asesor2?.id,
+      name: data.sesi?.asesor2?.name,
+    },
+  ];
+  // console.log(asesorOption);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -26,18 +41,22 @@ const DataPengesahan = ({ data }) => {
       <Formik
         initialValues={{
           status: data.status,
+          asesor_id: data.asesor_id,
           konfirmasi: data.konfirmasi === 0 ? "belum konfirmasi" : "konfirmasi",
         }}
         onSubmit={async (values) => {
           data["konfirmasi"] = values.konfirmasi === "konfirmasi" ? 1 : 0;
           data["status"] = values.status;
+          data["asesor_id"] = values.asesor_id;
           delete data.schema;
           delete data.r_kelengkapans;
+          delete data.sesi;
           apl01Mutation.mutate({ data: data, id: data.id });
         }}
       >
         {({ values }) => (
           <Form>
+            {/* {console.log(values)} */}
             <div className="border border-gray-300 p-8 rounded">
               <div className="flex flex-col md:px-5 space-x-4">
                 <label htmlFor="" className="font-semibold text-gray-700">
@@ -115,6 +134,14 @@ const DataPengesahan = ({ data }) => {
                     </label>
                   </div>
                 </div>
+              </div>
+              <div className="ml-2 mt-2">
+                <SelectInput
+                  label="Asesor"
+                  name="asesor_id"
+                  key={1}
+                  option={asesorOption}
+                />
               </div>
               <div className="flex justify-end mt-4">
                 <Button

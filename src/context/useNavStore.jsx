@@ -11,7 +11,7 @@ const useNavStore = create((set, get) => ({
       href: "/configuration",
       active: false,
       asesi: true,
-      asesor: false,
+      asesor: true,
       admin: true,
       icon: <SettingsIcon />,
     },

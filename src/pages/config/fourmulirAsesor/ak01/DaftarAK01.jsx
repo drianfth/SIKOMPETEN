@@ -12,15 +12,24 @@ import Paper from "@mui/material/Paper";
 import { Button, Chip, IconButton, Tooltip } from "@mui/material";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Loading from "../../../../components/Loading";
+import { checkAk01 } from "../../../../api/ak01";
+import useAuthStore from "../../../../context/userAuthStore";
 
 const DaftarAK01 = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { user } = useAuthStore();
   const asesor1 = useQuery("asesor1", () =>
     getUser(location.state.sesi.asesor1_id)
   );
   const asesor2 = useQuery("asesor2", () =>
     getUser(location.state.sesi.asesor2_id)
+  );
+  const check1 = useQuery("check1", () =>
+    checkAk01(location.state.sesi.id, location.state.sesi.asesor1_id)
+  );
+  const check2 = useQuery("check2", () =>
+    checkAk01(location.state.sesi.id, location.state.sesi.asesor2_id)
   );
   const openAK01 = (id) => {
     navigate("/formulir/aka01/", {
@@ -30,6 +39,7 @@ const DaftarAK01 = () => {
       },
     });
   };
+
 
   return (
     <div>
@@ -42,7 +52,19 @@ const DaftarAK01 = () => {
           <Loading />
         ) : (
           <div className="">
-            <Button variant="outlined" className="mb-4" onClick={openAK01}>Isi AK.01</Button>
+            <Button
+              variant="outlined"
+              className="mb-4"
+              onClick={openAK01}
+              disabled={
+                user.id === check1.data?.asesor_id ||
+                user.id === check2.data?.asesor_id
+                  ? true
+                  : false
+              }
+            >
+              Isi AK.01
+            </Button>
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
@@ -50,7 +72,7 @@ const DaftarAK01 = () => {
                     <TableCell align="center">No</TableCell>
                     <TableCell align="center">Nama Asesor</TableCell>
                     <TableCell align="center">status </TableCell>
-                    <TableCell align="center">Formulir MUK</TableCell>
+                    {/* <TableCell align="center">Formulir MUK</TableCell> */}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -61,17 +83,21 @@ const DaftarAK01 = () => {
                         {asesor1.data[0]?.name}
                       </TableCell>
                       <TableCell align="center">
-                        <Chip label="Belum Mengisi" color="error" />
+                        {check1.data?.id ? (
+                          <Chip label="Sudah Mengisi" color="success" />
+                        ) : (
+                          <Chip label="Belum Mengisi" color="error" />
+                        )}
                       </TableCell>
-                      <TableCell align="center">
+                      {/* <TableCell align="center">
                         <Tooltip title="buka MAPA 01">
                           <IconButton
-                            // onClick={() => openMapa01(asesor1.data[0]?.id)}
+                          // onClick={() => openMapa01(asesor1.data[0]?.id)}
                           >
                             <VisibilityIcon className="text-sky-500" />
                           </IconButton>
                         </Tooltip>
-                      </TableCell>
+                      </TableCell> */}
                     </TableRow>
                   )}
                   {asesor2.isFetched && asesor2.data[0] && (
@@ -81,17 +107,21 @@ const DaftarAK01 = () => {
                         {asesor2.data[0]?.name}
                       </TableCell>
                       <TableCell align="center">
-                        <Chip label="Belum Mengisi" color="error" />
+                        {check2.data?.id ? (
+                          <Chip label="Sudah Mengisi" color="success" />
+                        ) : (
+                          <Chip label="Belum Mengisi" color="error" />
+                        )}
                       </TableCell>
-                      <TableCell align="center">
+                      {/* <TableCell align="center">
                         <Tooltip title="buka MAPA 01">
                           <IconButton
-                            // onClick={() => openMapa01(asesor2.data[0]?.id)}
+                          // onClick={() => openMapa01(asesor2.data[0]?.id)}
                           >
                             <VisibilityIcon className="text-sky-500" />
                           </IconButton>
                         </Tooltip>
-                      </TableCell>
+                      </TableCell> */}
                     </TableRow>
                   )}
                 </TableBody>

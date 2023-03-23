@@ -2,38 +2,27 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 
 const cookies = new Cookies();
-
-export const addRApl01api = axios.create({
-  method: "post",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${cookies.get("Authorization")}`,
-  },
-});
-
-export const addApl01 = async (data) => {
+export const addAk01 = async (data) => {
   try {
     const res = await axios({
       method: "post",
-      url: `http://127.0.0.1:8000/api/hasilapl01`,
+      url: `http://127.0.0.1:8000/api/hasilak01`,
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${cookies.get("Authorization")}`,
       },
       data: data,
     });
-    console.log(data);
     return res.data;
   } catch (err) {
-    console.log(err.response.data);
     throw new Error(err.response);
   }
 };
 
-export const getDetailApl01 = async (id) => {
+export const checkAk01 = async (id1, id2) => {
   try {
     const res = await axios.get(
-      `http://127.0.0.1:8000/api/hasilapl01lengkap/${id}`,
+      `http://127.0.0.1:8000/api/checkhasilak01/${id1}/${id2}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -46,27 +35,25 @@ export const getDetailApl01 = async (id) => {
     throw new Error(err.response);
   }
 };
-
-export const getOneApl01 = async (id) => {
+export const getAk01 = async (id) => {
   try {
-    const res = await axios.get(`http://127.0.0.1:8000/api/hasilapl01/${id}`, {
+    const res = await axios.get(`http://127.0.0.1:8000/api/hasilak01/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${cookies.get("Authorization")}`,
       },
     });
-
     return res.data;
   } catch (err) {
     throw new Error(err.response);
   }
 };
-export const updateApl01 = async ({ data, id }) => {
-  // console.log("datanya", data);
+
+export const updateAk01 = async ({ data, id }) => {
   try {
     const res = await axios({
       method: "put",
-      url: `http://127.0.0.1:8000/api/hasilapl01/${id}`,
+      url: `http://127.0.0.1:8000/api/hasilak01/${id}`,
       data: data,
       headers: {
         "Content-Type": "application/json",

@@ -111,7 +111,7 @@ const DetailApl01 = () => {
       <Card className="shadow-lg h-full">
         <CardContent>
           <div className="text-center font-bold pb-8 text-xl text-gray-800">
-            Detail Formulir APL 01 {currentTab}
+            Detail Formulir APL 01
             <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
           </div>
           {isLoading ? (

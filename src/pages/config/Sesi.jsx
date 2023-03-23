@@ -21,7 +21,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Loading from "../../components/Loading";
 import * as yup from "yup";
 import { getAllAsesor } from "../../api/user";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import SelectInput from "../../components/apl01/SelectInput";
 import FieldInput from "../../components/apl01/FieldInput";
 import TimeInput from "../../components/apl01/TimeInput";
@@ -164,6 +164,7 @@ const ModalUbah = ({ setOpenEdit, optionAsesor, paket_skema_id, data }) => {
               asesor2_id: data.asesor2_id,
               nama_sesi: data.nama_sesi,
               jam: data.jam,
+              open: data.open === 1 ? true : false,
             }}
             // validationSchema={validationPaket}
             onSubmit={(values) => {
@@ -172,12 +173,13 @@ const ModalUbah = ({ setOpenEdit, optionAsesor, paket_skema_id, data }) => {
               const result = {
                 paket_skema_id: values.paket_skema_id,
                 nama_sesi: values.nama_sesi,
-                jam: data.jam,
+                jam: values.jam,
+                open: values.open === false ? 0 : 1,
                 asesor1_id: values.asesor1_id,
                 asesor2_id: values.asesor2_id,
               };
               sesiMutation.mutate({ data: result, id: data.id });
-              // console.log(values)
+              console.log(result);
               setOpenEdit(false);
             }}
           >
@@ -209,6 +211,17 @@ const ModalUbah = ({ setOpenEdit, optionAsesor, paket_skema_id, data }) => {
                     label="Jam Pelaksanaan"
                     mandatory={true}
                   />
+                  <label className="relative inline-flex items-center cursor-pointer mt-5">
+                    <Field
+                      type="checkbox"
+                      name="open"
+                      className="sr-only peer"
+                    />
+                    <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer  peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all  peer-checked:bg-blue-600"></div>
+                    <span className="ml-3 text-sm font-medium text-gray-900 ">
+                      Buka Pelaksanaan Asesmen
+                    </span>
+                  </label>
                 </div>
                 <div className="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b ">
                   <button
