@@ -21,9 +21,27 @@ export const showSchemaApi = axios.create({
   },
 });
 
+// melihat detail skema dengan id skema
 export const getSchema = async (id) => {
   try {
     const res = await axios.get(`http://127.0.0.1:8000/api/schema/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.get("Authorization")}`,
+      },
+    });
+
+    return res.data;
+  } catch (err) {
+    console.log(err.response);
+    throw new Error(err.response);
+  }
+};
+
+// melihat skema elemen dan sub elemen
+export const getSchemaElSub = async (id) => {
+  try {
+    const res = await axios.get(`http://127.0.0.1:8000/api/turunanSkema/${id}`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${cookies.get("Authorization")}`,

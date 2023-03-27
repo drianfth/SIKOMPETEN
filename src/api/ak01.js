@@ -49,6 +49,20 @@ export const getAk01 = async (id) => {
   }
 };
 
+export const getDetailAk01 = async (id) => {
+  try {
+    const res = await axios.get(`http://127.0.0.1:8000/api/detail-ak01/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.get("Authorization")}`,
+      },
+    });
+    return res.data;
+  } catch (err) {
+    throw new Error(err.response);
+  }
+};
+
 export const updateAk01 = async ({ data, id }) => {
   try {
     const res = await axios({

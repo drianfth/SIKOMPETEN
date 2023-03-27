@@ -26,6 +26,13 @@ const Formulir = () => {
           }
           href={`/formulir/apl02/${id}`}
         />
+        <Menu
+          name="Formulir AK 01"
+          icon={
+            <DescriptionIcon className="text-gray-700 group-hover:text-white" />
+          }
+          href={`/formulir/detailak01/${id}`}
+        />
       </div>
     </div>
   );
