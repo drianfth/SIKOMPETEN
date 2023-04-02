@@ -45,7 +45,7 @@ const DaftarIa01 = () => {
               </TableHead>
               <TableBody>
                 {asesis.data.map((asesi, id) => (
-                  <TableRow>
+                  <TableRow key={id}>
                     <TableCell align="center">{id + 1}</TableCell>
                     <TableCell align="center">{asesi.name}</TableCell>
                     <TableCell align="center">
@@ -58,7 +58,12 @@ const DaftarIa01 = () => {
                         </IconButton>
                       </Tooltip>
                       <Tooltip title="Lihat IA 01 Untuk peserta ini">
-                        <IconButton className="text-green-700">
+                        <IconButton
+                          className="text-green-700"
+                          onClick={() =>
+                            navigate(`/formulir/detailia01/${asesi.id}`)
+                          }
+                        >
                           <VisibilityIcon />
                         </IconButton>
                       </Tooltip>

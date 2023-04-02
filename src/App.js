@@ -34,6 +34,7 @@ import DetailAk01 from "./pages/config/DetailAk01/DetailAk01";
 import DaftarIa01 from "./pages/config/fourmulirAsesor/ia01/DaftarIa01";
 import FrIa01 from "./pages/config/fourmulirAsesor/ia01/FrIa01";
 import FormulirIa01 from "./pages/config/fourmulirAsesor/ia01/FormulirIa01";
+import DetailIa01 from "./pages/config/fourmulirAsesor/ia01/DetailIa01";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -69,6 +70,7 @@ const router = createBrowserRouter(
         <Route path="frak01/" element={<FrAk01 />} />
         <Route path="fria01/" element={<FrIa01 />} />
         <Route path="ujian-fria01/" element={<FormulirIa01 />} />
+        <Route path="detailia01/:id" element={<DetailIa01 />} />
       </Route>
 
       <Route path="apl02" element={<Apl02Layout />}>

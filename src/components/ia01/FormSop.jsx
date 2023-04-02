@@ -6,7 +6,7 @@ import Loading from "../Loading";
 import { Button } from "@mui/material";
 import { Field } from "formik";
 
-const FormSop = ({ elemens, values }) => {
+const FormSop = ({ elemens, values, setValue }) => {
   return (
     <div className="">
       <div className="">
@@ -33,9 +33,16 @@ const FormSop = ({ elemens, values }) => {
             }
           </div>
         ))}
-        <Button variant="contained" type="submit">
-          Submit
-        </Button>
+        <div className="flex justify-end mt-4">
+          <Button
+            variant="contained"
+            className="bg-sky-700"
+            type="button"
+            onClick={() => setValue("2")}
+          >
+            Next
+          </Button>
+        </div>
       </div>
     </div>
   );

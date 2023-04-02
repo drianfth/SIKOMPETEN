@@ -35,6 +35,7 @@ export const checkAk01 = async (id1, id2) => {
     throw new Error(err.response);
   }
 };
+
 export const getAk01 = async (id) => {
   try {
     const res = await axios.get(`http://127.0.0.1:8000/api/hasilak01/${id}`, {

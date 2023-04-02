@@ -27,28 +27,35 @@ const DetailApl02 = () => {
             Detail Formulir APL 02
             <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
           </div>
-          <TabContext value={value}>
-            <TabList
-              onChange={handleChange}
-              aria-label="lab API tabs example"
-              className="flex justify-items-center"
-            >
-              <Tab label="Hasil APL02" value="1" />
-              <Tab label="Pengesahan" value="2" />
-            </TabList>
-            {isLoading ? (
-              <Loading />
-            ) : (
-              <div className="">
-                <TabPanel value="1">
-                  <JawabanApl02 data={data} />
-                </TabPanel>
-                <TabPanel value="2">
-                  <Apl02Pengesahan data={data[0]} />
-                </TabPanel>
-              </div>
-            )}
-          </TabContext>
+          {!data ? (
+            <div className="">
+              <h1 className="text-center">Tidak Ada Data</h1>
+            </div>
+          ) : (
+            <TabContext value={value}>
+              <TabList
+                onChange={handleChange}
+                aria-label="lab API tabs example"
+                className="flex justify-items-center"
+              >
+                <Tab label="Hasil APL02" value="1" />
+                <Tab label="Pengesahan" value="2" />
+              </TabList>
+              {isLoading ? (
+                <Loading />
+              ) : (
+                <div className="">
+                  <TabPanel value="1">
+                    <JawabanApl02 data={data} />
+                    
+                  </TabPanel>
+                  <TabPanel value="2">
+                    <Apl02Pengesahan data={data[0]} />
+                  </TabPanel>
+                </div>
+              )}
+            </TabContext>
+          )}
         </CardContent>
       </Card>
     </div>
