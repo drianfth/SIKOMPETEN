@@ -333,6 +333,8 @@ const Paket = () => {
   const { data, isLoading } = useQuery("paketSkema", getAllPaketSkema, {
     refetchInterval: 2000,
   });
+
+  
   const navigate = useNavigate();
   const paketDelete = useMutation(removePaketSkema);
   const { data: dataSkema } = useQuery("Skema", getAllSchema);

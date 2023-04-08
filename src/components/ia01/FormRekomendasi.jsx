@@ -202,7 +202,6 @@ const FormRekomendasi = ({ subElemens, values, errors }) => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };

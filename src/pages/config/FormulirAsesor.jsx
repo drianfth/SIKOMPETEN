@@ -39,6 +39,13 @@ const FormulirAsesor = () => {
       },
     });
   };
+  const openDaftarIA07 = () => {
+    navigate("/configuration/daftar-ia07/", {
+      state: {
+        sesi: dataSesi[0],
+      },
+    });
+  };
   return (
     <div>
       {isLoading ? (
@@ -63,6 +70,13 @@ const FormulirAsesor = () => {
                 <DescriptionIcon className="text-gray-700 group-hover:text-white" />
               }
               navigate={openDaftarIA}
+            />
+            <Menu
+              name="Formulir IA-07"
+              icon={
+                <DescriptionIcon className="text-gray-700 group-hover:text-white" />
+              }
+              navigate={openDaftarIA07}
             />
           </div>
         </>
