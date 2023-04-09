@@ -49,7 +49,7 @@ const DaftarIa07 = () => {
                     <TableCell align="center">{id + 1}</TableCell>
                     <TableCell align="center">{asesi.name}</TableCell>
                     <TableCell align="center">
-                      <Tooltip title="Buat IA 01 Untuk peserta ini">
+                      <Tooltip title="Buat IA 07 Untuk peserta ini">
                         <IconButton
                           className="text-sky-700"
                           onClick={() => openIA07(asesi)}
@@ -57,11 +57,11 @@ const DaftarIa07 = () => {
                           <NoteAddIcon />
                         </IconButton>
                       </Tooltip>
-                      <Tooltip title="Lihat IA 01 Untuk peserta ini">
+                      <Tooltip title="Lihat IA 07 Untuk peserta ini">
                         <IconButton
                           className="text-green-700"
                           onClick={() =>
-                            navigate(`/formulir/detailia01/${asesi.id}`)
+                            navigate(`/formulir/detailia07/${asesi.id}`)
                           }
                         >
                           <VisibilityIcon />
