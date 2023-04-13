@@ -18,6 +18,11 @@ const Configuration = () => {
           icon={<FolderIcon className="text-gray-700 group-hover:text-white" />}
           href="paket"
         />
+        <Menu
+          name="Tempat Uji Kompetensi"
+          icon={<FolderIcon className="text-gray-700 group-hover:text-white" />}
+          href="daftar-tuk"
+        />
       </div>
     </div>
   );
