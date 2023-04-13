@@ -42,6 +42,7 @@ import DetailIa07 from "./pages/config/fourmulirAsesor/ia07/DetailIa07";
 import DaftarIa03 from "./pages/config/fourmulirAsesor/ia03/DaftarIa03";
 import FrIa03 from "./pages/config/fourmulirAsesor/ia03/FrIa03";
 import FormulirIa03 from "./pages/config/fourmulirAsesor/ia03/FormulirIa03";
+import DaftarTuk from "./pages/config/Tuk/DaftarTuk";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -67,6 +68,7 @@ const router = createBrowserRouter(
         <Route path="daftar-ia01/" element={<DaftarIa01 />} />
         <Route path="daftar-ia03/" element={<DaftarIa03 />} />
         <Route path="daftar-ia07/" element={<DaftarIa07 />} />
+        <Route path="daftar-tuk/" element={<DaftarTuk />} />
         {/* <Route path="daftar-mapa01/" element={<DaftarMapa01 />} /> */}
         <Route path="detail-peserta/:id" element={<DetailPeserta />} />
       </Route>
