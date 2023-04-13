@@ -39,6 +39,9 @@ import DaftarIa07 from "./pages/config/fourmulirAsesor/ia07/DaftarIa07";
 import FrIa07 from "./pages/config/fourmulirAsesor/ia07/FrIa07";
 import FormulirIa07 from "./pages/config/fourmulirAsesor/ia07/FormulirIa07";
 import DetailIa07 from "./pages/config/fourmulirAsesor/ia07/DetailIa07";
+import DaftarIa03 from "./pages/config/fourmulirAsesor/ia03/DaftarIa03";
+import FrIa03 from "./pages/config/fourmulirAsesor/ia03/FrIa03";
+import FormulirIa03 from "./pages/config/fourmulirAsesor/ia03/FormulirIa03";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -62,6 +65,7 @@ const router = createBrowserRouter(
         <Route path="mapa01/:id" element={<FormulirAsesor />} />
         <Route path="daftar-ak01/" element={<DaftarAK01 />} />
         <Route path="daftar-ia01/" element={<DaftarIa01 />} />
+        <Route path="daftar-ia03/" element={<DaftarIa03 />} />
         <Route path="daftar-ia07/" element={<DaftarIa07 />} />
         {/* <Route path="daftar-mapa01/" element={<DaftarMapa01 />} /> */}
         <Route path="detail-peserta/:id" element={<DetailPeserta />} />
@@ -74,8 +78,10 @@ const router = createBrowserRouter(
         <Route path="detailak01/:id" element={<DetailAk01 />} />
         <Route path="frak01/" element={<FrAk01 />} />
         <Route path="fria01/" element={<FrIa01 />} />
+        <Route path="fria03/" element={<FrIa03 />} />
         <Route path="fria07/" element={<FrIa07 />} />
         <Route path="ujian-fria01/" element={<FormulirIa01 />} />
+        <Route path="ujian-fria03/" element={<FormulirIa03 />} />
         <Route path="ujian-fria07/" element={<FormulirIa07 />} />
         <Route path="detailia01/:id" element={<DetailIa01 />} />
         <Route path="detailia07/:id" element={<DetailIa07 />} />
