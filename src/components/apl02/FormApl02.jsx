@@ -89,7 +89,9 @@ const FormApl02 = () => {
   let soal = {};
   let validasi = {};
   elemenQues?.map((currElement, index) => (bukti["bukti" + (index + 1)] = ""));
-  elemenQues?.map((currElement, index) => (soal["soal" + (index + 1)] = ""));
+  elemenQues?.map(
+    (currElement, index) => (soal["soal" + (index + 1)] = "kompeten")
+  );
   elemenQues?.map(
     (currElement, index) =>
       (validasi["soal" + (index + 1)] = yup
@@ -162,6 +164,7 @@ const FormApl02 = () => {
             >
               {({ values, errors }) => (
                 <Form>
+                  {/* {console.log(values)} */}
                   {message && (
                     <Alert
                       // variant="filled"

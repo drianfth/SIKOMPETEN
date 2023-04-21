@@ -72,43 +72,51 @@ const DetailAk01 = () => {
           FR.AK.01
           <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
         </div>
-        {ak01.isLoading ? (
-          <Loading />
+        {!ak01.data ? (
+          <div className="">
+            <h1 className="text-center">Tidak Ada Data</h1>
+          </div>
         ) : (
           <div className="">
-            <HeadSchema schema={ak01.data[0].sesi.paket_skema.schema} />
-            <div className="grid grid-cols-1 mt-3 md:grid-cols-2 gap-x-3">
-              <FieldInput label="TUK" value={ak01.data[0]?.tuk} />
-              <FieldInput label="Asesi" value={ak01.data[0]?.asesi.name} />
-              <FieldInput
-                label="Tanggal"
-                value={ak01.data[0]?.sesi.paket_skema.tanggal}
-              />
-              <FieldInput
-                label="Waktu"
-                value={formatAmPm(ak01.data[0]?.sesi.jam)}
-              />
-              <FieldInput
-                label="Tempat Uji Kompetensi"
-                value={ak01.data[0].sesi.paket_skema.tuk.nama_tuk}
-              />
-              <FieldInput label="Bukti" value={ak01.data[0].bukti} />
-              <FieldInput
-                label="Status Konfirmasi"
-                value={
-                  ak01.data[0].konfirmasi_asesi === 1
-                    ? "Sudah dikonfirmasi"
-                    : "Belum Dikonfirmasi"
-                }
-              />
-            </div>
-            <Button
-              variant="contained"
-              className="bg-sky-700"
-              onClick={() => navigate(-1)}
-            >
-              Back
-            </Button>
+            {ak01.isLoading ? (
+              <Loading />
+            ) : (
+              <>
+                <HeadSchema schema={ak01.data[0].sesi.paket_skema.schema} />
+                <div className="grid grid-cols-1 mt-3 md:grid-cols-2 gap-x-3">
+                  <FieldInput label="TUK" value={ak01.data[0]?.tuk} />
+                  <FieldInput label="Asesi" value={ak01.data[0]?.asesi.name} />
+                  <FieldInput
+                    label="Tanggal"
+                    value={ak01.data[0]?.sesi.paket_skema.tanggal}
+                  />
+                  <FieldInput
+                    label="Waktu"
+                    value={formatAmPm(ak01.data[0]?.sesi.jam)}
+                  />
+                  <FieldInput
+                    label="Tempat Uji Kompetensi"
+                    value={ak01.data[0].sesi.paket_skema.tuk.nama_tuk}
+                  />
+                  <FieldInput label="Bukti" value={ak01.data[0].bukti} />
+                  <FieldInput
+                    label="Status Konfirmasi"
+                    value={
+                      ak01.data[0].konfirmasi_asesi === 1
+                        ? "Sudah dikonfirmasi"
+                        : "Belum Dikonfirmasi"
+                    }
+                  />
+                </div>
+                <Button
+                  variant="contained"
+                  className="bg-sky-700"
+                  onClick={() => navigate(-1)}
+                >
+                  Back
+                </Button>
+              </>
+            )}
           </div>
         )}
       </CardContent>
