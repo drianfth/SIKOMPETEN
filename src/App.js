@@ -43,6 +43,7 @@ import DaftarIa03 from "./pages/config/fourmulirAsesor/ia03/DaftarIa03";
 import FrIa03 from "./pages/config/fourmulirAsesor/ia03/FrIa03";
 import FormulirIa03 from "./pages/config/fourmulirAsesor/ia03/FormulirIa03";
 import DaftarTuk from "./pages/config/Tuk/DaftarTuk";
+import DetailIa03 from "./pages/config/fourmulirAsesor/ia03/DetailIa03";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -86,6 +87,7 @@ const router = createBrowserRouter(
         <Route path="ujian-fria03/" element={<FormulirIa03 />} />
         <Route path="ujian-fria07/" element={<FormulirIa07 />} />
         <Route path="detailia01/:id" element={<DetailIa01 />} />
+        <Route path="detailia03/:id" element={<DetailIa03 />} />
         <Route path="detailia07/:id" element={<DetailIa07 />} />
       </Route>
 

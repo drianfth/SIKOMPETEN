@@ -62,7 +62,7 @@ const DaftarIa03 = () => {
                         <IconButton
                           className="text-green-700"
                           onClick={() =>
-                            navigate(`/formulir/detailia07/${asesi.id}`)
+                            navigate(`/formulir/detailia03/${asesi.id}`)
                           }
                         >
                           <VisibilityIcon />
