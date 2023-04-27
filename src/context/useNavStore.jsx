@@ -17,7 +17,7 @@ const useNavStore = create((set, get) => ({
     },
     {
       id: 2,
-      name: "Dashboard",
+      name: "Hasil",
       href: "/dashboard",
       active: true,
       asesi: true,

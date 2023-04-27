@@ -57,7 +57,7 @@ const useAuth = () => {
       // console.log(res.data);
       const temp = await getUser();
       setUser(temp);
-      navigate("/dashboard");
+      navigate("/dashboard/uji-kompetensi");
     } catch (err) {
       console.log(err.response.data);
       setError(err.response.data);
