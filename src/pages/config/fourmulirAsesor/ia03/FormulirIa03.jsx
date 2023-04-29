@@ -164,6 +164,7 @@ const FormulirIa03 = () => {
       navigate(-2);
     },
   });
+  
   const pertanyaanIa03 = useQuery("pertanyaan-ia03", () =>
     getPertanyaanIa03(skema.id)
   );

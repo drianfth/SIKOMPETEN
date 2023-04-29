@@ -16,7 +16,7 @@ export const addAk01 = async (data) => {
     return res.data;
   } catch (err) {
     throw new Error(err.response);
-  }
+}
 };
 
 export const checkAk01 = async (id1, id2) => {

@@ -170,7 +170,7 @@ const BuktiKelengkapan = ({ kelengkapan, tujuan, link }) => {
     </div>
   );
 };
-const DataPengesahan = ({ status, konfirmasi }) => {
+const DataPengesahan = ({ status, konfirmasi, asesor }) => {
   return (
     <div className="border border-gray-300 p-8 rounded">
       <div className="">
@@ -179,6 +179,7 @@ const DataPengesahan = ({ status, konfirmasi }) => {
           label="Konfirmasi"
           value={konfirmasi === 1 ? "Sudah Dikonfirmasi" : "Belum Dikonfirmasi"}
         />
+        <FieldInput label="Asesor" value={asesor?.name || "belum diatur"} />
       </div>
     </div>
   );
@@ -272,6 +273,7 @@ const DetailApl01U = () => {
                     <DataPengesahan
                       konfirmasi={data[0]?.konfirmasi}
                       status={data[0]?.status}
+                      asesor={data[0]?.asesor}
                     />
                   )}
                 </main>

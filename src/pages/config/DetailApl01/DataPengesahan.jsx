@@ -51,6 +51,8 @@ const DataPengesahan = ({ data }) => {
           delete data.schema;
           delete data.r_kelengkapans;
           delete data.sesi;
+          delete data.asesor;
+          // console.log("mencoba", data);
           apl01Mutation.mutate({ data: data, id: data.id });
         }}
       >

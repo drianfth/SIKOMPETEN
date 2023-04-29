@@ -53,6 +53,13 @@ const FormulirAsesor = () => {
       },
     });
   };
+  const openDaftarAK02 = () => {
+    navigate("/configuration/daftar-ak02/", {
+      state: {
+        sesi: dataSesi[0],
+      },
+    });
+  };
   return (
     <div>
       {isLoading ? (
@@ -91,6 +98,13 @@ const FormulirAsesor = () => {
                 <DescriptionIcon className="text-gray-700 group-hover:text-white" />
               }
               navigate={openDaftarIA07}
+            />
+            <Menu
+              name="Formulir AK-02"
+              icon={
+                <DescriptionIcon className="text-gray-700 group-hover:text-white" />
+              }
+              navigate={openDaftarAK02}
             />
           </div>
         </>
