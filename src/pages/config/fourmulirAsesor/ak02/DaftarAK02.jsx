@@ -65,7 +65,7 @@ const DaftarAK02 = () => {
                         <IconButton
                           className="text-green-700"
                           onClick={() =>
-                            navigate(`/formulir/detailia07/${asesi.id}`)
+                            navigate(`/formulir/detailak02/${asesi.id}`)
                           }
                         >
                           <VisibilityIcon />

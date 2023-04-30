@@ -37,6 +37,9 @@ const ListFr = () => {
   const openHasilIA07 = () => {
     navigate(`/hasil/detailia07/${id}`);
   };
+  const openHasilAK02 = () => {
+    navigate(`/hasil/detailak02/${id}`);
+  };
   return (
     <div>
       <div className="text-center font-bold pb-8 text-xl text-gray-800">
@@ -85,6 +88,13 @@ const ListFr = () => {
             <DescriptionIcon className="text-gray-700 group-hover:text-white" />
           }
           navigate={openHasilIA07}
+        />
+        <Menu
+          name="Formulir AK-02"
+          icon={
+            <DescriptionIcon className="text-gray-700 group-hover:text-white" />
+          }
+          navigate={openHasilAK02}
         />
       </div>
     </div>

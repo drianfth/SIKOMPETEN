@@ -42,7 +42,7 @@ const HasilAsesmen = ({ data, setValue, errors, isValidasi }) => {
           variant="contained"
           type="button"
           className="bg-gray-500"
-          onClick={() => setValue("1")}
+          onClick={() => setValue("2")}
         >
           Back
         </Button>

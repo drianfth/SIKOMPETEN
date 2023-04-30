@@ -53,6 +53,8 @@ import DetailIA03U from "./pages/result-asesi/DetailIA03U";
 import DetailIA07U from "./pages/result-asesi/DetailIA07U";
 import DaftarAK02 from "./pages/config/fourmulirAsesor/ak02/DaftarAK02";
 import FrAk02 from "./pages/config/fourmulirAsesor/ak02/FrAk02";
+import DetailAK02 from "./pages/config/fourmulirAsesor/ak02/DetailAK02";
+import DetailAK02U from "./pages/result-asesi/DetailAK02U";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -91,6 +93,7 @@ const router = createBrowserRouter(
         <Route path="detailia01/:id" element={<DetailIA01U />} />
         <Route path="detailia03/:id" element={<DetailIA03U />} />
         <Route path="detailia07/:id" element={<DetailIA07U />} />
+        <Route path="detailak02/:id" element={<DetailAK02U />} />
       </Route>
 
       <Route path="formulir" element={<DashboardLayout />}>
@@ -109,6 +112,7 @@ const router = createBrowserRouter(
         <Route path="detailia01/:id" element={<DetailIa01 />} />
         <Route path="detailia03/:id" element={<DetailIa03 />} />
         <Route path="detailia07/:id" element={<DetailIa07 />} />
+        <Route path="detailak02/:id" element={<DetailAK02 />} />
       </Route>
 
       <Route path="apl02" element={<Apl02Layout />}>
