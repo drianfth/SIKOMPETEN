@@ -18,7 +18,6 @@ const Apl02 = () => {
       setSchema(data);
     },
   });
-  console.log(historyApl01);
 
   const openujian = () => {
     navigate("/apl02/ujian");

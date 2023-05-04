@@ -34,7 +34,6 @@ const FormAsesmen = ({ data, setValue }) => {
     ],
     []
   );
-
   const dataTable = useMemo(
     () => data?.schema.unit_kompetensis,
     [data?.schema.unit_kompetensis]

@@ -40,7 +40,6 @@ const DaftarAK01 = () => {
     });
   };
 
-
   return (
     <div>
       <div className="text-center font-bold pb-8 text-xl text-gray-800">

@@ -76,7 +76,7 @@ const FormApl02 = () => {
   // const schema = location.state.schema;
   const schema = useSchemaStore((state) => state.schema[0]);
   const historyApl01 = useApl02Store((state) => state.historyApl01);
-  console.log("skema", schema);
+  // console.log("skema", schema);
   const elemens = useQuery("elemens", () => getElemen(schema.id));
   // const { schema } = useSchemaStore();
   // console.log(location);
@@ -109,7 +109,7 @@ const FormApl02 = () => {
     setMessage(message);
   };
   const id = "apl2" + crypto.randomUUID().substring(0, 8);
-  console.log(historyApl01);
+  // console.log(historyApl01);
   const data_diri = {
     id,
     schema_id: schema?.id,
