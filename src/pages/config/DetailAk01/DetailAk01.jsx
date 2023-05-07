@@ -85,7 +85,7 @@ const DetailAk01 = () => {
                 <HeadSchema schema={ak01.data[0].sesi.paket_skema.schema} />
                 <div className="grid grid-cols-1 mt-3 md:grid-cols-2 gap-x-3">
                   <FieldInput label="TUK" value={ak01.data[0]?.tuk} />
-                  <FieldInput label="Asesi" value={ak01.data[0]?.asesi.name} />
+                  <FieldInput label="Asesi" value={ak01.data[0]?.asesi?.name} />
                   <FieldInput
                     label="Tanggal"
                     value={ak01.data[0]?.sesi.paket_skema.tanggal}

@@ -2,12 +2,13 @@ import { Alert, Button, Card, CardContent } from "@mui/material";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useMutation } from "react-query";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { addAk01 } from "../../../../api/ak01";
 import CheckboxInput from "../../../../components/apl01/CheckboxInput";
 import SelectInput from "../../../../components/apl01/SelectInput";
 import useAuthStore from "../../../../context/userAuthStore";
 import FieldInput from "../../DetailApl01/FieldInput";
+import LoadingBackground from "../../../../components/Backdrop";
 
 const HeadSchema = ({ schema }) => {
   return (
@@ -55,9 +56,20 @@ const HeadSchema = ({ schema }) => {
 };
 
 const Ak01 = () => {
+  const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
+
   const location = useLocation();
   const { user } = useAuthStore();
-  const createAk01Mutation = useMutation(addAk01);
+  const createAk01Mutation = useMutation(addAk01, {
+    onMutate: () => {
+      setOpen(true);
+    },
+    onSuccess: () => {
+      setOpen(false);
+      navigate(-1);
+    },
+  });
   const schema = location.state.sesi.paket_skema.schema;
   const optionTUK = [
     { id: 1, value: "Sewaktu", name: "Sewaktu" },
@@ -90,6 +102,8 @@ const Ak01 = () => {
   return (
     <Card className="shadow-lg h-full">
       <CardContent>
+        <LoadingBackground open={open} />
+
         <div className="text-center font-bold pb-6 text-xl text-gray-800">
           FR.AK.01 {location.state.sesi?.nama_sesi}
           <div className="w-full h-0.5 bg-gray-100 mt-3"></div>

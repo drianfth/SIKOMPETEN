@@ -113,7 +113,7 @@ const JawabanApl02 = ({ data }) => {
       <div className="flex w-full gap-x-5 mt-5">
         <div className="basis-9/12">
           <Question
-            data={data[0].jawaban_apl02s[elemenIndex]}
+            data={data[0]?.jawaban_apl02s[elemenIndex]}
             nomor={elemenIndex}
           />
         </div>
@@ -122,7 +122,7 @@ const JawabanApl02 = ({ data }) => {
             Nomor Elemen
           </h1>
           <div className="md:grid grid-cols-5 gap-2 ">
-            {data[0].jawaban_apl02s.map((e, index) => (
+            {data[0]?.jawaban_apl02s.map((e, index) => (
               <BoxNumber
                 number={index + 1}
                 key={e.id}
@@ -142,12 +142,12 @@ const JawabanApl02 = ({ data }) => {
         >
           Back
         </button>
-        {elemenIndex + 1 < data[0].jawaban_apl02s.length && (
+        {elemenIndex + 1 < data[0]?.jawaban_apl02s.length && (
           <button
             className="btn btn-primary"
             type="button"
             onClick={() =>
-              elemenIndex < data[0].jawaban_apl02s.length &&
+              elemenIndex < data[0]?.jawaban_apl02s.length &&
               setElemenIndex(elemenIndex + 1)
             }
           >

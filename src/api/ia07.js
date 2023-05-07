@@ -35,3 +35,20 @@ export const getIa07 = async (id) => {
     throw new Error(err.response);
   }
 };
+
+export const getDaftarIa07 = async (id) => {
+  try {
+    const res = await axios.get(
+      `http://127.0.0.1:8000/api/daftar-hasilIa07/${id}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${cookies.get("Authorization")}`,
+        },
+      }
+    );
+    return res.data;
+  } catch (err) {
+    throw new Error(err.response);
+  }
+};

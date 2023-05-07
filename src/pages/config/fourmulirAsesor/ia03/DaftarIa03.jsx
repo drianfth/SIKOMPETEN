@@ -12,10 +12,18 @@ import { IconButton, TableContainer, Tooltip } from "@mui/material";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import Loading from "../../../../components/Loading";
+import { getDaftarIa03 } from "../../../../api/ia03";
 
 const DaftarIa03 = () => {
   const location = useLocation();
   const asesis = useQuery("asesis", () => getPeserta(location.state.sesi.id));
+  const daftar = useQuery(
+    "daftar-ia03",
+    () => getDaftarIa03(location.state.sesi.id),
+    {
+      enabled: !!asesis,
+    }
+  );
   const navigate = useNavigate();
   const openIA03 = (data) => {
     navigate("/formulir/fria03", {
@@ -24,6 +32,16 @@ const DaftarIa03 = () => {
       },
     });
   };
+
+  function checkHasilIA03(data, hasil_apl01_id) {
+    console.log(data, hasil_apl01_id);
+    for (var i = 0; i < data?.length; i++) {
+      if (data[i]?.hasil_apl01_id === hasil_apl01_id) {
+        return true;
+      }
+    }
+    return false; // return false jika tidak ditemukan
+  }
 
   return (
     <div>
@@ -50,24 +68,50 @@ const DaftarIa03 = () => {
                     <TableCell align="center">{id + 1}</TableCell>
                     <TableCell align="center">{asesi.name}</TableCell>
                     <TableCell align="center">
-                      <Tooltip title="Buat IA 03 Untuk peserta ini">
-                        <IconButton
-                          className="text-sky-700"
-                          onClick={() => openIA03(asesi)}
-                        >
-                          <NoteAddIcon />
-                        </IconButton>
-                      </Tooltip>
-                      <Tooltip title="Lihat IA 03 Untuk peserta ini">
-                        <IconButton
-                          className="text-green-700"
-                          onClick={() =>
-                            navigate(`/formulir/detailia03/${asesi.id}`)
-                          }
-                        >
-                          <VisibilityIcon />
-                        </IconButton>
-                      </Tooltip>
+                      {checkHasilIA03(daftar.data, asesi.id) ? (
+                        <Tooltip title="Buat IA 03 Untuk peserta ini">
+                          <IconButton
+                            disabled
+                            className="text-gray-600"
+                            onClick={() => openIA03(asesi)}
+                          >
+                            <NoteAddIcon />
+                          </IconButton>
+                        </Tooltip>
+                      ) : (
+                        <Tooltip title="Buat IA 03 Untuk peserta ini">
+                          <IconButton
+                            className="text-sky-700"
+                            onClick={() => openIA03(asesi)}
+                          >
+                            <NoteAddIcon />
+                          </IconButton>
+                        </Tooltip>
+                      )}
+                      {checkHasilIA03(daftar.data, asesi.id) ? (
+                        <Tooltip title="Lihat IA 03 Untuk peserta ini">
+                          <IconButton
+                            className="text-green-700"
+                            onClick={() =>
+                              navigate(`/formulir/detailia03/${asesi.id}`)
+                            }
+                          >
+                            <VisibilityIcon />
+                          </IconButton>
+                        </Tooltip>
+                      ) : (
+                        <Tooltip title="Lihat IA 03 Untuk peserta ini">
+                          <IconButton
+                            disabled
+                            className="text-gray-600"
+                            onClick={() =>
+                              navigate(`/formulir/detailia03/${asesi.id}`)
+                            }
+                          >
+                            <VisibilityIcon />
+                          </IconButton>
+                        </Tooltip>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}

@@ -7,6 +7,8 @@ import Loading from "../../components/Loading";
 import useAuthStore from "../../context/userAuthStore";
 import FieldInput from "../config/DetailApl01/FieldInput";
 import Ak01 from "../config/fourmulirAsesor/ak01/Ak01";
+import { useNavigate } from "react-router-dom";
+import LoadingBackground from "../../components/Backdrop";
 
 const HeadSchema = ({ schema }) => {
   return (
@@ -65,12 +67,26 @@ const formatAmPm = (tanggal) => {
 };
 const FrAk01 = () => {
   const { user } = useAuthStore();
-  const updateMutation = useMutation(updateAk01);
+  const [open, setOpen] = React.useState(false);
+
+  const updateMutation = useMutation(updateAk01, {
+    onMutate: () => {
+      setOpen(true);
+    },
+    onSuccess: () => {
+      setOpen(false);
+      navigate(-1);
+    },
+  });
+  const navigate = useNavigate();
+
   // console.log(user.id);
   const ak02 = useQuery("detailAk01", () => getAk01(user.id));
   return (
     <Card className="shadow-lg h-full">
       <CardContent>
+        <LoadingBackground open={open} />
+
         <div className="text-center font-bold pb-6 text-xl text-gray-800">
           FR.AK.01
           <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
@@ -98,6 +114,7 @@ const FrAk01 = () => {
               {({ values }) => (
                 <Form>
                   <div className="grid grid-cols-1 mt-3 md:grid-cols-2 gap-x-3">
+                    {/* {console.log(values)} */}
                     <FieldInput label="TUK" value={ak02.data[0]?.tuk} />
                     <FieldInput
                       label="Asesor"

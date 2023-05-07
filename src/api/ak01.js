@@ -16,7 +16,7 @@ export const addAk01 = async (data) => {
     return res.data;
   } catch (err) {
     throw new Error(err.response);
-}
+  }
 };
 
 export const checkAk01 = async (id1, id2) => {
@@ -66,6 +66,7 @@ export const getDetailAk01 = async (id) => {
 
 export const updateAk01 = async ({ data, id }) => {
   try {
+    // console.log(data);
     const res = await axios({
       method: "put",
       url: `http://127.0.0.1:8000/api/hasilak01/${id}`,
@@ -75,7 +76,6 @@ export const updateAk01 = async ({ data, id }) => {
         Authorization: `Bearer ${cookies.get("Authorization")}`,
       },
     });
-    // console.log(res.data);
     return res.data;
   } catch (error) {
     console.log(error.response);

@@ -154,6 +154,7 @@ const FrAk02 = () => {
   const [open, setOpen] = React.useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  // console.log(location)
   const [dataJawaban, setDataJawaban] = useState([]);
   const [message, setMessage] = useState("");
   const [validationSchema, setValidationSchema] = useState([]);
@@ -242,6 +243,7 @@ const FrAk02 = () => {
             <Formik
               initialValues={{
                 hasil_apl01_id: location.state.asesi.id,
+                sesi_id: location.state.asesi.sesi_id,
                 user_id: data.data?.user_id,
                 asesor_id: data.data?.asesor_id,
                 tanggal_mulai: Date.now(),
@@ -267,6 +269,7 @@ const FrAk02 = () => {
                 const dataPost = {
                   data_inti: {
                     hasil_apl01_id: values.hasil_apl01_id,
+                    sesi_id: values.sesi_id,
                     user_id: values.user_id,
                     asesor_id: values.asesor_id,
                     tanggal_mulai: values.tanggal_mulai,
