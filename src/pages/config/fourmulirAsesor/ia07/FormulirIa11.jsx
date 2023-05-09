@@ -69,7 +69,7 @@ const FormulirIa11 = () => {
   const [value, setValue] = React.useState("1");
   const createIA11Mutation = useMutation(addIa11, {
     onSuccess: () => {
-      navigate(-1);
+      navigate(-2);
     },
   });
   const ak01 = location.state.ak01;

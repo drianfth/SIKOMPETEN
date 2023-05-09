@@ -101,7 +101,7 @@ const DaftarIa11 = () => {
                           </IconButton>
                         </Tooltip>
                       ) : (
-                        <Tooltip title="Lihat IA 07 Untuk peserta ini">
+                        <Tooltip title="Lihat IA 11 Untuk peserta ini">
                           <IconButton
                             disabled
                             className="text-gray-600"
