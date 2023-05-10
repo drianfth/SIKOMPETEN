@@ -61,6 +61,7 @@ import FrIa11 from "./pages/config/fourmulirAsesor/ia11/FrIa11";
 import DaftarIa11 from "./pages/config/fourmulirAsesor/ia11/DaftarIa11";
 import FormulirIa11 from "./pages/config/fourmulirAsesor/ia07/FormulirIa11";
 import DetailIa11 from "./pages/config/fourmulirAsesor/ia11/DetailIa11";
+import DetailAk05 from "./pages/config/fourmulirAsesor/ak05/DetailAk05";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -102,6 +103,7 @@ const router = createBrowserRouter(
         <Route path="detailia07/:id" element={<DetailIA07U />} />
         <Route path="detailak02/:id" element={<DetailAK02U />} />
         <Route path="detailak03/:id" element={<DetailAK03 />} />
+        <Route path="detailak05/" element={<DetailAk05 />} />
       </Route>
 
       <Route path="formulir" element={<DashboardLayout />}>

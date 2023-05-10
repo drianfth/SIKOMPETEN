@@ -24,6 +24,7 @@ const FormulirAsesor = () => {
   const { data: dataSesi, isLoading } = useQuery("sesiNow", () =>
     getSesiNow(id)
   );
+  // console.log(dataSesi);
   const navigate = useNavigate();
   const openDaftarAK = () => {
     navigate("/configuration/daftar-ak01/", {
@@ -55,6 +56,13 @@ const FormulirAsesor = () => {
   };
   const openDaftarAK02 = () => {
     navigate("/configuration/daftar-ak02/", {
+      state: {
+        sesi: dataSesi[0],
+      },
+    });
+  };
+  const openDaftarAK05 = () => {
+    navigate("/hasil/detailak05/", {
       state: {
         sesi: dataSesi[0],
       },
@@ -119,6 +127,13 @@ const FormulirAsesor = () => {
                 <DescriptionIcon className="text-gray-700 group-hover:text-white" />
               }
               navigate={openDaftarAK02}
+            />
+            <Menu
+              name="Formulir AK-05"
+              icon={
+                <DescriptionIcon className="text-gray-700 group-hover:text-white" />
+              }
+              navigate={openDaftarAK05}
             />
           </div>
         </>
