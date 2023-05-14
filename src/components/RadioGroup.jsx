@@ -2,7 +2,7 @@ import { ListItem } from "@mui/material";
 import { Field } from "formik";
 import React from "react";
 
-const RadioGroup = ({ name, options, label }) => {
+const RadioGroup = ({ name, options, label, error }) => {
   return (
     <div>
       <h1 className="mb-2 text-sm font-semibold  text-gray-900 ">{label}</h1>
@@ -21,6 +21,7 @@ const RadioGroup = ({ name, options, label }) => {
           </li>
         ))}
       </ul>
+      {error && <p className="mt-2 text-sm text-red-600 ">{error}.</p>}
     </div>
   );
 };

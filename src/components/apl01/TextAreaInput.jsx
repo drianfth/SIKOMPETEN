@@ -23,6 +23,7 @@ const TextAreaInput = ({ name, label, mandatory, error }) => {
             : "bg-gray-50 border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
         }  border-2  text-sm rounded-lg   block w-full p-2.5 outline-none`}
       />
+      {error && <p className="mt-2 text-sm text-red-600 ">{error}.</p>}
     </div>
   );
 };
