@@ -19,6 +19,7 @@ import { addAk05 } from "../../../../api/ak05";
 
 const FrAk05 = () => {
   const location = useLocation();
+  // console.log(location);
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("1");
   const { user } = useAuthStore();
@@ -80,6 +81,7 @@ const FrAk05 = () => {
   );
   const initialValues = {
     paket_skema_id: location.state?.sesi?.sesi?.paket_skema.id,
+    sesi_id: location.state?.sesi?.sesi?.id,
     asesor_id: user.id,
     schema_id: location.state?.sesi?.sesi?.paket_skema.schema_id,
     tuk: "",
@@ -111,6 +113,7 @@ const FrAk05 = () => {
     const dataPost = {
       data_inti: {
         paket_skema_id: values.paket_skema_id,
+        sesi_id: values.sesi_id,
         asesor_id: values.asesor_id,
         schema_id: values.schema_id,
         tuk: values.tuk,
