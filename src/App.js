@@ -63,6 +63,9 @@ import FormulirIa11 from "./pages/config/fourmulirAsesor/ia07/FormulirIa11";
 import DetailIa11 from "./pages/config/fourmulirAsesor/ia11/DetailIa11";
 import DetailAk05 from "./pages/config/fourmulirAsesor/ak05/DetailAk05";
 import FrAk05 from "./pages/config/fourmulirAsesor/ak05/FrAk05";
+import DaftarAK06 from "./pages/config/fourmulirAsesor/ak06/DaftarAK06";
+import DetailAk06 from "./pages/config/fourmulirAsesor/ak06/DetailAk06";
+import FrAk06 from "./pages/config/fourmulirAsesor/ak06/FrAk06";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -90,7 +93,9 @@ const router = createBrowserRouter(
         <Route path="daftar-ia07/" element={<DaftarIa07 />} />
         <Route path="daftar-ia11/" element={<DaftarIa11 />} />
         <Route path="daftar-ak02/" element={<DaftarAK02 />} />
-        <Route path="daftar-tuk/" element={<DaftarTuk />} />
+
+        <Route path="daftar-ak06/" element={<DaftarAK06 />} />
+
         <Route path="detail-peserta/:id" element={<DetailPeserta />} />
         {/* <Route path="daftar-mapa01/" element={<DaftarMapa01 />} /> */}
       </Route>
@@ -105,6 +110,7 @@ const router = createBrowserRouter(
         <Route path="detailak02/:id" element={<DetailAK02U />} />
         <Route path="detailak03/:id" element={<DetailAK03 />} />
         <Route path="detailak05/" element={<DetailAk05 />} />
+        <Route path="detailak06/" element={<DetailAk06 />} />
       </Route>
 
       <Route path="formulir" element={<DashboardLayout />}>
@@ -120,6 +126,7 @@ const router = createBrowserRouter(
         <Route path="frak02/" element={<FrAk02 />} />
         <Route path="frak03/:id" element={<FrAk03 />} />
         <Route path="frak05/" element={<FrAk05 />} />
+        <Route path="frak06/" element={<FrAk06 />} />
         <Route path="ujian-fria01/" element={<FormulirIa01 />} />
         <Route path="ujian-fria03/" element={<FormulirIa03 />} />
         <Route path="ujian-fria07/" element={<FormulirIa07 />} />

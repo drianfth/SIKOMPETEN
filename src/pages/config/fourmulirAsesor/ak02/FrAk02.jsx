@@ -228,6 +228,8 @@ const FrAk02 = () => {
     }
     return obj;
   }
+  
+
   return (
     <Card className="shadow-lg h-full">
       <CardContent>

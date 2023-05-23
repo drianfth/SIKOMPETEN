@@ -48,14 +48,9 @@ const Catatan = ({ user, setValue, errors }) => {
         >
           Back
         </Button>
-        <button
-          className="btn btn-primary"
-          type="submit"
-          // onClick={() => isValidasi(errors)}
-        >
+        <button className="btn btn-primary" type="submit">
           Submit
         </button>
-        {/* <button type="submit">submit</button> */}
       </div>
     </div>
   );

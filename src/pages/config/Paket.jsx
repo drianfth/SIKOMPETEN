@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 
 import Loading from "../../components/Loading";
 import { Link, useNavigate } from "react-router-dom";
@@ -105,8 +105,10 @@ const ModalConfirm = ({ setOpenConfirm, deletePaket }) => {
 };
 
 const ModalTambah = ({ setOpenAdd, optionSchema, optionTUK }) => {
+  const queryClient = useQueryClient();
   const paketMutation = useMutation(createPaketSkema, {
     onSuccess: () => {
+      queryClient.invalidateQueries(["paketSkema"]);
       setOpenAdd(false);
     },
   });
@@ -206,7 +208,7 @@ const ModalTambah = ({ setOpenAdd, optionSchema, optionTUK }) => {
                     type="submit"
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                   >
-                    Ubah
+                    Buat
                   </button>
                   <button
                     data-modal-hide="defaultModal"
@@ -226,8 +228,11 @@ const ModalTambah = ({ setOpenAdd, optionSchema, optionTUK }) => {
   );
 };
 const ModalUbah = ({ setOpenEdit, data, optionSchema, optionTUK }) => {
+  const queryClient = useQueryClient();
+
   const paketMutation = useMutation(updatePaketSkema, {
     onSuccess: () => {
+      queryClient.invalidateQueries(["paketSkema"]);
       setOpenEdit(false);
     },
   });
@@ -330,13 +335,18 @@ const ModalUbah = ({ setOpenEdit, data, optionSchema, optionTUK }) => {
 };
 
 const Paket = () => {
+  const queryClient = useQueryClient();
+
   const { data, isLoading } = useQuery("paketSkema", getAllPaketSkema, {
-    refetchInterval: 2000,
+    // refetchInterval: 2000,
   });
 
-  
   const navigate = useNavigate();
-  const paketDelete = useMutation(removePaketSkema);
+  const paketDelete = useMutation(removePaketSkema, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["paketSkema"]);
+    },
+  });
   const { data: dataSkema } = useQuery("Skema", getAllSchema);
   const { data: dataTuk } = useQuery("TUK", getAllTuk);
   const [edit, setEdit] = useState(false);
@@ -452,7 +462,5 @@ const Paket = () => {
     </div>
   );
 };
-
-
 
 export default Paket;

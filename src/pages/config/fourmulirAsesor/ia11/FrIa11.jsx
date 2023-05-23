@@ -11,7 +11,7 @@ const HeadSchema = ({ schema, ak01 }) => {
     <div className="flex mx-auto w-fit ">
       <div className="">
         <div className="p-4 border border-gray-400 ">
-          <p>Skema Sertifikasi</p>
+          <p>Skema Sertifikasi</p>   
           <span
             className={`${
               schema?.schema_sertifikasi === "KKNI"
