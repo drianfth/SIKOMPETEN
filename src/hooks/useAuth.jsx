@@ -54,10 +54,14 @@ const useAuth = () => {
       });
       setResponse(res.data);
       cookies.set("Authorization", res.data.token);
-      // console.log(res.data);
       const temp = await getUser();
+      // console.log(temp);
       setUser(temp);
-      navigate("/dashboard/uji-kompetensi");
+      if (temp.role === "asesor" || temp.role === "admin") {
+        navigate("/configuration");
+      } else {
+        navigate("/dashboard/uji-kompetensi");
+      }
     } catch (err) {
       console.log(err.response.data);
       setError(err.response.data);

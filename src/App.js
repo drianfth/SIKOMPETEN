@@ -66,6 +66,7 @@ import FrAk05 from "./pages/config/fourmulirAsesor/ak05/FrAk05";
 import DaftarAK06 from "./pages/config/fourmulirAsesor/ak06/DaftarAK06";
 import DetailAk06 from "./pages/config/fourmulirAsesor/ak06/DetailAk06";
 import FrAk06 from "./pages/config/fourmulirAsesor/ak06/FrAk06";
+import FrIa02 from "./pages/uji-kompetensi/FrIa02";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -127,6 +128,7 @@ const router = createBrowserRouter(
         <Route path="frak03/:id" element={<FrAk03 />} />
         <Route path="frak05/" element={<FrAk05 />} />
         <Route path="frak06/" element={<FrAk06 />} />
+        <Route path="fria02/" element={<FrIa02 />} />
         <Route path="ujian-fria01/" element={<FormulirIa01 />} />
         <Route path="ujian-fria03/" element={<FormulirIa03 />} />
         <Route path="ujian-fria07/" element={<FormulirIa07 />} />
