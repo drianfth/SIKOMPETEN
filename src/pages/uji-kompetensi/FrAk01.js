@@ -81,7 +81,7 @@ const FrAk01 = () => {
   const navigate = useNavigate();
 
   // console.log(user.id);
-  const ak02 = useQuery("detailAk01", () => getAk01(user.id));
+  const ak01 = useQuery("detailAk01", () => getAk01(user.id));
   return (
     <Card className="shadow-lg h-full">
       <CardContent>
@@ -91,97 +91,119 @@ const FrAk01 = () => {
           FR.AK.01
           <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
         </div>
-        {ak02.isLoading ? (
-          <Loading />
+        {!ak01.data?.result?.id ? (
+          <div className="">
+            <h1 className="text-center">Tidak Ada Data</h1>
+          </div>
         ) : (
           <div className="">
-            <HeadSchema schema={ak02.data[0].sesi.paket_skema.schema} />
-            <Alert
-              variant="outlined"
-              severity="info"
-              className="mt-4 w-10/12 md:w-1/2 mx-auto"
-            >
-              Persetujuan Asesmen ini untuk menjamin bahwa Asesi telah diberi
-              arahan secara rinci tentang perencanaan dan proses asesmen
-            </Alert>
-            <Formik
-              initialValues={{ konfirmasi_asesi: 1 }}
-              onSubmit={async (values) => {
-                updateMutation.mutate({ data: values, id: ak02.data[0].id });
-                // console.log(values);
-              }}
-            >
-              {({ values }) => (
-                <Form>
-                  <div className="grid grid-cols-1 mt-3 md:grid-cols-2 gap-x-3">
-                    {/* {console.log(values)} */}
-                    <FieldInput label="TUK" value={ak02.data[0]?.tuk} />
-                    <FieldInput
-                      label="Asesor"
-                      value={ak02.data[0]?.asesor.name}
-                    />
-                    <FieldInput
-                      label="Tanggal"
-                      value={ak02.data[0]?.sesi.paket_skema.tanggal}
-                    />
-                    <FieldInput
-                      label="waktu"
-                      value={formatAmPm(ak02.data[0]?.sesi.jam)}
-                    />
-                    <FieldInput
-                      label="Tempat Uji Kompetensi"
-                      value={ak02.data[0].sesi.paket_skema.tuk.nama_tuk}
-                    />
-                    <FieldInput label="Bukti" value={ak02.data[0].bukti} />
-                  </div>
-                  <Button
-                    variant="contained"
-                    type="submit"
-                    className="bg-sky-700"
-                  >
-                    Konfirmasi
-                  </Button>
-                </Form>
-              )}
-            </Formik>
-            <Alert
-              variant="outlined"
-              severity="info"
-              className="mt-4 w-10/12 md:w-1/2 mx-auto"
-            >
-              <p>
-                <strong>Asesi :</strong>{" "}
-              </p>{" "}
-              Bahwa Saya Sudah Mendapatkan Penjelasan Hak dan Prosedur Banding
-              Oleh Asesor.
-            </Alert>
+            {ak01.isLoading ? (
+              <Loading />
+            ) : (
+              <div className="">
+                <HeadSchema
+                  schema={ak01.data?.result?.sesi.paket_skema.schema}
+                />
+                <Alert
+                  variant="outlined"
+                  severity="info"
+                  className="mt-4 w-10/12 md:w-1/2 mx-auto"
+                >
+                  Persetujuan Asesmen ini untuk menjamin bahwa Asesi telah
+                  diberi arahan secara rinci tentang perencanaan dan proses
+                  asesmen
+                </Alert>
+                <Formik
+                  initialValues={{ konfirmasi_asesi: 1 }}
+                  onSubmit={async (values) => {
+                    updateMutation.mutate({
+                      data: values,
+                      id: ak01.data?.result?.id,
+                    });
+                    // console.log(values);
+                  }}
+                >
+                  {({ values }) => (
+                    <Form>
+                      <div className="grid grid-cols-1 mt-3 md:grid-cols-2 gap-x-3">
+                        {/* {console.log(values)} */}
+                        <FieldInput
+                          label="TUK"
+                          value={ak01.data?.result?.tuk}
+                        />
+                        <FieldInput
+                          label="Asesor"
+                          value={ak01.data?.result?.asesor.name}
+                        />
+                        <FieldInput
+                          label="Tanggal"
+                          value={ak01.data?.result?.sesi.paket_skema.tanggal}
+                        />
+                        <FieldInput
+                          label="waktu"
+                          value={formatAmPm(ak01.data?.result?.sesi.jam)}
+                        />
+                        <FieldInput
+                          label="Tempat Uji Kompetensi"
+                          value={
+                            ak01.data?.result?.sesi.paket_skema.tuk.nama_tuk
+                          }
+                        />
+                        <FieldInput
+                          label="Bukti"
+                          value={ak01.data?.result?.bukti}
+                        />
+                      </div>
+                      <Button
+                        variant="contained"
+                        type="submit"
+                        className="bg-sky-700"
+                      >
+                        Konfirmasi
+                      </Button>
+                    </Form>
+                  )}
+                </Formik>
+                <Alert
+                  variant="outlined"
+                  severity="info"
+                  className="mt-4 w-10/12 md:w-1/2 mx-auto"
+                >
+                  <p>
+                    <strong>Asesi :</strong>{" "}
+                  </p>{" "}
+                  Bahwa Saya Sudah Mendapatkan Penjelasan Hak dan Prosedur
+                  Banding Oleh Asesor.
+                </Alert>
 
-            <Alert
-              variant="outlined"
-              severity="info"
-              className="mt-4 w-10/12 md:w-1/2 mx-auto"
-            >
-              <p>
-                <strong>Asesor :</strong>{" "}
-              </p>{" "}
-              Menyatakan tidak akan membuka hasil pekerjaan yang saya peroleh
-              karena penugasan saya sebagai Asesor dalam pekerjaan Asesmen
-              kepada siapapun atau organisasi apapun selain kepada pihak yang
-              berwenang sehubungan dengan kewajiban saya sebagai Asesor yang
-              ditugaskan oleh LSP
-            </Alert>
-            <Alert
-              variant="outlined"
-              severity="info"
-              className="mt-4 w-10/12 md:w-1/2 mx-auto"
-            >
-              <p>
-                <strong>Asesi :</strong>{" "}
-              </p>{" "}
-              Saya setuju mengikuti asesmen dengan pemahaman bahwa informasi
-              yang dikumpulkan hanya digunakan untuk pengembangan profesional
-              dan hanya dapat diakses oleh orang tertentu saja.
-            </Alert>
+                <Alert
+                  variant="outlined"
+                  severity="info"
+                  className="mt-4 w-10/12 md:w-1/2 mx-auto"
+                >
+                  <p>
+                    <strong>Asesor :</strong>{" "}
+                  </p>{" "}
+                  Menyatakan tidak akan membuka hasil pekerjaan yang saya
+                  peroleh karena penugasan saya sebagai Asesor dalam pekerjaan
+                  Asesmen kepada siapapun atau organisasi apapun selain kepada
+                  pihak yang berwenang sehubungan dengan kewajiban saya sebagai
+                  Asesor yang ditugaskan oleh LSP
+                </Alert>
+                <Alert
+                  variant="outlined"
+                  severity="info"
+                  className="mt-4 w-10/12 md:w-1/2 mx-auto"
+                >
+                  <p>
+                    <strong>Asesi :</strong>{" "}
+                  </p>{" "}
+                  Saya setuju mengikuti asesmen dengan pemahaman bahwa informasi
+                  yang dikumpulkan hanya digunakan untuk pengembangan
+                  profesional dan hanya dapat diakses oleh orang tertentu saja.
+                </Alert>
+              </div>
+            )}
           </div>
         )}
       </CardContent>

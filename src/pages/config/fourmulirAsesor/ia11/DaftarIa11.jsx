@@ -60,7 +60,7 @@ const DaftarIa11 = () => {
                 <TableRow className="bg-gray-100">
                   <TableCell align="center">Nomor</TableCell>
                   <TableCell align="center">Nama Peserta</TableCell>
-                  <TableCell align="center">Formulir IA07</TableCell>
+                  <TableCell align="center">Formulir IA11</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -90,7 +90,7 @@ const DaftarIa11 = () => {
                         </Tooltip>
                       )}
                       {checkHasilIA11(daftar.data, asesi.id) ? (
-                        <Tooltip title="Lihat IA 07 Untuk peserta ini">
+                        <Tooltip title="Lihat IA 11 Untuk peserta ini">
                           <IconButton
                             className="text-green-700"
                             onClick={() =>

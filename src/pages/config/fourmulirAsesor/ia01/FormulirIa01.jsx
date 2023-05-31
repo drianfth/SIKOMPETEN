@@ -97,11 +97,11 @@ const FormulirIa01 = () => {
                     (elemen, index) =>
                       (data_elemen["elemen" + (index + 1)] = elemen.id)
                   );
-                const indexElemen = Object.values(data_elemen);
-                indexElemen.map(
-                  (val, index) =>
-                    (hasil_sop["sop" + (index + 1)] = values["sop" + val])
-                );
+                // const indexElemen = Object.values(data_elemen);
+                // indexElemen.map(
+                //   (val, index) =>
+                //     (hasil_sop["sop" + (index + 1)] = values["sop" + val])
+                // );
                 subElemen.data?.map(
                   (sub, index) =>
                     (rekomendasi["rekomendasi" + (index + 1)] =
@@ -125,13 +125,12 @@ const FormulirIa01 = () => {
                     rekomendasi,
                     penilaian_lanjut,
                   },
-                  data_sop: {
-                    data_elemen,
-                    hasil_sop,
-                  },
+                  // data_sop: {
+                  //   data_elemen,
+                  //   hasil_sop,
+                  // },
                 };
                 iaMutation.mutate(data);
-                
               }}
             >
               {({ values, errors }) => (
@@ -144,29 +143,29 @@ const FormulirIa01 = () => {
                         variant="scrollable"
                         scrollButtons="auto"
                       >
-                        <Tab
-                          label="Benchmark SOP / spesifikasi produk industri"
-                          value="1"
-                        />
-                        <Tab label="Umpan Balik" value="2" />
+                        <Tab label="Umpan Balik" value="1" />
                         <Tab
                           label="Rekomendasi dan Penilaian Lanjut"
-                          value="3"
+                          value="2"
                         />
+                        {/* <Tab
+                          label="Rekomendasi dan Penilaian Lanjut"
+                          value="3"
+                        /> */}
                       </TabList>
                     </div>
                     {/* {console.log(values)} */}
-                    <TabPanel value="1">
+                    {/* <TabPanel value="1">
                       <FormSop
                         elemens={elemens.data[0]}
                         values={values}
                         setValue={setValue}
                       />
-                    </TabPanel>
-                    <TabPanel value="2">
+                    </TabPanel> */}
+                    <TabPanel value="1">
                       <UmpanBalik values={values} setValue={setValue} />
                     </TabPanel>
-                    <TabPanel value="3">
+                    <TabPanel value="2">
                       <FormRekomendasi
                         subElemens={subElemen.data}
                         values={values}

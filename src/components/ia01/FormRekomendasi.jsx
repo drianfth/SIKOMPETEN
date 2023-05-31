@@ -63,6 +63,9 @@ const Question = ({ subElemen, nomor, nameRadio, namePenilaian }) => {
             <p className="mb-3">
               <strong>Sub Elemen : </strong> {subElemen.name}
             </p>
+            <p className="mb-3">
+              <strong>SOP : </strong> {subElemen.elemen.sop || "-"}
+            </p>
             <div className=" ml-2 mt-5 ">
               <div className="mb-8">
                 <label htmlFor="" className="font-bold">

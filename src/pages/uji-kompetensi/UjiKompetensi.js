@@ -7,17 +7,21 @@ import SubTimeLine from "../../components/SubTimeLine";
 import useFetchAuth from "../../hooks/useFetchAuth";
 import { getOneApl02 } from "../../api/apl02";
 import { getSesiNow } from "../../api/sesi";
+import { getAllJadwal } from "../../api/jadwal";
 
 const UjiKompetensi = () => {
   const { data, loading } = useFetchAuth("http://127.0.0.1:8000/api/jadwal");
   const { user } = useAuthStore();
 
+  const jadwals = useQuery("jadwals", getAllJadwal, {
+    refetchInterval: 200,
+  });
   const hasilQuery = useQuery("oneHasilApl01", () => getOneApl01(user.id));
   const apl02Query = useQuery("oneHasilApl02", () => getOneApl02(user.id));
   const isDoApl01 = hasilQuery.data?.some((t) => t.konfirmasi === 0);
   const isDoApl02 = apl02Query.data?.some((t) => t.konfirmasi === 0);
   // const sesiId = hasilQuery.data[0]?.sesi_id;
-  // console.log(hasilQuery.data);
+  // console.log(jadwals?.data);
   const sesiQuery = useQuery(
     ["sesi"],
     () => getSesiNow(hasilQuery.data[0]?.sesi_id),
@@ -35,12 +39,12 @@ const UjiKompetensi = () => {
             <div className="w-full h-0.5 bg-gray-100 mt-3"></div>
           </div>
 
-          {loading ? (
+          {jadwals.isLoading ? (
             <Loading />
           ) : (
             <div className="flex justify-center my-10">
               <ol className="relative border-l w-9/12 ml-4 border-gray-200">
-                {data?.map((jadwal) => (
+                {jadwals.data?.map((jadwal) => (
                   <SubTimeLine
                     key={jadwal.id}
                     title={jadwal.name}

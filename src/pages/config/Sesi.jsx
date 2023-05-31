@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { createSesi, getSesi, removeSesi, updateSesi } from "../../api/sesi";
 import { Link, useParams } from "react-router-dom";
 import Paper from "@mui/material/Paper";
@@ -103,8 +103,11 @@ const ModalConfirm = ({ setOpenConfirm, deletePaket }) => {
 };
 
 const ModalUbah = ({ setOpenEdit, optionAsesor, paket_skema_id, data }) => {
+  const queryClient = useQueryClient();
+
   const sesiMutation = useMutation(updateSesi, {
     onSuccess: () => {
+      queryClient.invalidateQueries(["jadwals"]);
       setOpenEdit(false);
     },
   });

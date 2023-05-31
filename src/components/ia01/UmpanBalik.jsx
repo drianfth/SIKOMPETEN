@@ -15,7 +15,7 @@ const UmpanBalik = ({ values, setValue }) => {
           variant="contained"
           type="button"
           className="bg-sky-700"
-          onClick={() => setValue("3")}
+          onClick={() => setValue("2")}
         >
           Next Page
         </Button>

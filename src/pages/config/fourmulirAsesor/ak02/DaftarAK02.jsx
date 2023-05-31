@@ -37,7 +37,7 @@ const DaftarAK02 = () => {
     });
   };
   function checkHasilAk02(data, hasil_apl01_id) {
-    console.log(data, hasil_apl01_id);
+    // console.log(data, hasil_apl01_id);
     for (var i = 0; i < data?.length; i++) {
       if (data[i]?.hasil_apl01_id === hasil_apl01_id) {
         return true;

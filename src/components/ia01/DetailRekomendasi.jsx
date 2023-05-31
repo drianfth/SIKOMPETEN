@@ -60,6 +60,9 @@ const Question = ({ data, nomor }) => {
             <p className="mb-3">
               <strong>Sub Elemen : </strong> {data.sub_elemen.name}
             </p>
+            <p className="mb-3">
+              <strong>SOP : </strong> {data.sub_elemen.elemen.sop || "-"}
+            </p>
             <div className=" ml-2 mt-5 ">
               <div className="mb-8">
                 <label htmlFor="" className="font-bold">

@@ -228,7 +228,6 @@ const FrAk02 = () => {
     }
     return obj;
   }
-  
 
   return (
     <Card className="shadow-lg h-full">
@@ -248,8 +247,8 @@ const FrAk02 = () => {
                 sesi_id: location.state.asesi.sesi_id,
                 user_id: data.data?.user_id,
                 asesor_id: data.data?.asesor_id,
-                tanggal_mulai: Date.now(),
-                tanggal_selesai: Date.now(),
+                tanggal_mulai: new Date().toISOString(),
+                tanggal_selesai: new Date().toISOString(),
                 rekomendasi: "",
                 tindak_lanjut: "",
                 komentar: "",
@@ -298,7 +297,7 @@ const FrAk02 = () => {
                       {message}
                     </Alert>
                   )}
-                  {/* {console.log(values)} */}
+                  {/* {console.log(errors)} */}
                   <TabContext value={value}>
                     <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                       <TabList

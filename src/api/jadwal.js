@@ -32,6 +32,7 @@ export const updateJadwal = async ({ data, id }) => {
 };
 
 export const getAllJadwal = async () => {
+  // console.log("halo");
   try {
     const res = await axios.get(`http://127.0.0.1:8000/api/jadwal`, {
       headers: {
@@ -39,7 +40,7 @@ export const getAllJadwal = async () => {
         Authorization: `Bearer ${cookies.get("Authorization")}`,
       },
     });
-    // console.log("tes");
+    // console.log("halo", res.data);
     return res.data;
   } catch (err) {
     console.log(err.response);

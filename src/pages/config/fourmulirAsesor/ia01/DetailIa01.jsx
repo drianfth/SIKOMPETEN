@@ -43,21 +43,21 @@ const DetailIa01 = () => {
                     variant="scrollable"
                     scrollButtons="auto"
                   >
-                    <Tab
+                    {/* <Tab
                       label="Benchmark (SOP / spesifikasi produk industri)"
                       value="1"
-                    />
-                    <Tab label="Umpan Balik" value="2" />
-                    <Tab label="Rekomendasi & Penilaian Lanjut" value="3" />
+                    /> */}
+                    <Tab label="Umpan Balik" value="1" />
+                    <Tab label="Rekomendasi & Penilaian Lanjut" value="2" />
                   </TabList>
                 </div>
-                <TabPanel value="1">
+                {/* <TabPanel value="1">
                   <DetailSop
                     sops={ia01.data[0].jawaban_sops}
                     setValue={setValue}
                   />
-                </TabPanel>
-                <TabPanel value="2">
+                </TabPanel> */}
+                <TabPanel value="1">
                   <FieldInput
                     label="Umpan Balik ke Asesi"
                     value={
@@ -65,8 +65,10 @@ const DetailIa01 = () => {
                     }
                   />
                 </TabPanel>
-                <TabPanel value="3">
-                  <DetailRekomendasi jawaban_ia01s={ia01.data[0].jawaban_ia01s} />
+                <TabPanel value="2">
+                  <DetailRekomendasi
+                    jawaban_ia01s={ia01.data[0].jawaban_ia01s}
+                  />
                 </TabPanel>
               </TabContext>
             )}
