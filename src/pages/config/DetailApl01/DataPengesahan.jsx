@@ -1,16 +1,18 @@
 import { Alert, Button, IconButton, Snackbar } from "@mui/material";
 import { Field, Form, Formik } from "formik";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { updateApl01 } from "../../../api/apl01";
 import CloseIcon from "@mui/icons-material/Close";
 import SelectInput from "../../../components/apl01/SelectInput";
 
-const DataPengesahan = ({ data }) => {
+const DataPengesahan = ({ data, admins }) => {
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(true);
   };
+  // console.log(admins);
+  const [adminOption, setAdminOption] = useState(null);
 
   const asesorOption = [
     {
@@ -24,7 +26,16 @@ const DataPengesahan = ({ data }) => {
       name: data.sesi?.asesor2?.name,
     },
   ];
-  // console.log(asesorOption);
+
+  useEffect(() => {
+    const optionAd = admins?.map((admin) => ({
+      id: admin?.id,
+      value: admin?.id,
+      name: admin?.name,
+    }));
+    setAdminOption(optionAd);
+  }, [admins]);
+  // console.log(adminOption);
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -42,12 +53,14 @@ const DataPengesahan = ({ data }) => {
         initialValues={{
           status: data.status,
           asesor_id: data.asesor_id,
+          admin_id: data.admin_id,
           konfirmasi: data.konfirmasi === 0 ? "belum konfirmasi" : "konfirmasi",
         }}
         onSubmit={async (values) => {
           data["konfirmasi"] = values.konfirmasi === "konfirmasi" ? 1 : 0;
           data["status"] = values.status;
           data["asesor_id"] = values.asesor_id;
+          data["admin_id"] = values.admin_id;
           delete data.schema;
           delete data.r_kelengkapans;
           delete data.sesi;
@@ -105,7 +118,7 @@ const DataPengesahan = ({ data }) => {
                 </div>
               </div>
 
-              <div className="flex flex-col md:px-5 mt-10 space-x-4">
+              <div className="flex flex-col md:px-5 mt-5 space-x-4">
                 <label
                   htmlFor=""
                   className="font-semibold text-gray-700 md:w-5/12"
@@ -137,12 +150,20 @@ const DataPengesahan = ({ data }) => {
                   </div>
                 </div>
               </div>
-              <div className="ml-2 mt-2">
+              <div className="ml-2 mt-4">
                 <SelectInput
                   label="Asesor"
                   name="asesor_id"
                   key={1}
                   option={asesorOption}
+                />
+              </div>
+              <div className="ml-2 mt-4">
+                <SelectInput
+                  label="Admin LSP"
+                  name="admin_id"
+                  key={2}
+                  option={adminOption}
                 />
               </div>
               <div className="flex justify-end mt-4">

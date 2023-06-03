@@ -1,0 +1,92 @@
+table.pdfTableApl1 {
+  border: 1px solid #1c6ea4;
+  background-color: white;
+  width: 100%;
+  text-align: center;
+  border-collapse: collapse;
+}
+table.pdfTableApl1 td,
+table.pdfTableApl1 th {
+  border: 1px solid #aaaaaa;
+  padding: 3px 2px;
+}
+table.pdfTableApl1 tbody td {
+  font-size: 11px;
+}
+table.pdfTableApl1 thead {
+  /* background: #d6e3bc; */
+  /* background: -moz-linear-gradient(top, #e0eacd 0%, #dae5c2 66%, #d6e3bc 100%); */
+  /* background: -webkit-linear-gradient(
+    top,
+    #e0eacd 0%,
+    #dae5c2 66%,
+    #d6e3bc 100%
+  ); */
+  background: linear-gradient(to bottom, #e0eacd 0%, #dae5c2 66%, #d6e3bc 100%);
+  border-bottom: 2px solid #444444;
+}
+table.pdfTableApl1 thead th {
+  font-size: 11px;
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+  border-left: 1px solid black;
+}
+table.pdfTableApl1 thead th:first-child {
+  border-left: none;
+}
+
+table.pdfTableApl1 tfoot td {
+  font-size: 14px;
+}
+table.pdfTableApl1 tfoot .links {
+  text-align: right;
+}
+table.pdfTableApl1 tfoot .links a {
+  display: inline-block;
+  background: #1c6ea4;
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+.tg {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+.tg td {
+  border: 1px solid #444444;
+
+  font-size: 11px;
+  overflow: hidden;
+  padding: 10px 5px;
+  word-break: normal;
+}
+.tg th {
+  border: 1px solid #444444;
+
+  font-size: 11px;
+  font-weight: normal;
+  overflow: hidden;
+  padding: 10px 5px;
+  word-break: normal;
+}
+.tg .tg-8i64 {
+  background-color: #d6e3bc;
+  border-color: #000000;
+  text-align: center;
+  vertical-align: top;
+}
+.tg .tg-c3do {
+  background-color: #d6e3bc;
+  font-weight: bold;
+  /* border-color: inherit; */
+  text-align: center;
+  vertical-align: center;
+}
+.tg .tg-0pky {
+  /* border-color: inherit; */
+  text-align: left;
+  vertical-align: top;
+}
+

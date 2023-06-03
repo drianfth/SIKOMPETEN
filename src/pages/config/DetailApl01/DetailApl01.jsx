@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getDetailApl01 } from "../../../api/apl01";
 import { Card, CardContent, Tab, Tabs } from "@mui/material";
@@ -9,7 +9,12 @@ import DataPribadi from "./DataPribadi";
 import DataPekerjaan from "./DataPekerjaan";
 import BuktiKelengkapan from "./BuktiKelengkapan";
 import DataPengesahan from "./DataPengesahan";
-
+import { getUnitKompetensi } from "../../../api/unitKompetensi";
+import { useReactToPrint } from "react-to-print";
+import { CanvasPdf } from "./PdfApl01";
+import PrintIcon from "@mui/icons-material/Print";
+import useAuthStore from "../../../context/userAuthStore";
+import { getAllAdmin } from "../../../api/user";
 const HeadSchema = ({ schema }) => {
   return (
     <div className="flex mx-auto w-fit ">
@@ -59,6 +64,26 @@ const HeadSchema = ({ schema }) => {
 
 const DetailApl01 = () => {
   let { id } = useParams();
+  const { user } = useAuthStore();
+
+  const [loading, setLoading] = useState(false);
+  const componentRef = React.useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    onBeforeGetContent: () => setLoading(true),
+    onBeforePrint: () => setLoading(false),
+    pageStyle: `@page {
+      margin-top: 2.5cm;
+      margin-left: 2.5cm;
+      margin-bottom: 2cm;
+      margin-right: 2cm;
+      size: auto
+    }
+    @media print { body { -webkit-print-color-adjust: exact; } }"
+    `,
+  });
+
+  const navigate = useNavigate();
   const { data, isLoading } = useQuery(
     "detailApl01",
     () => getDetailApl01(id),
@@ -66,6 +91,15 @@ const DetailApl01 = () => {
       refetchInterval: 2000,
     }
   );
+  // console.log(data);
+  const unitKompetensi = useQuery(
+    "unitKompetensi",
+    () => getUnitKompetensi(data[0].schema.id),
+    {
+      enabled: !!data,
+    }
+  );
+  const admins = useQuery("admins", getAllAdmin);
   const initialTab = [
     { id: 1, name: "Data Pribadi", active: true },
     { id: 2, name: "Data Pekerjaan", active: false },
@@ -105,7 +139,7 @@ const DetailApl01 = () => {
       handleTab(index - 1);
     }
   };
-
+  // console.log(user);
   return (
     <div>
       <Card className="shadow-lg h-full">
@@ -119,6 +153,19 @@ const DetailApl01 = () => {
           ) : (
             <div className="">
               <HeadSchema schema={data[0].schema} />
+              <div className="">
+                <CanvasPdf
+                  componentRef={componentRef}
+                  data={data[0]}
+                  unitKompetensi={unitKompetensi?.data}
+                />
+                <button
+                  className="bg-sky-700 px-4 py-2 text-white rounded shadow"
+                  onClick={handlePrint}
+                >
+                  {!loading ? <PrintIcon /> : "Donwloading..."}
+                </button>
+              </div>
               <div className="flex w-full px-3 mt-4">
                 <div className="w-2/12 md:flex flex-col hidden">
                   {tab.map((t) => (
@@ -134,13 +181,23 @@ const DetailApl01 = () => {
                 <main className="w-full transition-all duration-600">
                   {currentTab === 1 && <DataPribadi data={data[0]} />}
                   {currentTab === 2 && <DataPekerjaan data={data[0]} />}
-                  {currentTab === 4 && <DataPengesahan data={data[0]} />}
                   {currentTab === 3 && (
                     <BuktiKelengkapan
                       kelengkapan={data[0].r_kelengkapans}
                       tujuan={data[0].tujuan_asesmen}
                       link={data[0].link}
                     />
+                  )}
+                  {currentTab === 4 && user?.role === "admin" ? (
+                    <DataPengesahan data={data[0]} admins={admins.data} />
+                  ) : (
+                    <div className="">
+                      {currentTab === 4 && (
+                        <h1 className="text-center">
+                          Anda tidak punya wewenang untuk mengakses halaman ini
+                        </h1>
+                      )}
+                    </div>
                   )}
                 </main>
               </div>
@@ -152,7 +209,7 @@ const DetailApl01 = () => {
                   Back
                 </button>
                 <button
-                  className="bg-gray-200 px-4 py-2 rounded shadow"
+                  className="bg-sky-700 px-4 py-2 text-white rounded shadow"
                   onClick={() => handleNextTab(currentTab)}
                 >
                   Next

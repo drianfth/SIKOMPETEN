@@ -18,6 +18,22 @@ export const getAllAsesor = async () => {
     throw new Error(err.response);
   }
 };
+export const getAllAdmin = async () => {
+  try {
+    const res = await axios.get(`http://127.0.0.1:8000/api/admin`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookies.get("Authorization")}`,
+      },
+    });
+
+    return res.data;
+  } catch (err) {
+    console.log(err.response);
+    throw new Error(err.response);
+  }
+};
+
 export const getUser = async (id) => {
   try {
     const res = await axios.get(`http://127.0.0.1:8000/api/whoUser/${id}`, {

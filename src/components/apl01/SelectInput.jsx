@@ -22,7 +22,7 @@ const SelectInput = ({ mandatory, label, name, option, error }) => {
         }  border-2  text-sm rounded-lg   block w-full p-2.5 outline-none`}
       >
         <option value="">Pilih {label}</option>
-        {option.map((o) => (
+        {option?.map((o) => (
           <option key={o.id} value={o.value}>
             {o.name}
           </option>
